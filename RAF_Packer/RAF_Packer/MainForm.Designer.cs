@@ -213,6 +213,7 @@
             this.pickRafPathColumn});
             this.changesView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.changesView.Location = new System.Drawing.Point(0, 0);
+            this.changesView.MultiSelect = false;
             this.changesView.Name = "changesView";
             this.changesView.RowHeadersVisible = false;
             this.changesView.RowTemplate.Height = 24;

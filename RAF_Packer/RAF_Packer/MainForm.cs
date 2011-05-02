@@ -24,6 +24,13 @@ namespace RAF_Packer
         private string[] archives = null;
         private Dictionary<string, RAFArchive> rafArchives = new Dictionary<string, RAFArchive>();
         private string baseTitle = null;
+
+        private const string CN_USE             = "shouldUseMod";
+        private const string CN_LOCALPATH       = "localPathColumn";
+        private const string CN_LOCALPATHPICKER = "pickLocalPathColumn";
+        private const string CN_RAFPATH         = "rafPathColumn";
+        private const string CN_RAFPATHPICKER   = "pickRafPathColumn";
+
         public MainForm()
         {
             InitializeComponent();
@@ -50,12 +57,45 @@ namespace RAF_Packer
         {
             AdjustModificationsView();
 
-            changesView.RowsAdded += new DataGridViewRowsAddedEventHandler(changesView_RowsAdded);
+            changesView.Click += new EventHandler(changesView_Click);
         }
 
-        void changesView_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        void changesView_Click(object sender, EventArgs e)
         {
-            DataGridViewButtonCell pickLocalPathButton = (DataGridViewButtonCell)changesView.Rows[e.RowIndex].Cells["pickLocalPathColumn"];
+            if (changesView.SelectedCells.Count != 0) //Only one cell can be selected atm, btw.
+            {
+                DataGridViewCell cell = changesView.SelectedCells[0];
+                DataGridViewRow  row  = changesView.Rows[cell.RowIndex];
+
+                if (cell.OwningColumn.Name == CN_RAFPATHPICKER)
+                {
+                    string rafPath = PickRafPath();
+                    if (rafPath != "")
+                        row.Cells[CN_RAFPATH].Value = rafPath;
+                }else if (cell.OwningColumn.Name == CN_LOCALPATHPICKER)
+                {
+                    OpenFileDialog ofd = new OpenFileDialog();
+                    ofd.ShowDialog();
+
+                    if (ofd.FileName != "")
+                    {
+                        row.Cells[CN_LOCALPATH].Value = ofd.FileName;
+                    }
+                }
+            }
+        }
+        private string PickRafPath()
+        {
+            rafContentView.SelectedNode = null;
+
+            string oldTitle = this.Text;
+            while (rafContentView.SelectedNode == null)
+            {
+                Title("Select a treenode from the raf browser.");
+                Application.DoEvents();
+            }
+            this.Text = oldTitle;
+            return ((RAFInMemoryFileSystemObject)rafContentView.SelectedNode).GetRAFPath();
         }
         private void AdjustModificationsView()
         {
