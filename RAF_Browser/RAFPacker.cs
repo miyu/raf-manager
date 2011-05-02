@@ -16,7 +16,7 @@ namespace RAFLib
         Dictionary<string, UInt32> hashes   = null;
         List<string> notCompressedFiles     = null;
         List<string>        archivedPaths   = null;
-        public void PackRAF(string sourceDirectory, string targetDirectory)
+        public bool PackRAF(string sourceDirectory, string targetDirectory)
         {
             hashes = new Dictionary<string,uint>();
             archivedPaths = new List<string>();
