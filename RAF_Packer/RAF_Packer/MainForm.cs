@@ -28,14 +28,20 @@ namespace RAF_Packer
         {
             InitializeComponent();
             this.Load += new EventHandler(MainForm_Load);
-            this.Resize += delegate(object sender, EventArgs e){
-                //Format prettyness...  GUI sucks now anyways
-                this.logContainer.Top = this.ClientSize.Height - this.logContainer.Height;
-                this.logContainer.Width = this.ClientSize.Width - this.logContainer.Left * 2;
 
-                this.rafContentView.Width = this.logContainer.Width;
-                this.rafContentView.Height = this.logContainer.Top - this.rafContentView.Top;
+            int bigSplitterDistanceFromBottom = bigContainer.Height - bigContainer.SplitterDistance;
+            int smallSplitterDistanceFromLeft = smallContainer.SplitterDistance;
+            int logHeight = 0;
+            this.ResizeBegin += delegate(object sender, EventArgs e)
+            {
+                bigSplitterDistanceFromBottom = bigContainer.Height - bigContainer.SplitterDistance;
+                smallSplitterDistanceFromLeft = smallContainer.SplitterDistance;
             };
+            this.Resize += delegate(object sender, EventArgs e){
+                bigContainer.SplitterDistance = bigContainer.Height - bigSplitterDistanceFromBottom;
+                smallContainer.SplitterDistance = smallSplitterDistanceFromLeft;
+            };
+
             this.baseTitle = this.Text;
         }
 

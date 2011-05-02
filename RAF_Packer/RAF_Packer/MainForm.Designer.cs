@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("");
             this.log = new System.Windows.Forms.TextBox();
             this.logContainer = new System.Windows.Forms.GroupBox();
             this.rafContentView = new System.Windows.Forms.TreeView();
@@ -41,8 +42,22 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.goToRAFPackerLeagueOfLegendsThreadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.bigContainer = new System.Windows.Forms.SplitContainer();
+            this.smallContainer = new System.Windows.Forms.SplitContainer();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.shouldUseColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.localFilePath = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.rafPathHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.logContainer.SuspendLayout();
             this.toolStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bigContainer)).BeginInit();
+            this.bigContainer.Panel1.SuspendLayout();
+            this.bigContainer.Panel2.SuspendLayout();
+            this.bigContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.smallContainer)).BeginInit();
+            this.smallContainer.Panel1.SuspendLayout();
+            this.smallContainer.Panel2.SuspendLayout();
+            this.smallContainer.SuspendLayout();
             this.SuspendLayout();
             // 
             // log
@@ -52,25 +67,27 @@
             this.log.Multiline = true;
             this.log.Name = "log";
             this.log.ReadOnly = true;
-            this.log.Size = new System.Drawing.Size(759, 147);
+            this.log.Size = new System.Drawing.Size(764, 151);
             this.log.TabIndex = 0;
             // 
             // logContainer
             // 
             this.logContainer.Controls.Add(this.log);
-            this.logContainer.Location = new System.Drawing.Point(2, 387);
+            this.logContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.logContainer.Location = new System.Drawing.Point(0, 0);
             this.logContainer.Name = "logContainer";
-            this.logContainer.Size = new System.Drawing.Size(765, 168);
+            this.logContainer.Size = new System.Drawing.Size(770, 172);
             this.logContainer.TabIndex = 1;
             this.logContainer.TabStop = false;
             this.logContainer.Text = "Output";
             // 
             // rafContentView
             // 
+            this.rafContentView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rafContentView.Font = new System.Drawing.Font("Lucida Console", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rafContentView.Location = new System.Drawing.Point(2, 30);
+            this.rafContentView.Location = new System.Drawing.Point(0, 0);
             this.rafContentView.Name = "rafContentView";
-            this.rafContentView.Size = new System.Drawing.Size(765, 361);
+            this.rafContentView.Size = new System.Drawing.Size(267, 354);
             this.rafContentView.TabIndex = 2;
             // 
             // toolStrip
@@ -147,20 +164,96 @@
             this.toolStripLabel1.Size = new System.Drawing.Size(332, 24);
             this.toolStripLabel1.Text = "Back up your LoL files before using this program!";
             // 
+            // bigContainer
+            // 
+            this.bigContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.bigContainer.Location = new System.Drawing.Point(0, 27);
+            this.bigContainer.Name = "bigContainer";
+            this.bigContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // bigContainer.Panel1
+            // 
+            this.bigContainer.Panel1.Controls.Add(this.smallContainer);
+            // 
+            // bigContainer.Panel2
+            // 
+            this.bigContainer.Panel2.Controls.Add(this.logContainer);
+            this.bigContainer.Size = new System.Drawing.Size(770, 530);
+            this.bigContainer.SplitterDistance = 354;
+            this.bigContainer.TabIndex = 4;
+            // 
+            // smallContainer
+            // 
+            this.smallContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.smallContainer.Location = new System.Drawing.Point(0, 0);
+            this.smallContainer.Name = "smallContainer";
+            // 
+            // smallContainer.Panel1
+            // 
+            this.smallContainer.Panel1.Controls.Add(this.rafContentView);
+            // 
+            // smallContainer.Panel2
+            // 
+            this.smallContainer.Panel2.Controls.Add(this.listView1);
+            this.smallContainer.Size = new System.Drawing.Size(770, 354);
+            this.smallContainer.SplitterDistance = 267;
+            this.smallContainer.TabIndex = 0;
+            // 
+            // listView1
+            // 
+            this.listView1.CheckBoxes = true;
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.shouldUseColumn,
+            this.localFilePath,
+            this.rafPathHeader});
+            this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            listViewItem1.Checked = true;
+            listViewItem1.StateImageIndex = 1;
+            this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem1});
+            this.listView1.Location = new System.Drawing.Point(0, 0);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(499, 354);
+            this.listView1.TabIndex = 0;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.Details;
+            // 
+            // shouldUseColumn
+            // 
+            this.shouldUseColumn.Text = "Use?";
+            this.shouldUseColumn.Width = 65;
+            // 
+            // localFilePath
+            // 
+            this.localFilePath.Text = "Local Path";
+            this.localFilePath.Width = 236;
+            // 
+            // rafPathHeader
+            // 
+            this.rafPathHeader.Text = "RAF Path";
+            this.rafPathHeader.Width = 161;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(770, 557);
+            this.Controls.Add(this.bigContainer);
             this.Controls.Add(this.toolStrip);
-            this.Controls.Add(this.rafContentView);
-            this.Controls.Add(this.logContainer);
             this.Name = "MainForm";
             this.Text = "RAF Manager";
             this.logContainer.ResumeLayout(false);
             this.logContainer.PerformLayout();
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
+            this.bigContainer.Panel1.ResumeLayout(false);
+            this.bigContainer.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.bigContainer)).EndInit();
+            this.bigContainer.ResumeLayout(false);
+            this.smallContainer.Panel1.ResumeLayout(false);
+            this.smallContainer.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.smallContainer)).EndInit();
+            this.smallContainer.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -180,6 +273,12 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem goToRAFPackerLeagueOfLegendsThreadToolStripMenuItem;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+        private System.Windows.Forms.SplitContainer bigContainer;
+        private System.Windows.Forms.SplitContainer smallContainer;
+        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ColumnHeader shouldUseColumn;
+        private System.Windows.Forms.ColumnHeader localFilePath;
+        private System.Windows.Forms.ColumnHeader rafPathHeader;
     }
 }
 
