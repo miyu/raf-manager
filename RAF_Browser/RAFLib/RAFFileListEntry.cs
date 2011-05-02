@@ -7,14 +7,14 @@ using System.IO;
 
 using zlib = ComponentAce.Compression.Libs.zlib;
 
-namespace RAF
+namespace RAFLib
 {
     public class RAFFileListEntry
     {
         private byte[] directoryFileContent = null;
         private UInt32 offsetEntry = 0;
-        private RAF raf = null;
-        public RAFFileListEntry(RAF raf, byte[] directoryFileContent, UInt32 offsetEntry)
+        private RAFArchive raf = null;
+        public RAFFileListEntry(RAFArchive raf, byte[] directoryFileContent, UInt32 offsetEntry)
         {
             this.raf = raf;
             this.directoryFileContent = directoryFileContent;

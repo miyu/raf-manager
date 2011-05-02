@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace RAF
+using RAFLib.Util;
+
+namespace RAFLib
 {
     public class RAFStringTable
     {
@@ -14,14 +16,13 @@ namespace RAF
 
         /// <summary>
         /// Number of strings in the table
-        /// 
         /// </summary>
         private UInt32 stringCount = 0;
 
-        private RAF raf = null; 
+        private RAFArchive raf = null; 
         private byte[] directoryFileContent = null;
         private UInt32 offsetTable = 0;
-        public RAFStringTable(RAF raf, byte[] directoryFileContent, UInt32 offsetTable)
+        public RAFStringTable(RAFArchive raf, byte[] directoryFileContent, UInt32 offsetTable)
         {
             this.raf = raf;
             this.directoryFileContent = directoryFileContent;

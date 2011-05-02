@@ -5,15 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-using ItzWarty;
-using ItzWarty.RAF;
+using RAFLib.Util;
 
 using System.IO;
 using System.IO.Compression;
 
 using zlib = ComponentAce.Compression.Libs.zlib;
 
-namespace RAF_Browser
+namespace RAFLib
 {
     static unsafe class Program
     {
@@ -72,7 +71,7 @@ namespace RAF_Browser
                 return;
             }
             Console.WriteLine("Found RAF: " + rafName);
-            RAF raf = new RAF(rafName);
+            RAFArchive raf = new RAFArchive(rafName);
             FileStream fStream = raf.GetDataFileContentStream();
             //DeflateStream dfStream = new DeflateStream(fStream, CompressionMode.Decompress);
 
@@ -124,9 +123,9 @@ namespace RAF_Browser
             File.WriteAllText(notcompressedsFile, notcompressedsLog);
             Console.WriteLine("DONE!" + " ".Repeat(30));
             return;
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            //Application.EnableVisualStyles();
+            //Application.SetCompatibleTextRenderingDefault(false);
+            //Application.Run(new Form1());
         }
         /// <summary>
         /// ... no idea what this really does, is a checksum

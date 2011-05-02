@@ -7,7 +7,9 @@ using System.IO;
 
 using zlib = ComponentAce.Compression.Libs.zlib;
 
-namespace RAF
+using RAFLib.Util;
+
+namespace RAFLib
 {
     public class RAFPacker
     {

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using ItzWarty;
+using RAFLib.Util;
 
 using System.IO;
 
-namespace RAF
+namespace RAFLib
 {
     public class RAFFileList
     {
@@ -18,7 +18,7 @@ namespace RAF
         private byte[] content = null;
         private UInt32 offsetFileListHeader = 0;
         private List<RAFFileListEntry> fileEntries = null;
-        public RAFFileList(RAF raf, byte[] directoryFileContent, UInt32 offsetFileListHeader)
+        public RAFFileList(RAFArchive raf, byte[] directoryFileContent, UInt32 offsetFileListHeader)
         {
             this.content = directoryFileContent;
             this.offsetFileListHeader = offsetFileListHeader;
