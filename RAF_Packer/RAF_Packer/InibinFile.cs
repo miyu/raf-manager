@@ -11,6 +11,9 @@ namespace RAF_Packer
 {
     //Everything that was static now isn't static...  This is because properties had to be cleared...
     //I don't want to mess with this code, so yeah....
+    
+    //The code needs a rewrite.  It's messy and it doesn't work
+    //It was ported over from code that is probably outdated
 
     /**
      * Character *.inibin data files are in: game/HeroPak_client.zip/DATA/Characters/*
