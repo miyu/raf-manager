@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using ItzWarty;
+using RAFLib.Util;
 
 using System.IO;
 
-namespace RAF
+namespace RAFLib
 {
     public unsafe class RAFDirectoryFile
     {
@@ -40,7 +40,7 @@ namespace RAF
         byte[] content = null;
         RAFFileList fileList = null;
         RAFStringTable stringTable = null;
-        public RAFDirectoryFile(RAF raf, string location)
+        public RAFDirectoryFile(RAFArchive raf, string location)
         {
             content = System.IO.File.ReadAllBytes(location);
             magic = BitConverter.ToUInt32(content.SubArray(0, 4), 0);
