@@ -71,7 +71,15 @@ namespace RAF_Packer
                 {
                     string rafPath = PickRafPath();
                     if (rafPath != "")
+                    {
                         row.Cells[CN_RAFPATH].Value = rafPath;
+                        if (cell.RowIndex == changesView.Rows.Count - 1)
+                        {
+                            //Tell the view that the currently selected cell is "dirty", so it makes a
+                            //new one under this one
+                            changesView.NotifyCurrentCellDirty(true); //Gotta love these names...
+                        }
+                    }
                 }else if (cell.OwningColumn.Name == CN_LOCALPATHPICKER)
                 {
                     OpenFileDialog ofd = new OpenFileDialog();
@@ -80,6 +88,12 @@ namespace RAF_Packer
                     if (ofd.FileName != "")
                     {
                         row.Cells[CN_LOCALPATH].Value = ofd.FileName;
+                        if (cell.RowIndex == changesView.Rows.Count - 1)
+                        {
+                            //Tell the view that the currently selected cell is "dirty", so it makes a
+                            //new one under this one
+                            changesView.NotifyCurrentCellDirty(true); //Gotta love these names...    
+                        }
                     }
                 }
             }

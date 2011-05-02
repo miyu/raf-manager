@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.log = new System.Windows.Forms.TextBox();
             this.logContainer = new System.Windows.Forms.GroupBox();
             this.rafContentView = new System.Windows.Forms.TreeView();
@@ -229,6 +231,8 @@
             // 
             // localPathColumn
             // 
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.localPathColumn.DefaultCellStyle = dataGridViewCellStyle1;
             this.localPathColumn.FillWeight = 50F;
             this.localPathColumn.HeaderText = "Local Path";
             this.localPathColumn.Name = "localPathColumn";
@@ -243,6 +247,8 @@
             // 
             // rafPathColumn
             // 
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.rafPathColumn.DefaultCellStyle = dataGridViewCellStyle2;
             this.rafPathColumn.HeaderText = "RAF Path";
             this.rafPathColumn.Name = "rafPathColumn";
             this.rafPathColumn.ReadOnly = true;
