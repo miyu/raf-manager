@@ -57,47 +57,47 @@ namespace RAF_Packer
         {
             AdjustModificationsView();
 
-            changesView.Click += new EventHandler(changesView_Click);
+            changesView.CellClick += new DataGridViewCellEventHandler(changesView_CellClick);
         }
 
-        void changesView_Click(object sender, EventArgs e)
+        void changesView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (changesView.SelectedCells.Count != 0) //Only one cell can be selected atm, btw.
+            DataGridViewCell cell = changesView.Rows[e.RowIndex].Cells[e.ColumnIndex];
+            DataGridViewRow row = changesView.Rows[cell.RowIndex];
+
+            if (cell.OwningColumn.Name == CN_RAFPATHPICKER)
             {
-                DataGridViewCell cell = changesView.SelectedCells[0];
-                DataGridViewRow  row  = changesView.Rows[cell.RowIndex];
-
-                if (cell.OwningColumn.Name == CN_RAFPATHPICKER)
+                string rafPath = PickRafPath();
+                if (rafPath != "")
                 {
-                    string rafPath = PickRafPath();
-                    if (rafPath != "")
+                    row.Cells[CN_RAFPATH].Value = rafPath;
+                    if (cell.RowIndex == changesView.Rows.Count - 1)
                     {
-                        row.Cells[CN_RAFPATH].Value = rafPath;
-                        if (cell.RowIndex == changesView.Rows.Count - 1)
-                        {
-                            //Tell the view that the currently selected cell is "dirty", so it makes a
-                            //new one under this one
-                            changesView.NotifyCurrentCellDirty(true); //Gotta love these names...
-                        }
+                        //Tell the view that the currently selected cell is "dirty", so it makes a
+                        //new one under this one
+                        changesView.NotifyCurrentCellDirty(true); //Gotta love these names...
                     }
-                }else if (cell.OwningColumn.Name == CN_LOCALPATHPICKER)
-                {
-                    OpenFileDialog ofd = new OpenFileDialog();
-                    ofd.ShowDialog();
+                }
+            }
+            else if (cell.OwningColumn.Name == CN_LOCALPATHPICKER)
+            {
+                OpenFileDialog ofd = new OpenFileDialog();
+                ofd.ShowDialog();
 
-                    if (ofd.FileName != "")
+                if (ofd.FileName != "")
+                {
+                    row.Cells[CN_LOCALPATH].Value = ofd.FileName;
+                    if (cell.RowIndex == changesView.Rows.Count - 1)
                     {
-                        row.Cells[CN_LOCALPATH].Value = ofd.FileName;
-                        if (cell.RowIndex == changesView.Rows.Count - 1)
-                        {
-                            //Tell the view that the currently selected cell is "dirty", so it makes a
-                            //new one under this one
-                            changesView.NotifyCurrentCellDirty(true); //Gotta love these names...    
-                        }
+                        //Tell the view that the currently selected cell is "dirty", so it makes a
+                        //new one under this one
+                        changesView.NotifyCurrentCellDirty(true); //Gotta love these names...    
                     }
                 }
             }
         }
+
+        //TODO: This needs to be made better.  it's pretty annoying to work with on the user-viewpoint
         private string PickRafPath()
         {
             rafContentView.SelectedNode = null;
@@ -105,7 +105,7 @@ namespace RAF_Packer
             string oldTitle = this.Text;
             while (rafContentView.SelectedNode == null)
             {
-                Title("Select a treenode from the raf browser.");
+                Title("Double click a file from the raf browser.");
                 Application.DoEvents();
             }
             this.Text = oldTitle;

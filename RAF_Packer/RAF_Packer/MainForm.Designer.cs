@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.log = new System.Windows.Forms.TextBox();
             this.logContainer = new System.Windows.Forms.GroupBox();
             this.rafContentView = new System.Windows.Forms.TreeView();
@@ -205,6 +205,7 @@
             // 
             // changesView
             // 
+            this.changesView.AllowUserToResizeRows = false;
             this.changesView.BackgroundColor = System.Drawing.SystemColors.Control;
             this.changesView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.changesView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -231,8 +232,8 @@
             // 
             // localPathColumn
             // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.localPathColumn.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.localPathColumn.DefaultCellStyle = dataGridViewCellStyle3;
             this.localPathColumn.FillWeight = 50F;
             this.localPathColumn.HeaderText = "Local Path";
             this.localPathColumn.Name = "localPathColumn";
@@ -247,8 +248,9 @@
             // 
             // rafPathColumn
             // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.rafPathColumn.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.rafPathColumn.DefaultCellStyle = dataGridViewCellStyle4;
             this.rafPathColumn.HeaderText = "RAF Path";
             this.rafPathColumn.Name = "rafPathColumn";
             this.rafPathColumn.ReadOnly = true;
