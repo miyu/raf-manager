@@ -7,39 +7,39 @@ using System.IO;
 
 using zlib = ComponentAce.Compression.Libs.zlib;
 
-using RAFLib.Util;
+using ItzWarty;
 
 namespace RAFLib
 {
     public class RAFPacker
     {
-        Dictionary<string, UInt32> hashes   = null;
-        List<string> notCompressedFiles     = null;
+        private StreamWriter ostream = null;
+        public RAFPacker()
+        {
+            this.ostream = (StreamWriter)Console.Out;
+        }
+        public RAFPacker(StreamWriter ostream)
+        {
+            this.ostream = ostream;
+        }
+
+        List<string> uncompressedFiles = null;
         List<string>        archivedPaths   = null;
         public bool PackRAF(string sourceDirectory, string targetDirectory)
         {
-            hashes = new Dictionary<string,uint>();
-            archivedPaths = new List<string>();
-            string[] hashFileContentLines = File.ReadAllText(Environment.CurrentDirectory + "\\hashes.txt").Split("\n");
-            foreach(string s in hashFileContentLines)
-            {
-                if (s != "")
-                {
-                    string[] parts = s.Split("|||");
-                    hashes.Add(parts[0].ToLower(), UInt32.Parse(parts[1]));
-                    archivedPaths.Add(parts[0]);
-                }
-            }
+            RAFHashManager.Init(); //Inits if it needs to load the hashes dict...
 
-            notCompressedFiles = new List<string>();
-            notCompressedFiles.AddRange(File.ReadAllLines(Environment.CurrentDirectory + "\\nocompress.txt"));
+            archivedPaths = RAFHashManager.GetKeys();
+
+            uncompressedFiles = new List<string>();
+            uncompressedFiles.AddRange(File.ReadAllLines(Environment.CurrentDirectory + "\\nocompress.txt"));
 
             sourceDirectory = sourceDirectory.Replace("/", "\\");
             String[] files = Directory.GetFiles(sourceDirectory, "*", SearchOption.AllDirectories);
 
-            Console.WriteLine("Begin packing RAF");
+            ostream.WriteLine("Begin packing RAF");
 
-            Console.WriteLine("Count content bytes + file name bytes");
+            ostream.WriteLine("Count content bytes + file name bytes");
 
             UInt32 totalNameBytes = 0;
             List<UInt32> stringTableContentOffsets = new List<UInt32>();
@@ -96,10 +96,10 @@ namespace RAFLib
                 //datFileOffsets.Add((UInt32)datBytes.Count);
 
                 //LoL_Audio.fev and LoL_Audio.fsb aren't compressed.  We write them raw.
-                if (notCompressedFiles.Contains(archivedPaths[i].ToLower()))
+                if (uncompressedFiles.Contains(archivedPaths[i].ToLower()))
                 {
                     //Write raw
-                    Console.WriteLine("No Compress: " + archivedPaths[i]);
+                    ostream.WriteLine("No Compress: " + archivedPaths[i]);
                     fileSizes.Add((UInt32)new FileInfo(sourceDirectory + archivedPaths[i]).Length);
                     datFileOffsets.Add((UInt32)totalDatBytes);
                     //datBytes.AddRange(File.ReadAllBytes(sourceDirectory + archivedPaths[i]));
@@ -109,12 +109,12 @@ namespace RAFLib
                 }
                 else
                 {
-                    Console.WriteLine("Compress: " + archivedPaths[i]);
+                    ostream.WriteLine("Compress: " + archivedPaths[i]);
                     //FileStream fStream = new FileStream(sourceDirectory + archivedPaths[i], FileMode.Open);
                     //fStream.Seek(0, SeekOrigin.Begin);
-                    //Console.WriteLine("FStream Length: " + fStream.Length);
+                    //ostreamWriteLine("FStream Length: " + fStream.Length);
                     byte[] fileContent = File.ReadAllBytes(sourceDirectory + archivedPaths[i]);
-                    Console.WriteLine("Original Size:" + fileContent.Length);
+                    ostream.WriteLine("Original Size:" + fileContent.Length);
                     MemoryStream mStream = new MemoryStream();
                     zlib.ZOutputStream oStream = new zlib.ZOutputStream(mStream, zlib.zlibConst.Z_DEFAULT_COMPRESSION); //using default compression level
                     oStream.Write(fileContent, 0, fileContent.Length);
@@ -125,7 +125,7 @@ namespace RAFLib
                     //datBytes.AddRange(compressedContent);//contentBuffer.SubArray(0, length));
                     //count += (UInt32)length;
                     totalDatBytes += (UInt32)compressedContent.Length;
-                    Console.WriteLine("Done, {0} bytes".F(compressedContent.Length));
+                    ostream.WriteLine("Done, {0} bytes".F(compressedContent.Length));
                     fileSizes.Add((UInt32)compressedContent.Length);
                 }
             }
@@ -158,12 +158,12 @@ namespace RAFLib
             //Store entries
             for (int i = 0; i < archivedPaths.Count; i++)
             {
-                Console.WriteLine("Store Entry: " + archivedPaths[i]);
+                ostream.WriteLine("Store Entry: " + archivedPaths[i]);
                 //Hash of string name?  Get it from previous RAF files.
                 StoreUInt32InBuffer(GetStringHash(archivedPaths[i]) , offset, ref buffer);
 
                 // Offset to the start of the archived file in the data file
-                Console.WriteLine("  Dat Offset: " + datFileOffsets[i].ToString("x") + "; i="+i);
+                ostream.WriteLine("  Dat Offset: " + datFileOffsets[i].ToString("x") + "; i="+i);
                 StoreUInt32InBuffer(datFileOffsets[i]               , offset+4, ref buffer);
 
                 // Size of this archived file
@@ -187,7 +187,7 @@ namespace RAFLib
             //Also write the actual string values
             for (int i = 0; i < archivedPaths.Count; i++)
             {
-                Console.WriteLine("Store String: " + archivedPaths[i]);
+                ostream.WriteLine("Store String: " + archivedPaths[i]);
                 //Write the offset for the string after the table's offset
                 //               offset after table = header + entry count * 8 + [strings offset] * 8
                 UInt32 offsetAfterTable = (UInt32)(8 + archivedPaths.Count * 8 + stringTableContentOffsets[i]);
@@ -199,8 +199,8 @@ namespace RAFLib
                 StoreUInt32InBuffer((UInt32)archivedPaths[i].Length + 1, offset, ref buffer);
                 offset += 4;
 
-                Console.WriteLine("  STO:" + stringTableOffset.ToString("x"));
-                Console.WriteLine("  finalIndex:" + (stringTableOffset + 8 + archivedPaths.Count * 8 + stringTableContentOffsets[i]).ToString("x"));
+                ostream.WriteLine("  STO:" + stringTableOffset.ToString("x"));
+                ostream.WriteLine("  finalIndex:" + (stringTableOffset + 8 + archivedPaths.Count * 8 + stringTableContentOffsets[i]).ToString("x"));
                 //Copy the string contents to where offsetAfterTable points to
                 for (int j = 0; j < stringBytes.Length; j++)
                 {
@@ -211,20 +211,21 @@ namespace RAFLib
             }
 
             //We are done.  Write the files
-            Console.WriteLine("All files processed.  Writing to disk.");
+            ostream.WriteLine("All files processed.  Writing to disk.");
 
             //buffer
-            Console.WriteLine("Prepare.");
+            ostream.WriteLine("Prepare.");
             PrepareDirectory(targetDirectory);
             
-            Console.WriteLine("Write RAF Directory File.");
+            ostream.WriteLine("Write RAF Directory File.");
             File.WriteAllBytes(targetDirectory + "\\output.raf", buffer);
 
-            Console.WriteLine("Finalize");
+            ostream.WriteLine("Finalize");
             datFileStream.Flush();
             datFileStream.Close();
-            //Console.WriteLine("Write RAF Content File. Length:"+datBytes.Count);
+            //ostreamWriteLine("Write RAF Content File. Length:"+datBytes.Count);
             //File.WriteAllBytes(targetDirectory + "\\output.raf.dat", datBytes.ToArray());
+            return true;
         }
         private static void PrepareDirectory(string path)
         {
@@ -235,7 +236,7 @@ namespace RAFLib
                 String dirPath = String.Join("\\", dirs.SubArray(0, i)) + "\\";
                 if (!Directory.Exists(dirPath))
                     Directory.CreateDirectory(dirPath);
-                //Console.WriteLine(dirPath);
+                //ostreamWriteLine(dirPath);
             }
         }
         private void StoreUInt32InBuffer(UInt32 value, UInt32 offset, ref byte[] buffer)
@@ -247,7 +248,7 @@ namespace RAFLib
         }
         private UInt32 GetStringHash(String s)
         {
-            return hashes[s.ToLower()];
+            return RAFHashManager.GetHash(s.ToLower());
         }
     }
 }
