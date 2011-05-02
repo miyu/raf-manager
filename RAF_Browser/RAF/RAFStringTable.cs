@@ -14,6 +14,7 @@ namespace RAF
 
         /// <summary>
         /// Number of strings in the table
+        /// 
         /// </summary>
         private UInt32 stringCount = 0;
 
