@@ -211,7 +211,7 @@ namespace RAF_Packer
             {
 	            //} else if (prop instanceof Number) {
 	            //    return ((Number)prop).floatValue();
-                float number;
+                //float number;
                 return float.Parse(Convert.ToString(prop, System.Globalization.CultureInfo.InvariantCulture), System.Globalization.NumberStyles.Any, System.Globalization.NumberFormatInfo.InvariantInfo);
 	        } else {
                 try
