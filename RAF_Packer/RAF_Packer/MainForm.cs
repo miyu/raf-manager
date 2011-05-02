@@ -8,11 +8,12 @@ using System.Text;
 using System.Windows.Forms;
 
 using ItzWarty;
-using ItzWarty.RAF;
 
 using System.IO;
 
 using Be.Windows.Forms;
+
+using RAFLib;
 
 namespace RAF_Packer
 {
@@ -20,7 +21,7 @@ namespace RAF_Packer
     {
         private string archivesRoot = @"C:\Riot Games\League of Legends\RADS\projects\lol_game_client\filearchives\";
         private string[] archives = null;
-        private Dictionary<string, RAF> rafArchives = new Dictionary<string, RAF>();
+        private Dictionary<string, RAFArchive> rafArchives = new Dictionary<string, RAFArchive>();
         private string baseTitle = null;
         public MainForm()
         {
@@ -56,12 +57,12 @@ namespace RAF_Packer
                 string archiveName = archives[i].Replace(archivesRoot, "");
                 Title("Loading RAF Files - " + archiveName);
                 Log("Loading RAF Archive Folder: " + archives[i]);
-                RAF raf = null;
+                RAFArchive raf = null;
                 RAFInMemoryFileSystemObject archiveRoot = new RAFInMemoryFileSystemObject(null, RAFFSOType.ARCHIVE, archiveName);
                 try
                 {
                     rafArchives.Add(archiveName,
-                        raf = new RAF(
+                        raf = new RAFArchive(
                             Directory.GetFiles(archives[i], "*.raf")[0]
                         )
                     );
