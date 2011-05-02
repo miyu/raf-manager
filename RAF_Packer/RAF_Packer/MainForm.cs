@@ -19,7 +19,7 @@ namespace RAF_Packer
 {
     public partial class MainForm : Form
     {
-        //TODO: Configuration file
+        //TODO: Configuration file to set this stuff
         private string archivesRoot = @"C:\Riot Games\League of Legends\RADS\projects\lol_game_client\filearchives\";
         private string[] archives = null;
         private Dictionary<string, RAFArchive> rafArchives = new Dictionary<string, RAFArchive>();
@@ -45,8 +45,7 @@ namespace RAF_Packer
         void MainForm_Load(object sender, EventArgs e)
         {
             this.Show();
-            Title("Loading RAF Files - ");
-            
+            Title("Loading RAF Files - ");            
 
             this.Load += new EventHandler(MainForm_Load);
             log.Text = "www.ItzWarty.com Riot Archive File Packer/Unpacker 30-April-2011 4:34pm build";
