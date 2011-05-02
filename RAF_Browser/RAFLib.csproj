@@ -58,15 +58,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="RAFLib\Util\Extends.cs" />
+    <Compile Include="RAFManager.cs" />
+    <Compile Include="Util\Extends.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RAFLib\RAFPacker.cs" />
-    <Compile Include="RAFLib\RAFArchive.cs" />
-    <Compile Include="RAFLib\RAFDirectoryFile.cs" />
-    <Compile Include="RAFLib\RAFFileList.cs" />
-    <Compile Include="RAFLib\RAFFileListEntry.cs" />
-    <Compile Include="RAFLib\RAFStringTable.cs" />
+    <Compile Include="RAFPacker.cs" />
+    <Compile Include="RAFArchive.cs" />
+    <Compile Include="RAFDirectoryFile.cs" />
+    <Compile Include="RAFFileList.cs" />
+    <Compile Include="RAFFileListEntry.cs" />
+    <Compile Include="RAFStringTable.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
