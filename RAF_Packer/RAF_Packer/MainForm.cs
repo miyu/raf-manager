@@ -50,21 +50,26 @@ namespace RAF_Packer
 
             //Enumerate RAF files
             archives = Directory.GetDirectories(archivesRoot);
+            #region load_raf_archives
             for (int i = 0; i < archives.Length; i++)
             {
                 string archiveName = archives[i].Replace(archivesRoot, "");
-                Title("Loading RAF Files - " + archiveName);
+
+                Title("Loading RAF File - " + archiveName);
                 Log("Loading RAF Archive Folder: " + archives[i]);
+
                 RAFArchive raf = null;
                 RAFInMemoryFileSystemObject archiveRoot = new RAFInMemoryFileSystemObject(null, RAFFSOType.ARCHIVE, archiveName);
                 try
                 {
+                    //Load raf file table and add to our list of archives
                     rafArchives.Add(archiveName,
                         raf = new RAFArchive(
                             Directory.GetFiles(archives[i], "*.raf")[0]
                         )
                     );
 
+                    //Enumerate entries and add to our tree... in the future this should become sorted
                     List<RAFFileListEntry> entries = raf.GetDirectoryFile().GetFileList().GetFileEntries();
                     for (int j = 0; j < entries.Count; j++)
                     {
@@ -72,19 +77,32 @@ namespace RAF_Packer
                             Title("Loading RAF Files - " + archiveName +" - " + j+"/"+entries.Count);
 
                         RAFInMemoryFileSystemObject node = archiveRoot.AddToTree(RAFFSOType.FILE, entries[j].FileName);
-                        //Log(entries[j].GetFileName);
                     }
-                    //foreach (RAFFileListEntry entry in entries)
-                    //    Log(entry.GetFileName);
                     Log(entries.Count.ToString() + " Files");
                 }
-                catch { Log("FAILED"); }
+                catch (Exception exception) { Log("FAILED:\r\n" + exception.Message + "\r\n"); }
 
+                //Add to our tree displayer
                 rafContentView.Nodes.Add(archiveRoot);
             }
+            #endregion
             rafContentView.NodeMouseDoubleClick += new TreeNodeMouseClickEventHandler(rafContentView_NodeMouseDoubleClick);
 
-            //Open RAFs
+            rafContentView.AllowDrop = true;
+            rafContentView.DragOver += new DragEventHandler(rafContentView_DragOver);
+        }
+
+        void rafContentView_DragOver(object sender, DragEventArgs e)
+        {
+            if (e.Data is DataObject && ((DataObject)e.Data).ContainsFileDropList())
+            {
+                e.Effect = DragDropEffects.Copy;
+
+                rafContentView.Select();
+                TreeNode hoveredNode = rafContentView.GetNodeAt(rafContentView.PointToClient(new Point(e.X, e.Y)));
+                rafContentView.SelectedNode = hoveredNode;
+                Application.DoEvents();
+            }
         }
 
         void rafContentView_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
@@ -93,15 +111,19 @@ namespace RAF_Packer
             string nodeInternalPath = node.GetRAFPath();
             if (node.GetFSOType() == RAFFSOType.FILE)
             {
+                //We have double clicked a file... find out what file it was
                 List<RAFFileListEntry> entries = this.rafArchives[node.GetTopmostParent().Name]
                     .GetDirectoryFile().GetFileList().GetFileEntries();
 
+                //Find the RAF File entry that corresponds to the clicked file...
                 RAFFileListEntry entry = entries.Where(
                     (Func<RAFFileListEntry, bool>)delegate(RAFFileListEntry theEntry)
                     {
                         return theEntry.FileName == nodeInternalPath;
                     }
                 ).First();
+
+                //Now select a viewer to use for the file.
                 if (entry.FileName.ToLower().EndsWith("inibin") || entry.FileName.ToLower().EndsWith("troybin"))
                 {
                     new TextViewer(this.baseTitle + " - inibin/troybin view - " + nodeInternalPath,
@@ -122,7 +144,6 @@ namespace RAF_Packer
                         new BinaryViewer(this.baseTitle + " - Binary View by Be.HexEditor http://sourceforge.net/projects/hexbox/- " + nodeInternalPath,
                             entry.GetContent()
                         ).Show();
-                        //MessageBox.Show(entry.FileSize.ToString());
                     }
                 }
             }
