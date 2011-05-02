@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("");
             this.log = new System.Windows.Forms.TextBox();
             this.logContainer = new System.Windows.Forms.GroupBox();
             this.rafContentView = new System.Windows.Forms.TreeView();
@@ -44,10 +43,12 @@
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.bigContainer = new System.Windows.Forms.SplitContainer();
             this.smallContainer = new System.Windows.Forms.SplitContainer();
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.shouldUseColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.localFilePath = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.rafPathHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.changesView = new System.Windows.Forms.DataGridView();
+            this.shouldUseMod = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.localPathColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pickLocalPathColumn = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.rafPathColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pickRafPathColumn = new System.Windows.Forms.DataGridViewButtonColumn();
             this.logContainer.SuspendLayout();
             this.toolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bigContainer)).BeginInit();
@@ -58,6 +59,7 @@
             this.smallContainer.Panel1.SuspendLayout();
             this.smallContainer.Panel2.SuspendLayout();
             this.smallContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.changesView)).BeginInit();
             this.SuspendLayout();
             // 
             // log
@@ -194,44 +196,62 @@
             // 
             // smallContainer.Panel2
             // 
-            this.smallContainer.Panel2.Controls.Add(this.listView1);
+            this.smallContainer.Panel2.Controls.Add(this.changesView);
             this.smallContainer.Size = new System.Drawing.Size(770, 354);
             this.smallContainer.SplitterDistance = 267;
             this.smallContainer.TabIndex = 0;
             // 
-            // listView1
+            // changesView
             // 
-            this.listView1.CheckBoxes = true;
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.shouldUseColumn,
-            this.localFilePath,
-            this.rafPathHeader});
-            this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            listViewItem1.Checked = true;
-            listViewItem1.StateImageIndex = 1;
-            this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1});
-            this.listView1.Location = new System.Drawing.Point(0, 0);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(499, 354);
-            this.listView1.TabIndex = 0;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
+            this.changesView.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.changesView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.changesView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.shouldUseMod,
+            this.localPathColumn,
+            this.pickLocalPathColumn,
+            this.rafPathColumn,
+            this.pickRafPathColumn});
+            this.changesView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.changesView.Location = new System.Drawing.Point(0, 0);
+            this.changesView.Name = "changesView";
+            this.changesView.RowHeadersVisible = false;
+            this.changesView.RowTemplate.Height = 24;
+            this.changesView.Size = new System.Drawing.Size(499, 354);
+            this.changesView.TabIndex = 0;
             // 
-            // shouldUseColumn
+            // shouldUseMod
             // 
-            this.shouldUseColumn.Text = "Use?";
-            this.shouldUseColumn.Width = 65;
+            this.shouldUseMod.HeaderText = "Use?";
+            this.shouldUseMod.MinimumWidth = 20;
+            this.shouldUseMod.Name = "shouldUseMod";
+            this.shouldUseMod.Width = 101;
             // 
-            // localFilePath
+            // localPathColumn
             // 
-            this.localFilePath.Text = "Local Path";
-            this.localFilePath.Width = 236;
+            this.localPathColumn.FillWeight = 50F;
+            this.localPathColumn.HeaderText = "Local Path";
+            this.localPathColumn.Name = "localPathColumn";
+            this.localPathColumn.ReadOnly = true;
+            this.localPathColumn.Width = 51;
             // 
-            // rafPathHeader
+            // pickLocalPathColumn
             // 
-            this.rafPathHeader.Text = "RAF Path";
-            this.rafPathHeader.Width = 161;
+            this.pickLocalPathColumn.HeaderText = "";
+            this.pickLocalPathColumn.Name = "pickLocalPathColumn";
+            this.pickLocalPathColumn.Width = 101;
+            // 
+            // rafPathColumn
+            // 
+            this.rafPathColumn.HeaderText = "RAF Path";
+            this.rafPathColumn.Name = "rafPathColumn";
+            this.rafPathColumn.ReadOnly = true;
+            this.rafPathColumn.Width = 102;
+            // 
+            // pickRafPathColumn
+            // 
+            this.pickRafPathColumn.HeaderText = "";
+            this.pickRafPathColumn.Name = "pickRafPathColumn";
+            this.pickRafPathColumn.Width = 101;
             // 
             // MainForm
             // 
@@ -254,6 +274,7 @@
             this.smallContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.smallContainer)).EndInit();
             this.smallContainer.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.changesView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -275,10 +296,12 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.SplitContainer bigContainer;
         private System.Windows.Forms.SplitContainer smallContainer;
-        private System.Windows.Forms.ListView listView1;
-        private System.Windows.Forms.ColumnHeader shouldUseColumn;
-        private System.Windows.Forms.ColumnHeader localFilePath;
-        private System.Windows.Forms.ColumnHeader rafPathHeader;
+        private System.Windows.Forms.DataGridView changesView;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn shouldUseMod;
+        private System.Windows.Forms.DataGridViewTextBoxColumn localPathColumn;
+        private System.Windows.Forms.DataGridViewButtonColumn pickLocalPathColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn rafPathColumn;
+        private System.Windows.Forms.DataGridViewButtonColumn pickRafPathColumn;
     }
 }
 

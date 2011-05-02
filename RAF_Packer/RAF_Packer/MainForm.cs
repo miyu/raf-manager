@@ -31,7 +31,6 @@ namespace RAF_Packer
 
             int bigSplitterDistanceFromBottom = bigContainer.Height - bigContainer.SplitterDistance;
             int smallSplitterDistanceFromLeft = smallContainer.SplitterDistance;
-            int logHeight = 0;
             this.ResizeBegin += delegate(object sender, EventArgs e)
             {
                 bigSplitterDistanceFromBottom = bigContainer.Height - bigContainer.SplitterDistance;
@@ -40,11 +39,33 @@ namespace RAF_Packer
             this.Resize += delegate(object sender, EventArgs e){
                 bigContainer.SplitterDistance = bigContainer.Height - bigSplitterDistanceFromBottom;
                 smallContainer.SplitterDistance = smallSplitterDistanceFromLeft;
+                AdjustModificationsView();
             };
+            InitializeChangesView();
 
             this.baseTitle = this.Text;
         }
 
+        private void InitializeChangesView()
+        {
+            AdjustModificationsView();
+
+            changesView.RowsAdded += new DataGridViewRowsAddedEventHandler(changesView_RowsAdded);
+        }
+
+        void changesView_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            DataGridViewButtonCell pickLocalPathButton = (DataGridViewButtonCell)changesView.Rows[e.RowIndex].Cells["pickLocalPathColumn"];
+        }
+        private void AdjustModificationsView()
+        {
+            changesView.Columns[0].Width = 50;
+            changesView.Columns[1].Width = (changesView.Width - 110 - 20) / 2;
+            changesView.Columns[2].Width = 30;
+            changesView.Columns[3].Width = (changesView.Width - 110 - 20) / 2;
+            changesView.Columns[4].Width = 30;
+            changesView.ScrollBars = ScrollBars.Vertical;
+        }
         private void Title(string s) { this.Text = baseTitle + " - " + s; Application.DoEvents(); }
         void MainForm_Load(object sender, EventArgs e)
         {
