@@ -46,6 +46,8 @@ namespace ItzWarty
             public int Bottom;      // y position of lower-right corner
         }
 
+        [DllImport("user32.dll")]
+        public static extern short GetAsyncKeyState(System.Windows.Forms.Keys vKey);
         
 
         [DllImport("user32", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
@@ -72,5 +74,11 @@ namespace ItzWarty
             GetWindowText(hWnd, sb, 1024);
             return sb.ToString();
         }
+
+        public static bool KeyPressed(System.Windows.Forms.Keys key)
+        {
+            return GetAsyncKeyState(key) > 0;
+        }
+
     }
 }
