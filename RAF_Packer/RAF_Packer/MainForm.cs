@@ -28,26 +28,24 @@ namespace RAF_Packer
         {
             InitializeComponent();
             this.Load += new EventHandler(MainForm_Load);
-            this.Resize += new EventHandler(MainForm_Resize);
+            this.Resize += delegate(object sender, EventArgs e){
+                //Format prettyness...  GUI sucks now anyways
+                this.logContainer.Top = this.ClientSize.Height - this.logContainer.Height;
+                this.logContainer.Width = this.ClientSize.Width - this.logContainer.Left * 2;
+
+                this.rafContentView.Width = this.logContainer.Width;
+                this.rafContentView.Height = this.logContainer.Top - this.rafContentView.Top;
+            };
             this.baseTitle = this.Text;
-        }
-
-        void MainForm_Resize(object sender, EventArgs e)
-        {
-            this.logContainer.Top = this.ClientSize.Height - this.logContainer.Height;
-            this.logContainer.Width = this.ClientSize.Width - this.logContainer.Left * 2;
-
-            this.rafContentView.Width = this.logContainer.Width;
-            this.rafContentView.Height = this.logContainer.Top - this.rafContentView.Top;
         }
 
         private void Title(string s) { this.Text = baseTitle + " - " + s; Application.DoEvents(); }
         void MainForm_Load(object sender, EventArgs e)
         {
             this.Show();
-            Title("Loading RAF Files - ");            
+            Application.DoEvents();
 
-            this.Load += new EventHandler(MainForm_Load);
+            Title("Loading RAF Files - ");            
             log.Text = "www.ItzWarty.com Riot Archive File Packer/Unpacker 30-April-2011 4:34pm build";
 
             //Enumerate RAF files
@@ -133,15 +131,6 @@ namespace RAF_Packer
         {
             log.Text += "\r\n" + s;
             log.SelectionLength = 0; log.SelectionStart = 0;
-        }
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void toolStripLabel1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
