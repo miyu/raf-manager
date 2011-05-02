@@ -118,6 +118,10 @@
       <Project>{26C5F25F-B450-4CAF-AD8B-B8D11AE73457}</Project>
       <Name>Be.Windows.Forms.HexBox</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\ItzWartyLib\ItzWartyLib\ItzWarty.csproj">
+      <Project>{097B6B08-4034-408A-B3C0-A12E8F9E8893}</Project>
+      <Name>ItzWarty</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\RAF_Browser\RAF_Browser\RAFLib.csproj">
       <Project>{4661A92E-7729-4021-B35F-D5BDA01A79F9}</Project>
       <Name>RAFLib</Name>
