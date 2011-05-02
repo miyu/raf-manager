@@ -7,7 +7,7 @@ using System.IO;
 
 using zlib = ComponentAce.Compression.Libs.zlib;
 
-namespace ItzWarty.RAF
+namespace RAF
 {
     public class RAFFileListEntry
     {
