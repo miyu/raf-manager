@@ -1,3 +1,4 @@
+﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RAFGUI", "RAF_Packer\RAFGUI.csproj", "{298D7AEA-B775-4DD2-ABBB-D8A9C1792B6F}"
@@ -11,6 +12,8 @@ EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Be.HexEditor.Setup", "..\Be.HexEditor\sources\Be.HexEditor.Setup\Be.HexEditor.Setup.vdproj", "{F4FD532E-2F83-4C58-BD32-F0DB462E3F5B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zlib.net", "..\zlib.net\zlib.net.csproj", "{0C89B7A2-A218-49E4-B545-5B044A45F977}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ItzWarty", "..\ItzWartyLib\ItzWartyLib\ItzWarty.csproj", "{097B6B08-4034-408A-B3C0-A12E8F9E8893}"
 EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
@@ -122,6 +125,21 @@ Global
 		{0C89B7A2-A218-49E4-B545-5B044A45F977}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{0C89B7A2-A218-49E4-B545-5B044A45F977}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{0C89B7A2-A218-49E4-B545-5B044A45F977}.Release|x86.ActiveCfg = Release|Any CPU
+		{097B6B08-4034-408A-B3C0-A12E8F9E8893}.ClientProfileRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{097B6B08-4034-408A-B3C0-A12E8F9E8893}.ClientProfileRelease|Any CPU.Build.0 = Release|Any CPU
+		{097B6B08-4034-408A-B3C0-A12E8F9E8893}.ClientProfileRelease|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{097B6B08-4034-408A-B3C0-A12E8F9E8893}.ClientProfileRelease|Mixed Platforms.Build.0 = Release|Any CPU
+		{097B6B08-4034-408A-B3C0-A12E8F9E8893}.ClientProfileRelease|x86.ActiveCfg = Release|Any CPU
+		{097B6B08-4034-408A-B3C0-A12E8F9E8893}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{097B6B08-4034-408A-B3C0-A12E8F9E8893}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{097B6B08-4034-408A-B3C0-A12E8F9E8893}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{097B6B08-4034-408A-B3C0-A12E8F9E8893}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{097B6B08-4034-408A-B3C0-A12E8F9E8893}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{097B6B08-4034-408A-B3C0-A12E8F9E8893}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{097B6B08-4034-408A-B3C0-A12E8F9E8893}.Release|Any CPU.Build.0 = Release|Any CPU
+		{097B6B08-4034-408A-B3C0-A12E8F9E8893}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{097B6B08-4034-408A-B3C0-A12E8F9E8893}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{097B6B08-4034-408A-B3C0-A12E8F9E8893}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
