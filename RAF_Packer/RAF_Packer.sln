@@ -2,7 +2,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RAFGUI", "RAF_Packer\RAFGUI.csproj", "{298D7AEA-B775-4DD2-ABBB-D8A9C1792B6F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RAF", "..\RAF_Browser\RAF_Browser\RAF.csproj", "{4661A92E-7729-4021-B35F-D5BDA01A79F9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RAFLib", "..\RAF_Browser\RAF_Browser\RAFLib.csproj", "{4661A92E-7729-4021-B35F-D5BDA01A79F9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Be.HexEditor", "..\Be.HexEditor\sources\Be.HexEditor\Be.HexEditor.csproj", "{FF4ADB46-210E-429E-9176-68613F5CBE90}"
 EndProject
