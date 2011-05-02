@@ -19,6 +19,7 @@ namespace RAF_Packer
 {
     public partial class MainForm : Form
     {
+        //TODO: Configuration file
         private string archivesRoot = @"C:\Riot Games\League of Legends\RADS\projects\lol_game_client\filearchives\";
         private string[] archives = null;
         private Dictionary<string, RAFArchive> rafArchives = new Dictionary<string, RAFArchive>();
