@@ -124,7 +124,7 @@ namespace RAF_Packer
                         new BinaryViewer(this.baseTitle + " - Binary View by Be.HexEditor http://sourceforge.net/projects/hexbox/- " + nodeInternalPath,
                             entry.GetContent()
                         ).Show();
-                        MessageBox.Show(entry.FileSize.ToString());
+                        //MessageBox.Show(entry.FileSize.ToString());
                     }
                 }
             }
