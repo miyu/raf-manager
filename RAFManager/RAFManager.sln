@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zlib.net", "..\zlib.net\zli
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ItzWarty", "..\ItzWartyLib\ItzWartyLib\ItzWarty.csproj", "{097B6B08-4034-408A-B3C0-A12E8F9E8893}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Be.Windows.Forms", "3rdParty\Be.Windows.Forms.csproj", "{3431A204-CDF0-4A83-B835-D795847FF6C4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Be.Windows.Forms.HexBox", "3rdParty\Be.Windows.Forms.HexBox\Be.Windows.Forms.HexBox.csproj", "{3431A204-CDF0-4A83-B835-D795847FF6C4}"
 EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
