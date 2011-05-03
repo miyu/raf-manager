@@ -12,7 +12,6 @@ using ItzWarty;
 using RAFLib;
 
 using System.IO;
-using System.Text;
 
 namespace RAFManager
 {
