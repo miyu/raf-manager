@@ -57,7 +57,6 @@ namespace RAF_Packer
             this.baseTitle = this.Text;
         }
 
-
         //TODO: This needs to be made better.  it's pretty annoying to work with on the user-viewpoint
         private string PickRafPath()
         {
