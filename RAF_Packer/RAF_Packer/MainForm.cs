@@ -20,11 +20,15 @@ namespace RAF_Packer
     public partial class MainForm : Form
     {
         //TODO: Configuration file to set this stuff
+        //And a pretty editor.
         private string archivesRoot = @"C:\Riot Games\League of Legends\RADS\projects\lol_game_client\filearchives\";
+
+        //Names of our archives
         private string[] archives = null;
         private Dictionary<string, RAFArchive> rafArchives = new Dictionary<string, RAFArchive>();
         private string baseTitle = null;
 
+        //Names of columns
         private const string CN_USE             = "shouldUseMod";
         private const string CN_LOCALPATH       = "localPathColumn";
         private const string CN_LOCALPATHPICKER = "pickLocalPathColumn";
@@ -53,49 +57,6 @@ namespace RAF_Packer
             this.baseTitle = this.Text;
         }
 
-        private void InitializeChangesView()
-        {
-            AdjustModificationsView();
-
-            changesView.CellClick += new DataGridViewCellEventHandler(changesView_CellClick);
-        }
-
-        void changesView_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            DataGridViewCell cell = changesView.Rows[e.RowIndex].Cells[e.ColumnIndex];
-            DataGridViewRow row = changesView.Rows[cell.RowIndex];
-
-            if (cell.OwningColumn.Name == CN_RAFPATHPICKER)
-            {
-                string rafPath = PickRafPath();
-                if (rafPath != "")
-                {
-                    row.Cells[CN_RAFPATH].Value = rafPath;
-                    if (cell.RowIndex == changesView.Rows.Count - 1)
-                    {
-                        //Tell the view that the currently selected cell is "dirty", so it makes a
-                        //new one under this one
-                        changesView.NotifyCurrentCellDirty(true); //Gotta love these names...
-                    }
-                }
-            }
-            else if (cell.OwningColumn.Name == CN_LOCALPATHPICKER)
-            {
-                OpenFileDialog ofd = new OpenFileDialog();
-                ofd.ShowDialog();
-
-                if (ofd.FileName != "")
-                {
-                    row.Cells[CN_LOCALPATH].Value = ofd.FileName;
-                    if (cell.RowIndex == changesView.Rows.Count - 1)
-                    {
-                        //Tell the view that the currently selected cell is "dirty", so it makes a
-                        //new one under this one
-                        changesView.NotifyCurrentCellDirty(true); //Gotta love these names...    
-                    }
-                }
-            }
-        }
 
         //TODO: This needs to be made better.  it's pretty annoying to work with on the user-viewpoint
         private string PickRafPath()
