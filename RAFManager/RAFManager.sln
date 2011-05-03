@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RAFGUI", "RAFManager\RAFGUI.csproj", "{298D7AEA-B775-4DD2-ABBB-D8A9C1792B6F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RAFManager", "RAFManager\RAFManager.csproj", "{298D7AEA-B775-4DD2-ABBB-D8A9C1792B6F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RAFLib", "..\RAFLib\RAFLib.csproj", "{4661A92E-7729-4021-B35F-D5BDA01A79F9}"
 EndProject
