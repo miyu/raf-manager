@@ -60,7 +60,6 @@
   <ItemGroup>
     <Compile Include="RAFHashManager.cs" />
     <Compile Include="RAFManager.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RAFPacker.cs" />
     <Compile Include="RAFArchive.cs" />
