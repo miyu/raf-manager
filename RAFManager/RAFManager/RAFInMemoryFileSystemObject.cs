@@ -93,12 +93,21 @@ namespace RAFManager
         }
         /// <summary>
         /// Gets the full path of this FSO in the Riot Archive File.
+        /// This does not include the archive name itself
         /// </summary>
         public string GetRAFPath()
         {
+            return GetRAFPath(false);
+        }
+        /// <summary>
+        /// Gets the full path of this FSO in the Riot Archive File.
+        /// Includes archive optionally
+        /// </summary>
+        public string GetRAFPath(bool includeArchive)
+        {
             Stack<string> resultStack = new Stack<string>();
             RAFInMemoryFileSystemObject currentNode = this;
-            while (currentNode != null && currentNode.GetFSOType() != RAFFSOType.ARCHIVE)
+            while (currentNode != null && ((currentNode.GetFSOType() != RAFFSOType.ARCHIVE) || includeArchive))
             {
                 resultStack.Push(currentNode.Name);
                 currentNode = (RAFInMemoryFileSystemObject)currentNode.Parent;
@@ -109,7 +118,7 @@ namespace RAFManager
             StringBuilder resultSb = new StringBuilder();
             resultSb.Append(resultStack.Pop());
             while (resultStack.Count != 0)
-                resultSb.Append("/"+resultStack.Pop());
+                resultSb.Append("/" + resultStack.Pop());
 
             return resultSb.ToString();
         }
@@ -124,6 +133,17 @@ namespace RAFManager
             while (currentNode.Parent != null)
                 currentNode = (RAFInMemoryFileSystemObject)currentNode.Parent;
             return currentNode;
+        }
+
+        public override object Clone()
+        {
+            RAFInMemoryFileSystemObject result = new RAFInMemoryFileSystemObject(null, this.fsoType, this.Name);
+            for (int i = 0; i < this.Nodes.Count; i++)
+                result.Nodes.Add((RAFInMemoryFileSystemObject)this.Nodes[i].Clone());
+
+            if (this.IsExpanded)
+                result.Expand();
+            return result;
         }
     }
 }
