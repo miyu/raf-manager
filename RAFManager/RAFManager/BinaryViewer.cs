@@ -11,7 +11,7 @@ using ItzWarty;
 
 using Be.Windows.Forms;
 
-namespace RAF_Packer
+namespace RAFManager
 {
     public partial class BinaryViewer : Form
     {

@@ -1,4 +1,4 @@
-﻿namespace RAF_Packer
+﻿namespace RAFManager
 {
     partial class TextViewer
     {

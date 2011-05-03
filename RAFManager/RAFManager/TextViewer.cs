@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 using ItzWarty;
 
-namespace RAF_Packer
+namespace RAFManager
 {
     public partial class TextViewer : Form
     {

@@ -5,7 +5,7 @@ using System.Text;
 
 using Be.Windows.Forms;
 
-namespace RAF_Packer
+namespace RAFManager
 {
     public class MemoryByteProvider:IByteProvider
     {

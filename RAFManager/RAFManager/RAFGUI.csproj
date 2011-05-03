@@ -109,9 +109,13 @@
       <Project>{097B6B08-4034-408A-B3C0-A12E8F9E8893}</Project>
       <Name>ItzWarty</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\RAFLib\RAFLib.csproj">
+    <ProjectReference Include="..\..\RAF_Browser\RAF_Browser\RAFLib.csproj">
       <Project>{4661A92E-7729-4021-B35F-D5BDA01A79F9}</Project>
       <Name>RAFLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\3rdParty\Be.Windows.Forms.csproj">
+      <Project>{3431A204-CDF0-4A83-B835-D795847FF6C4}</Project>
+      <Name>Be.Windows.Forms</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
