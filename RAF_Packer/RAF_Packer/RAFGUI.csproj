@@ -57,27 +57,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Be.Windows.Forms.HexBox\AssemblyInfo.cs" />
-    <Compile Include="Be.Windows.Forms.HexBox\BuiltInContextMenu.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Be.Windows.Forms.HexBox\ByteCharConverters.cs" />
-    <Compile Include="Be.Windows.Forms.HexBox\ByteCollection.cs" />
-    <Compile Include="Be.Windows.Forms.HexBox\BytePositionInfo.cs" />
-    <Compile Include="Be.Windows.Forms.HexBox\DataBlock.cs" />
-    <Compile Include="Be.Windows.Forms.HexBox\DataMap.cs" />
-    <Compile Include="Be.Windows.Forms.HexBox\DynamicByteProvider.cs" />
-    <Compile Include="Be.Windows.Forms.HexBox\DynamicFileByteProvider.cs" />
-    <Compile Include="Be.Windows.Forms.HexBox\FileByteProvider.cs" />
-    <Compile Include="Be.Windows.Forms.HexBox\FileDataBlock.cs" />
-    <Compile Include="Be.Windows.Forms.HexBox\HexBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Be.Windows.Forms.HexBox\HexCasing.cs" />
-    <Compile Include="Be.Windows.Forms.HexBox\IByteProvider.cs" />
-    <Compile Include="Be.Windows.Forms.HexBox\MemoryDataBlock.cs" />
-    <Compile Include="Be.Windows.Forms.HexBox\NativeMethods.cs" />
-    <Compile Include="Be.Windows.Forms.HexBox\Util.cs" />
     <Compile Include="BinaryViewer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,10 +81,6 @@
     <Compile Include="TextViewer.Designer.cs">
       <DependentUpon>TextViewer.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Be.Windows.Forms.HexBox\HexBox.resx">
-      <DependentUpon>HexBox.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="BinaryViewer.resx">
       <DependentUpon>BinaryViewer.cs</DependentUpon>
     </EmbeddedResource>
@@ -115,7 +90,6 @@
     <EmbeddedResource Include="TextViewer.resx">
       <DependentUpon>TextViewer.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="Be.Windows.Forms.HexBox\HexBox.snk" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -127,6 +101,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Be.HexEditor\sources\Be.Windows.Forms.HexBox\Be.Windows.Forms.HexBox.csproj">
+      <Project>{26C5F25F-B450-4CAF-AD8B-B8D11AE73457}</Project>
+      <Name>Be.Windows.Forms.HexBox</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\ItzWartyLib\ItzWartyLib\ItzWarty.csproj">
       <Project>{097B6B08-4034-408A-B3C0-A12E8F9E8893}</Project>
       <Name>ItzWarty</Name>
@@ -135,9 +113,6 @@
       <Project>{4661A92E-7729-4021-B35F-D5BDA01A79F9}</Project>
       <Name>RAFLib</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Be.Windows.Forms.HexBox\HexBox.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
