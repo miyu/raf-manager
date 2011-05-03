@@ -111,7 +111,7 @@ namespace RAFLib
             FileStream fStream = raf.GetDataFileContentStream();
             //DeflateStream dfStream = new DeflateStream(fStream, CompressionMode.Decompress);
 
-            int loggingOffset = 10;
+            //int loggingOffset = 10; //No longer applicable since we aren't logging to system.out console directly
             List<RAFFileListEntry> files = raf.GetDirectoryFile().GetFileList().GetFileEntries();
             foreach (RAFFileListEntry entry in files)
             {
