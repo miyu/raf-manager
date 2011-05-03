@@ -74,6 +74,7 @@
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="MainForm.Util.cs" />
     <Compile Include="MemoryByteProvider.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -112,6 +113,10 @@
     <ProjectReference Include="..\..\RAFLib\RAFLib.csproj">
       <Project>{4661A92E-7729-4021-B35F-D5BDA01A79F9}</Project>
       <Name>RAFLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ThirdParty\Be.Windows.Forms.HexBox\Be.Windows.Forms.HexBox.csproj">
+      <Project>{26C5F25F-B450-4CAF-AD8B-B8D11AE73457}</Project>
+      <Name>Be.Windows.Forms.HexBox</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
