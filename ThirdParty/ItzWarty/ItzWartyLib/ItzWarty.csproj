@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationInformation.cs" />
     <Compile Include="Database\wDBDatabase.cs" />
     <Compile Include="Database\wDBDatabaseCollection.cs" />
     <Compile Include="Database\wDBRow.cs" />
