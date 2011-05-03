@@ -9,6 +9,10 @@ using ItzWarty;
 
 namespace RAFLib
 {
+    /// <summary>
+    /// Manages the handling of hashes for RAF Strings, which is calculated in an unknown
+    /// matter at the moment.
+    /// </summary>
     public static class RAFHashManager
     {
         private static Dictionary<string, UInt32> hashes = null;
