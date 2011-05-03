@@ -82,7 +82,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RAFInMemoryFileSystemObject.cs" />
-    <Compile Include="RAFProject.cs" />
+    <Compile Include="Project\RAFProjectInfo.cs" />
+    <Compile Include="Project\RAFProject.cs" />
     <Compile Include="TextViewer.cs">
       <SubType>Form</SubType>
     </Compile>
