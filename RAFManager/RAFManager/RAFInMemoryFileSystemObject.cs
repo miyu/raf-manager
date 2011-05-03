@@ -5,7 +5,6 @@ using System.Text;
 
 using ItzWarty;
 
-
 using System.Windows.Forms;
 namespace RAFManager
 {

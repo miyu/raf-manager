@@ -108,7 +108,7 @@ namespace RAFManager
             Title("Done loading RAF Files");
 
             LogInstructions();
-            Title(project.ProjectInfo.ProjectName);
+            Title(project.GetWindowTitle());
         }
         private void Log(string s)
         {

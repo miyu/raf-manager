@@ -43,6 +43,9 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.goToRAFPackerLeagueOfLegendsThreadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.bigContainer = new System.Windows.Forms.SplitContainer();
             this.smallContainer = new System.Windows.Forms.SplitContainer();
             this.changesView = new System.Windows.Forms.DataGridView();
@@ -51,9 +54,6 @@
             this.pickLocalPathColumn = new System.Windows.Forms.DataGridViewButtonColumn();
             this.rafPathColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pickRafPathColumn = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.logContainer.SuspendLayout();
             this.toolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bigContainer)).BeginInit();
@@ -129,19 +129,19 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(114, 24);
             this.newToolStripMenuItem.Text = "New";
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(114, 24);
             this.openToolStripMenuItem.Text = "Open";
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(114, 24);
             this.saveToolStripMenuItem.Text = "Save";
             // 
             // toolStripDropDownButton2
@@ -173,6 +173,22 @@
             this.toolStripLabel1.Name = "toolStripLabel1";
             this.toolStripLabel1.Size = new System.Drawing.Size(332, 24);
             this.toolStripLabel1.Text = "Back up your LoL files before using this program!";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
+            // 
+            // toolStripLabel2
+            // 
+            this.toolStripLabel2.Name = "toolStripLabel2";
+            this.toolStripLabel2.Size = new System.Drawing.Size(106, 24);
+            this.toolStripLabel2.Text = "Project Name: ";
+            // 
+            // toolStripTextBox1
+            // 
+            this.toolStripTextBox1.Name = "toolStripTextBox1";
+            this.toolStripTextBox1.Size = new System.Drawing.Size(150, 27);
             // 
             // bigContainer
             // 
@@ -226,6 +242,7 @@
             this.changesView.Name = "changesView";
             this.changesView.RowHeadersVisible = false;
             this.changesView.RowTemplate.Height = 24;
+            this.changesView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.changesView.Size = new System.Drawing.Size(503, 354);
             this.changesView.TabIndex = 0;
             // 
@@ -234,6 +251,7 @@
             this.shouldUseMod.HeaderText = "Use?";
             this.shouldUseMod.MinimumWidth = 20;
             this.shouldUseMod.Name = "shouldUseMod";
+            this.shouldUseMod.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             this.shouldUseMod.Width = 101;
             // 
             // localPathColumn
@@ -244,12 +262,14 @@
             this.localPathColumn.HeaderText = "Local Path";
             this.localPathColumn.Name = "localPathColumn";
             this.localPathColumn.ReadOnly = true;
+            this.localPathColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             this.localPathColumn.Width = 51;
             // 
             // pickLocalPathColumn
             // 
             this.pickLocalPathColumn.HeaderText = "";
             this.pickLocalPathColumn.Name = "pickLocalPathColumn";
+            this.pickLocalPathColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             this.pickLocalPathColumn.Width = 101;
             // 
             // rafPathColumn
@@ -260,29 +280,15 @@
             this.rafPathColumn.HeaderText = "RAF Path";
             this.rafPathColumn.Name = "rafPathColumn";
             this.rafPathColumn.ReadOnly = true;
+            this.rafPathColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             this.rafPathColumn.Width = 102;
             // 
             // pickRafPathColumn
             // 
             this.pickRafPathColumn.HeaderText = "";
             this.pickRafPathColumn.Name = "pickRafPathColumn";
+            this.pickRafPathColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             this.pickRafPathColumn.Width = 101;
-            // 
-            // toolStripTextBox1
-            // 
-            this.toolStripTextBox1.Name = "toolStripTextBox1";
-            this.toolStripTextBox1.Size = new System.Drawing.Size(150, 27);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
-            // 
-            // toolStripLabel2
-            // 
-            this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(106, 24);
-            this.toolStripLabel2.Text = "Project Name: ";
             // 
             // MainForm
             // 
@@ -328,14 +334,14 @@
         private System.Windows.Forms.SplitContainer bigContainer;
         private System.Windows.Forms.SplitContainer smallContainer;
         private System.Windows.Forms.DataGridView changesView;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel2;
+        private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
         private System.Windows.Forms.DataGridViewCheckBoxColumn shouldUseMod;
         private System.Windows.Forms.DataGridViewTextBoxColumn localPathColumn;
         private System.Windows.Forms.DataGridViewButtonColumn pickLocalPathColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn rafPathColumn;
         private System.Windows.Forms.DataGridViewButtonColumn pickRafPathColumn;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel2;
-        private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
     }
 }
 
