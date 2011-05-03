@@ -9,6 +9,13 @@ namespace RAF_Packer
 {
     partial class MainForm : Form
     {
+        //Names of columns
+        private const string CN_USE = "shouldUseMod";
+        private const string CN_LOCALPATH = "localPathColumn";
+        private const string CN_LOCALPATHPICKER = "pickLocalPathColumn";
+        private const string CN_RAFPATH = "rafPathColumn";
+        private const string CN_RAFPATHPICKER = "pickRafPathColumn";
+
         private void InitializeChangesView()
         {
             AdjustModificationsView();
