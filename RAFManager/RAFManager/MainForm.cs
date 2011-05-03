@@ -14,11 +14,14 @@ using System.IO;
 using Be.Windows.Forms;
 
 using RAFLib;
+using RAFManager.Project;
 
 namespace RAFManager
 {
     public partial class MainForm : Form
     {
+        private RAFProject project = null;
+
         //TODO: Configuration file to set this stuff
         //And a pretty editor.
         private string archivesRoot = @"C:\Riot Games\League of Legends\RADS\projects\lol_game_client\filearchives\";
@@ -44,8 +47,11 @@ namespace RAFManager
                 smallContainer.SplitterDistance = smallSplitterDistanceFromLeft;
                 AdjustModificationsView();
             };
+
             InitializeChangesView();
             InitializeUtil();
+
+            project = new RAFProject();
         }
 
         void MainForm_Load(object sender, EventArgs e)
@@ -98,11 +104,30 @@ namespace RAFManager
 
             rafContentView.AllowDrop = true;
             rafContentView.DragOver += new DragEventHandler(rafContentView_DragOver);
+
+            Title("Done loading RAF Files");
+
+            LogInstructions();
+            Title(project.ProjectInfo.ProjectName);
         }
         private void Log(string s)
         {
             log.Text += "\r\n" + s;
-            log.SelectionLength = 0; log.SelectionStart = 0;
+            log.SelectionStart = log.Text.Length;
+            log.ScrollToCaret();
+        }
+        private void LogInstructions()
+        {
+            Log("");
+            Log("ItzWarty's RAFManager Instructions: (build time: " + ApplicationInformation.BuildTime + ")");
+            Log("Check www.ItzWarty.com/RAF/ for updates!");
+            Log("This program will _not_ automatically update as of yet.");
+            Log("");
+            Log("Double click a node on the file tree to the top left to view its contents.");
+            Log("Ask questions @ (LoL Forums)http://bit.ly/jnT4p8 or (LeagueCraft)http://bit.ly/mLitsi");
+            Log("");
+            Log("INIBIN/TROYBIN Reader by Engberg @ http://bit.ly/kThoeF");
+            Log("Be.HexEditor by http://sourceforge.net/projects/hexbox/");
         }
     }
 }

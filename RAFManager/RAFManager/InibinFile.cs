@@ -15,6 +15,8 @@ namespace RAFManager
     //The code needs a rewrite.  It's messy and it doesn't work
     //It was ported over from code that is probably outdated
 
+    //Originally by Engberg
+
     /**
      * Character *.inibin data files are in: game/HeroPak_client.zip/DATA/Characters/*
      * Character names are in:  game/DATA/Menu/fontconfig_en_US.txt
