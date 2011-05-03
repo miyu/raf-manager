@@ -28,13 +28,6 @@ namespace RAF_Packer
         private Dictionary<string, RAFArchive> rafArchives = new Dictionary<string, RAFArchive>();
         private string baseTitle = null;
 
-        //Names of columns
-        private const string CN_USE             = "shouldUseMod";
-        private const string CN_LOCALPATH       = "localPathColumn";
-        private const string CN_LOCALPATHPICKER = "pickLocalPathColumn";
-        private const string CN_RAFPATH         = "rafPathColumn";
-        private const string CN_RAFPATHPICKER   = "pickRafPathColumn";
-
         public MainForm()
         {
             InitializeComponent();
