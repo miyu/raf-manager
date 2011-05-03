@@ -15,6 +15,13 @@ namespace RAFLib
 {
     public class RAFManager
     {
+        /// <summary>
+        /// Packs the /dump/ child directory of the given directory.
+        /// Outputs to the given ostream.
+        /// </summary>
+        /// <param name="directory"></param>
+        /// <param name="ostream"></param>
+        /// <returns></returns>
         public static bool Pack(string directory, StreamWriter ostream)
         {
             //Environment.CurrentDirectory = directory;
@@ -38,6 +45,10 @@ namespace RAFLib
             //else
             //    MessageBox.Show("Place RAFDUMP executable next to 'dump' folder.  Upon run, the 'pack' folder will be created w/ raf+raf.dat");
         }
+        /// <summary>
+        /// Dumps the content of the first .raf/.raf.dat archive seen in the given directory.
+        /// Outputs to the given ostream
+        /// </summary>
         public static bool Dump(string directory, StreamWriter ostream)
         {
             ostream.WriteLine("Experimental RAF Dumper by ItzWarty @ ItzWarty.com April 28 2011 10:00pm pst");
