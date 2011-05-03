@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.log = new System.Windows.Forms.TextBox();
             this.logContainer = new System.Windows.Forms.GroupBox();
             this.rafContentView = new System.Windows.Forms.TreeView();
@@ -91,7 +91,7 @@
             this.rafContentView.Font = new System.Drawing.Font("Lucida Console", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rafContentView.Location = new System.Drawing.Point(0, 0);
             this.rafContentView.Name = "rafContentView";
-            this.rafContentView.Size = new System.Drawing.Size(267, 354);
+            this.rafContentView.Size = new System.Drawing.Size(263, 354);
             this.rafContentView.TabIndex = 2;
             // 
             // toolStrip
@@ -200,7 +200,7 @@
             // 
             this.smallContainer.Panel2.Controls.Add(this.changesView);
             this.smallContainer.Size = new System.Drawing.Size(770, 354);
-            this.smallContainer.SplitterDistance = 267;
+            this.smallContainer.SplitterDistance = 263;
             this.smallContainer.TabIndex = 0;
             // 
             // changesView
@@ -220,7 +220,7 @@
             this.changesView.Name = "changesView";
             this.changesView.RowHeadersVisible = false;
             this.changesView.RowTemplate.Height = 24;
-            this.changesView.Size = new System.Drawing.Size(499, 354);
+            this.changesView.Size = new System.Drawing.Size(503, 354);
             this.changesView.TabIndex = 0;
             // 
             // shouldUseMod
@@ -232,8 +232,8 @@
             // 
             // localPathColumn
             // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.localPathColumn.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.localPathColumn.DefaultCellStyle = dataGridViewCellStyle1;
             this.localPathColumn.FillWeight = 50F;
             this.localPathColumn.HeaderText = "Local Path";
             this.localPathColumn.Name = "localPathColumn";
@@ -248,9 +248,9 @@
             // 
             // rafPathColumn
             // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.rafPathColumn.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.rafPathColumn.DefaultCellStyle = dataGridViewCellStyle2;
             this.rafPathColumn.HeaderText = "RAF Path";
             this.rafPathColumn.Name = "rafPathColumn";
             this.rafPathColumn.ReadOnly = true;
