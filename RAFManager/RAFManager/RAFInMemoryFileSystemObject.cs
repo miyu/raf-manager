@@ -5,10 +5,9 @@ using System.Text;
 
 using ItzWarty;
 
-using RAFLib;
 
 using System.Windows.Forms;
-namespace RAF_Packer
+namespace RAFManager
 {
     /// <summary>
     /// Enumeration defines the type of FSO we have.

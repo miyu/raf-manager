@@ -7,7 +7,7 @@ using System.IO;
 
 using ItzWarty;
 
-namespace RAF_Packer
+namespace RAFManager
 {
     //Everything that was static now isn't static...  This is because properties had to be cleared...
     //I don't want to mess with this code, so yeah....
