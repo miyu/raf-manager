@@ -8,7 +8,7 @@ namespace RAFManager.Project
     public class RAFProject
     {
         RAFProjectInfo projectInfo  = null;
-        public bool hasChanged      = false;
+        private bool hasChanged      = false;
         public RAFProject()
         {
             projectInfo = new RAFProjectInfo();
@@ -29,8 +29,24 @@ namespace RAFManager.Project
             {
                 return hasChanged;
             }
+            set
+            {
+                hasChanged = value;
+            }
         }
 
+        public string GetWindowTitle()
+        {
+            string result = "";
+            result += projectInfo.ProjectName;
+            if (hasChanged)
+            {
+                result += "*";
+            }
+            if (projectInfo.ProjectPath != "")
+                result += " (" + projectInfo.ProjectPath + ")";
+            return result;
+        }
         public void Save(string location)
         {
             string serialization = projectInfo.ProjectName;

@@ -32,6 +32,14 @@ namespace RAFManager
             AdjustModificationsView();
 
             changesView.CellClick += new DataGridViewCellEventHandler(changesView_CellClick);
+            changesView.CurrentCellChanged += new EventHandler(changesView_CurrentCellChanged);
+        }
+
+        void changesView_CurrentCellChanged(object sender, EventArgs e)
+        {
+            project.HasChanged = true;
+
+            Title(project.GetWindowTitle());
         }
         /// <summary>
         /// Sizes the columns in the modifications view
@@ -52,6 +60,8 @@ namespace RAFManager
         /// </summary>
         void changesView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex == -1) return; //Column header was clicked.
+            //if (e.RowIndex > 10000) return; //... No idea how else to detect clicking the column headers
             DataGridViewCell cell = changesView.Rows[e.RowIndex].Cells[e.ColumnIndex];
             DataGridViewRow row = changesView.Rows[cell.RowIndex];
 
