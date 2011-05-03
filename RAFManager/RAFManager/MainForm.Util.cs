@@ -30,6 +30,12 @@ namespace RAFManager
         /// <returns></returns>
         private string PickRafPath()
         {
+            TreeNode[] nodes = new TreeNode[this.rafContentView.Nodes.Count];
+            for (int i = 0; i < nodes.Length; i++)
+                nodes[i] = (TreeNode)this.rafContentView.Nodes[i].Clone();
+            RAFPathSelector selectorDialog = new RAFPathSelector(nodes);
+            selectorDialog.ShowDialog();
+            return selectorDialog.SelectedNodePath;
             rafContentView.SelectedNode = null;
 
             string oldTitle = this.Text;
