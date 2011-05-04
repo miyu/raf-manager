@@ -57,10 +57,22 @@ namespace RAFLib
             //Now we load our string table
             stringTable = new RAFStringTable(raf, content, offsetStringTable);
         }
+
+        /// <summary>
+        /// Gets the list of files contained in this RAF archive
+        /// </summary>
+        /// <returns></returns>
         public RAFFileList GetFileList()
         {
             return this.fileList;
         }
+
+        /// <summary>
+        /// Gets the RAF Archive's string table.
+        /// To the knowledge of the community, this currently only contains
+        /// internal file paths.  
+        /// </summary>
+        /// <returns></returns>
         public RAFStringTable GetStringTable()
         {
             return this.stringTable;
