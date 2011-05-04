@@ -60,6 +60,13 @@ namespace RAFManager.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap LeagueCraftIcon {
+            get {
+                object obj = ResourceManager.GetObject("LeagueCraftIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Icon RafManager {
             get {
                 object obj = ResourceManager.GetObject("RafManager", resourceCulture);
