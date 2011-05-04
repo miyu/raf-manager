@@ -210,7 +210,6 @@ namespace RAFManager
                         //new one under this one
                         changesView.NotifyCurrentCellDirty(true); //Gotta love these names...
                     }
-                    row.Cells[CN_RAFPATH].Style.Alignment = DataGridViewContentAlignment.MiddleRight;
                 }
             }
             else if (cell.OwningColumn.Name == CN_LOCALPATHPICKER)
@@ -229,7 +228,6 @@ namespace RAFManager
                         changesView.NotifyCurrentCellDirty(true); //Gotta love these names...    
                     }
                 }
-                row.Cells[CN_LOCALPATHPICKER].Style.Alignment = DataGridViewContentAlignment.MiddleRight;
             }
             StylizeChangesView();
         }
