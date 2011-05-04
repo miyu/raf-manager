@@ -45,7 +45,7 @@
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
+            this.projectNameTb = new System.Windows.Forms.ToolStripTextBox();
             this.bigContainer = new System.Windows.Forms.SplitContainer();
             this.smallContainer = new System.Windows.Forms.SplitContainer();
             this.changesView = new System.Windows.Forms.DataGridView();
@@ -105,7 +105,7 @@
             this.toolStripLabel1,
             this.toolStripSeparator1,
             this.toolStripLabel2,
-            this.toolStripTextBox1});
+            this.projectNameTb});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Size = new System.Drawing.Size(770, 27);
@@ -185,10 +185,10 @@
             this.toolStripLabel2.Size = new System.Drawing.Size(106, 24);
             this.toolStripLabel2.Text = "Project Name: ";
             // 
-            // toolStripTextBox1
+            // projectNameTb
             // 
-            this.toolStripTextBox1.Name = "toolStripTextBox1";
-            this.toolStripTextBox1.Size = new System.Drawing.Size(150, 27);
+            this.projectNameTb.Name = "projectNameTb";
+            this.projectNameTb.Size = new System.Drawing.Size(150, 27);
             // 
             // bigContainer
             // 
@@ -227,6 +227,7 @@
             // 
             // changesView
             // 
+            this.changesView.AllowUserToResizeColumns = false;
             this.changesView.AllowUserToResizeRows = false;
             this.changesView.BackgroundColor = System.Drawing.SystemColors.Control;
             this.changesView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -256,14 +257,14 @@
             // 
             // localPathColumn
             // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.localPathColumn.DefaultCellStyle = dataGridViewCellStyle1;
-            this.localPathColumn.FillWeight = 50F;
             this.localPathColumn.HeaderText = "Local Path";
             this.localPathColumn.Name = "localPathColumn";
             this.localPathColumn.ReadOnly = true;
             this.localPathColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.localPathColumn.Width = 51;
+            this.localPathColumn.Width = 102;
             // 
             // pickLocalPathColumn
             // 
@@ -274,8 +275,8 @@
             // 
             // rafPathColumn
             // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.rafPathColumn.DefaultCellStyle = dataGridViewCellStyle2;
             this.rafPathColumn.HeaderText = "RAF Path";
             this.rafPathColumn.Name = "rafPathColumn";
@@ -337,7 +338,7 @@
         private System.Windows.Forms.DataGridView changesView;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripLabel toolStripLabel2;
-        private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
+        private System.Windows.Forms.ToolStripTextBox projectNameTb;
         private System.Windows.Forms.DataGridViewCheckBoxColumn shouldUseMod;
         private System.Windows.Forms.DataGridViewTextBoxColumn localPathColumn;
         private System.Windows.Forms.DataGridViewButtonColumn pickLocalPathColumn;

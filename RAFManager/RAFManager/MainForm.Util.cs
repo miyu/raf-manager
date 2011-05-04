@@ -36,6 +36,7 @@ namespace RAFManager
             RAFPathSelector selectorDialog = new RAFPathSelector(nodes);
             selectorDialog.ShowDialog();
             return selectorDialog.SelectedNodePath;
+
             rafContentView.SelectedNode = null;
 
             string oldTitle = this.Text;
