@@ -1,4 +1,6 @@
-﻿using System;
+﻿//TODO: Import folder to raf manager
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
