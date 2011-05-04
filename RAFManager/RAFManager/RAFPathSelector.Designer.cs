@@ -83,13 +83,14 @@
             this.doneButton.UseVisualStyleBackColor = true;
             this.doneButton.Click += new System.EventHandler(this.doneButton_Click);
             // 
-            // TreeNodeSelector
+            // RAFPathSelector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(436, 362);
             this.Controls.Add(this.bigContainer);
-            this.Name = "TreeNodeSelector";
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.Name = "RAFPathSelector";
             this.Text = "RAF Archived File Path Selector";
             this.bigContainer.Panel1.ResumeLayout(false);
             this.bigContainer.Panel2.ResumeLayout(false);

@@ -29,7 +29,6 @@ namespace RAFManager
         private string archivesRoot = @"C:\Riot Games\League of Legends\RADS\projects\lol_game_client\filearchives\";
 
         //Names of our archives
-        private string[] archives = null;
         private Dictionary<string, RAFArchive> rafArchives = new Dictionary<string, RAFArchive>();
 
         public MainForm()
@@ -47,7 +46,6 @@ namespace RAFManager
             this.Resize += delegate(object sender, EventArgs e){
                 bigContainer.SplitterDistance = bigContainer.Height - bigSplitterDistanceFromBottom;
                 smallContainer.SplitterDistance = smallSplitterDistanceFromLeft;
-                AdjustModificationsView();
             };
 
             InitializeChangesView();
@@ -65,14 +63,14 @@ namespace RAFManager
             log.Text = "www.ItzWarty.com Riot Archive File Packer/Unpacker 30-April-2011 4:34pm build";
 
             //Enumerate RAF files
-            archives = Directory.GetDirectories(archivesRoot);
+            string[] archivePaths = Directory.GetDirectories(archivesRoot);
             #region load_raf_archives
-            for (int i = 0; i < archives.Length; i++)
+            for (int i = 0; i < archivePaths.Length; i++)
             {
-                string archiveName = archives[i].Replace(archivesRoot, "");
+                string archiveName = archivePaths[i].Replace(archivesRoot, "");
 
                 Title("Loading RAF File - " + archiveName);
-                Log("Loading RAF Archive Folder: " + archives[i]);
+                Log("Loading RAF Archive Folder: " + archiveName[i]);
 
                 RAFArchive raf = null;
                 RAFInMemoryFileSystemObject archiveRoot = new RAFInMemoryFileSystemObject(null, RAFFSOType.ARCHIVE, archiveName);
@@ -81,7 +79,7 @@ namespace RAFManager
                     //Load raf file table and add to our list of archives
                     rafArchives.Add(archiveName,
                         raf = new RAFArchive(
-                            Directory.GetFiles(archives[i], "*.raf")[0]
+                            Directory.GetFiles(archivePaths[i], "*.raf")[0]
                         )
                     );
 
@@ -102,15 +100,19 @@ namespace RAFManager
                 rafContentView.Nodes.Add(archiveRoot);
             }
             #endregion
-            rafContentView.NodeMouseDoubleClick += new TreeNodeMouseClickEventHandler(rafContentView_NodeMouseDoubleClick);
-
-            rafContentView.AllowDrop = true;
-            rafContentView.DragOver += new DragEventHandler(rafContentView_DragOver);
 
             Title("Done loading RAF Files");
 
             LogInstructions();
             Title(project.GetWindowTitle());
+            projectNameTb.Text = project.ProjectInfo.ProjectName;
+            projectNameTb.TextChanged += new EventHandler(projectNameTb_TextChanged);
+        }
+
+        void projectNameTb_TextChanged(object sender, EventArgs e)
+        {
+            project.ProjectInfo.ProjectName = projectNameTb.Text;
+            Title(project.GetWindowTitle());            
         }
         private void Log(string s)
         {
