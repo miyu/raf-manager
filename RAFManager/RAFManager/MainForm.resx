@@ -151,6 +151,43 @@
         KlSA8/zRh9ABIDUG+1JpAAAAAElFTkSuQmCC
 </value>
   </data>
+  <data name="goToRAFPackerLeagueOfLegendsThreadToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAAEnMAABJzAYwiuQcAAAOaSURBVDhPFZNbTNtlGMa/tYwisrWslENLOZYVKG05tJyh
+        HMdmEMU4OY2VcRqnghQpygAhG+2ADQFhI3POSXBOCU5nZqIDkzlZ1U1nnJnTLBq9NCbe7P7n34vv5k2+
+        532eX55XjBxO5Zwrjze681h0lTLdksGJBhNTTjPeVgu+NhMznUksDJhZGcrgvMfCotvKO+N5jLVYEWe7
+        cjDqU9GobcRpDYSrogkPjZGeAX2kgYioUtTaWjT6g0REl6OJPECYpgpzQgZnO+2Imd4CNGFpiIAXee6Z
+        XC6NGllyarncq6PEGkewZRq5YxORPY8wvoKInUGoR1ArE/C2ZSDmPbXotImIvPcJMnkZq1Hy+4aD2+86
+        CDaMojvmJ6TxM2SH1pAVrCKzXUSkLhAVncNsXwniVP9BtBoNwtSNrHiB5sxgHlwt48ur1SiLltC77qNs
+        30F++HN2VV9HVnlNcvMWkTo7ky3piIEjuUSFRSLiexCOVZrsT/HLB8VsfViNpvA0Rs8D9nTeQ+b8mt3H
+        7iBvvIMoWJPYpNNTHYMY7cgkXFcg5buAsC1ztEDJH9dK+OLKAVSmYXTH7yJ3fodo96Po/5GAlrsI+7oE
+        0oKnPgEx0ZGCWleBSN5GJI7Rlq/krxs13Fw/RGjyAElD36MYfITm5CP0vt9QdP0s8diW/mRxojEWMeaM
+        l9SyEdE3EDFzOG0Kft2s4quPa1GbXiN2+DHB03+z9/SfhPTfRmTNE2Tpx2Ap49UGSeD1o3rU6iyJgR+h
+        XaPFJuPhR5XsbDUini6WyH9CaN9jZEd+klwusje8gufLDWgNdYw3SwLTHYmoVUYp/xbC/Cn15gB+uFKC
+        f7sJhRAIsRexOwW5Kpe0WCPXJ7SMjjQQkjaBT2qomOlKRBMhRai4JW3w0WAS3DqXzc3lPMbLFfQ5FLir
+        AlltDuLbuTie+MsxV/awr+hNFodypCK5/q+rBNG8TURcGautSu6fN+NfTubhJSv/btr5ZyOdJxsmuOdg
+        Z7McEXeKcKuXlRFp8UyPkdA9BsmqHVvCLjx1Otz1sbzcZMX1UhIjrVmM9xcxNVzK3EQhNc/mI/K/Qb1/
+        iNnueMTCYCpG4wvSYIx98dMEqqaQBzYgV55EFupBYThD4H4vCvscQTlegtN9qDLWSU3rZmkwBeFzZ/Le
+        bB0XvO28PXuci5O1rAwXsjQsnbc7jzO9dma7pMvryWBpIIvlwXTmXRYuTxbiddv4DyRf8+ep0nexAAAA
+        AElFTkSuQmCC
+</value>
+  </data>
+  <metadata name="shouldUseMod.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="localPathColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="pickLocalPathColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="rafPathColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="pickRafPathColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <metadata name="shouldUseMod.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>

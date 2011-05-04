@@ -42,6 +42,7 @@
             this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.goToRAFPackerLeagueOfLegendsThreadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.goToRAFPackerLeagueCraftTHreadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
@@ -150,7 +151,8 @@
             this.toolStripDropDownButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripDropDownButton2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem,
-            this.goToRAFPackerLeagueOfLegendsThreadToolStripMenuItem});
+            this.goToRAFPackerLeagueOfLegendsThreadToolStripMenuItem,
+            this.goToRAFPackerLeagueCraftTHreadToolStripMenuItem});
             this.toolStripDropDownButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton2.Image")));
             this.toolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton2.Name = "toolStripDropDownButton2";
@@ -160,14 +162,22 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(371, 24);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(542, 24);
             this.aboutToolStripMenuItem.Text = "About";
             // 
             // goToRAFPackerLeagueOfLegendsThreadToolStripMenuItem
             // 
+            this.goToRAFPackerLeagueOfLegendsThreadToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("goToRAFPackerLeagueOfLegendsThreadToolStripMenuItem.Image")));
             this.goToRAFPackerLeagueOfLegendsThreadToolStripMenuItem.Name = "goToRAFPackerLeagueOfLegendsThreadToolStripMenuItem";
-            this.goToRAFPackerLeagueOfLegendsThreadToolStripMenuItem.Size = new System.Drawing.Size(371, 24);
-            this.goToRAFPackerLeagueOfLegendsThreadToolStripMenuItem.Text = "Go to RAF Packer League of Legends Thread";
+            this.goToRAFPackerLeagueOfLegendsThreadToolStripMenuItem.Size = new System.Drawing.Size(542, 24);
+            this.goToRAFPackerLeagueOfLegendsThreadToolStripMenuItem.Text = "Go to RAF Packer League of Legends Thread (North American Forums)";
+            // 
+            // goToRAFPackerLeagueCraftTHreadToolStripMenuItem
+            // 
+            this.goToRAFPackerLeagueCraftTHreadToolStripMenuItem.Image = global::RAFManager.Properties.Resources.LeagueCraftIcon;
+            this.goToRAFPackerLeagueCraftTHreadToolStripMenuItem.Name = "goToRAFPackerLeagueCraftTHreadToolStripMenuItem";
+            this.goToRAFPackerLeagueCraftTHreadToolStripMenuItem.Size = new System.Drawing.Size(542, 24);
+            this.goToRAFPackerLeagueCraftTHreadToolStripMenuItem.Text = "Go to RAF Packer LeagueCraft Thread";
             // 
             // toolStripLabel1
             // 
@@ -345,6 +355,7 @@
         private System.Windows.Forms.DataGridViewButtonColumn pickLocalPathColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn rafPathColumn;
         private System.Windows.Forms.DataGridViewButtonColumn pickRafPathColumn;
+        private System.Windows.Forms.ToolStripMenuItem goToRAFPackerLeagueCraftTHreadToolStripMenuItem;
     }
 }
 
