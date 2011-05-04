@@ -73,13 +73,15 @@ namespace RAFLib
         /// </summary>
         public static bool Dump(string directory, StreamWriter ostream)
         {
+            #region output_usage_header
             ostream.WriteLine("Experimental RAF Dumper by ItzWarty @ ItzWarty.com April 28 2011 10:00pm pst");
             ostream.WriteLine("RAF dogcumentation @ bit.ly/mSyYrR ");
             ostream.WriteLine("USAGE: RAF_DUMP (Or just double click executable)");
             ostream.WriteLine("Precondition: RAF_DUMP is sitting next to a Riot Archive File.");
             ostream.WriteLine("Postcondition: 'dump' folder created.  RAF extracted into folder.");
+            #endregion
             //string dumpDir = @"C:\Riot Games\League of Legends\RADS\projects\lol_game_client\filearchives\0.0.0.28\dump\";
-
+            
             //We write the file containing "name hash" next to our program.
             string hashesFile = Environment.CurrentDirectory + "\\hashes.txt";
             string hashesLog = "";
@@ -162,6 +164,11 @@ namespace RAFLib
             //Application.EnableVisualStyles();
             //Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new Form1());
+        }
+        public bool InsertFile(string fileName, byte[] content)
+        {
+            RAFFileListEntry fileentry = this.GetDirectoryFile().GetFileList().GetFileEntry(fileName);
+            return false; //TODO
         }
         private static void PrepareDirectory(string path)
         {

@@ -105,5 +105,9 @@ namespace RAFLib
                 return buffer;
             }
         }
+        public override string ToString()
+        {
+            return FileName;
+        }
     }
 }

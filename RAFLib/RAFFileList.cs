@@ -39,5 +39,58 @@ namespace RAFLib
         {
             return this.fileEntries;
         }
+        /// <summary>
+        /// Finds a file entry.
+        /// </summary>
+        /// <param name="path">Path to </param>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        public RAFFileListEntry GetFileEntry(string path)
+        {
+            string lowerPath = path.ToLower();
+            List<RAFFileListEntry> fileEntries = this.GetFileEntries();
+            for (int i = 0; i < fileEntries.Count; i++)
+            {
+                string lowerFilename = fileEntries[i].FileName.ToLower();
+                if (lowerFilename == path.ToLower())
+                {
+                    return fileEntries[i];
+                }
+            }
+            return null;
+        }
+        /// <summary>
+        /// Finds file entries.
+        /// 
+        /// If search is set to true, will return a folder if it ends with the given path
+        /// Ie: /ezreal/ would return /DATA/Characters/Ezreal/
+        /// This will be used in the future to support importation
+        /// </summary>
+        /// <param name="path">Path to </param>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        public List<RAFFileListEntry> SearchFileEntries(string partialPath)
+        {
+            string lowerPath = partialPath.ToLower();
+            List<RAFFileListEntry> result = new List<RAFFileListEntry>();
+
+            List<RAFFileListEntry> fileEntries = this.GetFileEntries();
+            for (int i = 0; i < fileEntries.Count; i++)
+            {
+                string lowerFilename = fileEntries[i].FileName.ToLower();
+                if (lowerFilename.Contains("ezreal.skl"))
+                {
+                    Console.WriteLine(" pp: " + lowerPath);
+                    Console.WriteLine("LFN: " + lowerFilename);
+                    Console.WriteLine(" EW: " + lowerFilename.EndsWith(lowerPath));
+                }
+                if (lowerFilename.EndsWith(lowerPath))
+                {
+                    result.Add(fileEntries[i]);
+                }
+            }
+            Console.WriteLine("result length: " + result.Count);
+            return result;
+        }
     }
 }
