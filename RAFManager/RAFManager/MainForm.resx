@@ -161,7 +161,7 @@
   <data name="goToRAFPackerLeagueCraftTHreadToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAAEnMAABJzAYwiuQcAAAk9SURBVFhHtVcJUFRXFiXIrth0szsYcImmRFqJihugaNgV
+        YQUAAAAJcEhZcwAAEnIAABJyAV5lW+MAAAk9SURBVFhHtVcJUFRXFiXIrth0szsYcImmRFqJihugaNgV
         EVB2aFYFgWbpBei/dTfQAygoDtFEIwYFl3EKUZEmgogLGjI4horjTE2ZmaSmyrFmMhUnBYRe/p33f3cb
         EDQmzryqX3S//947955z73mNmdkbDDlFmJu23+5IhJbmQgnzHc1bTD6WIIhZbwAz81bKCK6qwT3bj+Wr
         Bq+kwIkPissMAZDPAyBJ8i1mbt++ffHZ2dmq0tLSqtbWVtX58+dV586dU/2iwCh0KElSFjWy0gWtjVmi
@@ -219,9 +219,6 @@
         KlSA8/zRh9ABIDUG+1JpAAAAAElFTkSuQmCC
 </value>
   </data>
-  <metadata name="changesStatusStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>128, 17</value>
-  </metadata>
   <metadata name="shouldUseMod.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
