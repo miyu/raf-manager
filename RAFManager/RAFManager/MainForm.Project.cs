@@ -53,7 +53,7 @@ namespace RAFManager
             dialog.AddExtension = true;
             dialog.Filter = "RAFManager Projects(*.rmproj)|*.rmproj";
             dialog.ShowDialog();
-            if (dialog.CheckPathExists)
+            if (dialog.CheckPathExists && dialog.FileName != null && dialog.FileName != "")
             {
                 SaveProject(dialog.FileName);
             }
@@ -80,7 +80,7 @@ namespace RAFManager
              * localPath and rafPath should be trimmed before use.
              */
             string serialization = projectInfo.ProjectName;
-            serialization += "\n" + " ";
+            serialization += "\n" + " "; //Path to project, probably won't be used to allow project movement
             serialization += "\n" + " ";
             for (int i = 0; i < changesView.RowCount; i++)
             {
@@ -114,7 +114,7 @@ namespace RAFManager
             dialog.AddExtension = true;
             dialog.Filter = "RAFManager Projects(*.rmproj)|*.rmproj";
             dialog.ShowDialog();
-            if (dialog.CheckPathExists)
+            if (dialog.CheckPathExists && dialog.FileName != null && dialog.FileName != "")
             {
                 LoadProject(dialog.FileName);
             }
@@ -131,12 +131,12 @@ namespace RAFManager
 
             string[] lines = File.ReadAllLines(location);
             string projectName = lines[0];
-            string projectPath = lines[1];
+            string projectPath = location;// lines[1];
             string rafDirectory= lines[2];
 
             projectNameTb.Text = projectName;
             projectInfo.ProjectName = projectName.Trim();
-            projectInfo.ProjectPath = projectPath.Trim();
+            projectInfo.ProjectPath = location;
             projectInfo.FileArchivesDirectory = rafDirectory;
             for (int i = 3; i < lines.Length; i++)
             {
