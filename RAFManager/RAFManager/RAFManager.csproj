@@ -145,6 +145,10 @@
       <Project>{4661A92E-7729-4021-B35F-D5BDA01A79F9}</Project>
       <Name>RAFLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Windows7IntegrationLibrary_Taskbar_Libraries\DesktopIntegration\Windows7.DesktopIntegration\Windows7.DesktopIntegration.csproj">
+      <Project>{E3F064A7-ECEF-46B8-83BD-299E4E8BDF82}</Project>
+      <Name>Windows7.DesktopIntegration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ThirdParty\Be.Windows.Forms.HexBox\Be.Windows.Forms.HexBox.csproj">
       <Project>{26C5F25F-B450-4CAF-AD8B-B8D11AE73457}</Project>
       <Name>Be.Windows.Forms.HexBox</Name>
