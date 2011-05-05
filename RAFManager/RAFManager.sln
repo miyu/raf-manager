@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Be.Windows.Forms.HexBox", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windows7.DesktopIntegration", "..\Windows7IntegrationLibrary_Taskbar_Libraries\DesktopIntegration\Windows7.DesktopIntegration\Windows7.DesktopIntegration.csproj", "{E3F064A7-ECEF-46B8-83BD-299E4E8BDF82}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RAFManagerUpdater", "RAFManagerUpdater\RAFManagerUpdater.csproj", "{77C89F4F-0C28-4857-BB14-41365FCC7E4C}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -181,6 +183,30 @@ Global
 		{E3F064A7-ECEF-46B8-83BD-299E4E8BDF82}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{E3F064A7-ECEF-46B8-83BD-299E4E8BDF82}.Release|x64.ActiveCfg = Release|Any CPU
 		{E3F064A7-ECEF-46B8-83BD-299E4E8BDF82}.Release|x86.ActiveCfg = Release|Any CPU
+		{77C89F4F-0C28-4857-BB14-41365FCC7E4C}.ClientProfileRelease|Any CPU.ActiveCfg = Release|x86
+		{77C89F4F-0C28-4857-BB14-41365FCC7E4C}.ClientProfileRelease|Mixed Platforms.ActiveCfg = Release|x86
+		{77C89F4F-0C28-4857-BB14-41365FCC7E4C}.ClientProfileRelease|Mixed Platforms.Build.0 = Release|x86
+		{77C89F4F-0C28-4857-BB14-41365FCC7E4C}.ClientProfileRelease|x64.ActiveCfg = Release|x86
+		{77C89F4F-0C28-4857-BB14-41365FCC7E4C}.ClientProfileRelease|x86.ActiveCfg = Release|x86
+		{77C89F4F-0C28-4857-BB14-41365FCC7E4C}.ClientProfileRelease|x86.Build.0 = Release|x86
+		{77C89F4F-0C28-4857-BB14-41365FCC7E4C}.CodeAnalysisDebug|Any CPU.ActiveCfg = Debug|x86
+		{77C89F4F-0C28-4857-BB14-41365FCC7E4C}.CodeAnalysisDebug|Mixed Platforms.ActiveCfg = Debug|x86
+		{77C89F4F-0C28-4857-BB14-41365FCC7E4C}.CodeAnalysisDebug|Mixed Platforms.Build.0 = Debug|x86
+		{77C89F4F-0C28-4857-BB14-41365FCC7E4C}.CodeAnalysisDebug|x64.ActiveCfg = Debug|x86
+		{77C89F4F-0C28-4857-BB14-41365FCC7E4C}.CodeAnalysisDebug|x86.ActiveCfg = Debug|x86
+		{77C89F4F-0C28-4857-BB14-41365FCC7E4C}.CodeAnalysisDebug|x86.Build.0 = Debug|x86
+		{77C89F4F-0C28-4857-BB14-41365FCC7E4C}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{77C89F4F-0C28-4857-BB14-41365FCC7E4C}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{77C89F4F-0C28-4857-BB14-41365FCC7E4C}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{77C89F4F-0C28-4857-BB14-41365FCC7E4C}.Debug|x64.ActiveCfg = Debug|x86
+		{77C89F4F-0C28-4857-BB14-41365FCC7E4C}.Debug|x86.ActiveCfg = Debug|x86
+		{77C89F4F-0C28-4857-BB14-41365FCC7E4C}.Debug|x86.Build.0 = Debug|x86
+		{77C89F4F-0C28-4857-BB14-41365FCC7E4C}.Release|Any CPU.ActiveCfg = Release|x86
+		{77C89F4F-0C28-4857-BB14-41365FCC7E4C}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{77C89F4F-0C28-4857-BB14-41365FCC7E4C}.Release|Mixed Platforms.Build.0 = Release|x86
+		{77C89F4F-0C28-4857-BB14-41365FCC7E4C}.Release|x64.ActiveCfg = Release|x86
+		{77C89F4F-0C28-4857-BB14-41365FCC7E4C}.Release|x86.ActiveCfg = Release|x86
+		{77C89F4F-0C28-4857-BB14-41365FCC7E4C}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
