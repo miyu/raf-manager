@@ -52,12 +52,26 @@ namespace RAFManager
             InitializeUtil();
 
             project = new RAFProject();
-        }
 
+            Windows7.DesktopIntegration.Windows7Taskbar.AllowTaskbarWindowMessagesThroughUIPI();
+            Windows7.DesktopIntegration.Windows7Taskbar.SetWindowAppId(this.Handle, "RAFManager");
+        }
+        /// <summary>
+        /// Sets the progress value of our taskbar entry
+        /// </summary>
+        /// <param name="n">progress from 0-100</param>
+        void SetTaskbarProgress(int n)
+        {
+            if(n <= 0)
+                Windows7.DesktopIntegration.Windows7Taskbar.SetProgressState(this.Handle, Windows7.DesktopIntegration.Windows7Taskbar.ThumbnailProgressState.NoProgress);
+            else
+                Windows7.DesktopIntegration.Windows7Taskbar.SetProgressValue(this.Handle, (UInt32)n, 100);
+        }
         void MainForm_Load(object sender, EventArgs e)
         {
             this.Show();
             Application.DoEvents();
+
 
             Title("Loading RAF Files - ");            
             log.Text = "www.ItzWarty.com Riot Archive File Packer/Unpacker 30-April-2011 4:34pm build";
@@ -132,6 +146,25 @@ namespace RAFManager
             Log("");
             Log("INIBIN/TROYBIN Reader by Engberg @ http://bit.ly/kThoeF");
             Log("Be.HexEditor by http://sourceforge.net/projects/hexbox/");
+        }
+
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (project != null)
+            {
+                if (project.HasChanged)
+                {
+                    //Save Dialog                               HUEHUEHUEHUEHUEHUEHUEHUEHUE
+                    DialogResult result = MessageBox.Show("You have unsaved changes.\nClick cancel to save those changes before you do anything else.\nClick ok to continue onwards.", "Insert Funny Comment here", MessageBoxButtons.OKCancel);
+                    if (result == System.Windows.Forms.DialogResult.Cancel) return;
+                    else
+                        Log("Rammus: ok");
+                }
+            }
+
+            project = new RAFProject();
+            projectNameTb.Text = project.ProjectInfo.ProjectName;
+            Title(project.GetWindowTitle());
         }
     }
 }

@@ -60,9 +60,10 @@ namespace RAFManager
                         filePaths = Util.GetAllChildFiles(rootPath);//Directory.GetFiles(rootPath, "**", SearchOption.AllDirectories);
                     else
                         filePaths = new string[] { rootPath };
-                    foreach (string filePath_ in filePaths)
+                    for(int z = 0; z < filePaths.Length; z++)
                     {
-                        string filePath = filePath_.Replace("\\", "/");
+                        SetTaskbarProgress(z * 100 / filePaths.Length);
+                        string filePath = filePaths[z].Replace("\\", "/");
                         //Console.WriteLine(filePath);
                         int rowIndex = changesView.Rows.Add();
 
@@ -110,24 +111,26 @@ namespace RAFManager
                                 FileEntryAmbiguityResolver ambiguityResolver = new FileEntryAmbiguityResolver(lastMatches.ToArray(), "!");
                                 ambiguityResolver.ShowDialog();
                                 RAFFileListEntry resolvedItem = (RAFFileListEntry)ambiguityResolver.SelectedItem;
-                                if (resolvedItem == null)
-                                    Log("Unable to link file '" + filePath + "' to RAF Archive.  Please manually select RAF path");
-                                else //We resolved it
+                                if (resolvedItem != null)
                                 {
                                     matchedEntry = resolvedItem;
                                 }
                             }
                         }
-                        if(matchedEntry != null) //If it's still not resolved
+                        if (matchedEntry != null) //If it's still not resolved
                         {
                             changesView.Rows[rowIndex].Cells[CN_RAFPATH].Value = matchedEntry.FileName;
                             changesView.Rows[rowIndex].Cells[CN_RAFPATH].Tag = matchedEntry.FileName;
+                        }
+                        else
+                        {
+                            Log("Unable to link file '" + filePath + "' to RAF Archive.  Please manually select RAF path");
                         }
                     }
                 }
                 StylizeChangesView();
             }
-            
+            SetTaskbarProgress(-1);
         }
 
         void changesView_DragOver(object sender, DragEventArgs e)

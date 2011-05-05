@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.log = new System.Windows.Forms.TextBox();
             this.logContainer = new System.Windows.Forms.GroupBox();
             this.rafContentView = new System.Windows.Forms.TreeView();
@@ -55,6 +55,8 @@
             this.pickLocalPathColumn = new System.Windows.Forms.DataGridViewButtonColumn();
             this.rafPathColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pickRafPathColumn = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.changesStatusStrip = new System.Windows.Forms.StatusStrip();
+            this.changesViewStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.logContainer.SuspendLayout();
             this.toolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bigContainer)).BeginInit();
@@ -66,6 +68,7 @@
             this.smallContainer.Panel2.SuspendLayout();
             this.smallContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.changesView)).BeginInit();
+            this.changesStatusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // log
@@ -131,19 +134,20 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(114, 24);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
             this.newToolStripMenuItem.Text = "New";
+            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(114, 24);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
             this.openToolStripMenuItem.Text = "Open";
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(114, 24);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
             this.saveToolStripMenuItem.Text = "Save";
             // 
             // toolStripDropDownButton2
@@ -231,6 +235,7 @@
             // 
             // smallContainer.Panel2
             // 
+            this.smallContainer.Panel2.Controls.Add(this.changesStatusStrip);
             this.smallContainer.Panel2.Controls.Add(this.changesView);
             this.smallContainer.Size = new System.Drawing.Size(770, 354);
             this.smallContainer.SplitterDistance = 263;
@@ -254,6 +259,7 @@
             this.changesView.Name = "changesView";
             this.changesView.RowHeadersVisible = false;
             this.changesView.RowTemplate.Height = 24;
+            this.changesView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.changesView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.changesView.Size = new System.Drawing.Size(503, 354);
             this.changesView.TabIndex = 0;
@@ -268,9 +274,9 @@
             // 
             // localPathColumn
             // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.localPathColumn.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.localPathColumn.DefaultCellStyle = dataGridViewCellStyle3;
             this.localPathColumn.HeaderText = "Local Path";
             this.localPathColumn.Name = "localPathColumn";
             this.localPathColumn.ReadOnly = true;
@@ -286,9 +292,9 @@
             // 
             // rafPathColumn
             // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.rafPathColumn.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.rafPathColumn.DefaultCellStyle = dataGridViewCellStyle4;
             this.rafPathColumn.HeaderText = "RAF Path";
             this.rafPathColumn.Name = "rafPathColumn";
             this.rafPathColumn.ReadOnly = true;
@@ -301,6 +307,23 @@
             this.pickRafPathColumn.Name = "pickRafPathColumn";
             this.pickRafPathColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             this.pickRafPathColumn.Width = 101;
+            // 
+            // changesStatusStrip
+            // 
+            this.changesStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.changesViewStatusLabel});
+            this.changesStatusStrip.Location = new System.Drawing.Point(0, 332);
+            this.changesStatusStrip.Name = "changesStatusStrip";
+            this.changesStatusStrip.Size = new System.Drawing.Size(503, 22);
+            this.changesStatusStrip.SizingGrip = false;
+            this.changesStatusStrip.Stretch = false;
+            this.changesStatusStrip.TabIndex = 1;
+            this.changesStatusStrip.Text = "statusStrip1";
+            // 
+            // changesViewStatusLabel
+            // 
+            this.changesViewStatusLabel.Name = "changesViewStatusLabel";
+            this.changesViewStatusLabel.Size = new System.Drawing.Size(0, 17);
             // 
             // MainForm
             // 
@@ -322,9 +345,12 @@
             this.bigContainer.ResumeLayout(false);
             this.smallContainer.Panel1.ResumeLayout(false);
             this.smallContainer.Panel2.ResumeLayout(false);
+            this.smallContainer.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.smallContainer)).EndInit();
             this.smallContainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.changesView)).EndInit();
+            this.changesStatusStrip.ResumeLayout(false);
+            this.changesStatusStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -356,6 +382,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn rafPathColumn;
         private System.Windows.Forms.DataGridViewButtonColumn pickRafPathColumn;
         private System.Windows.Forms.ToolStripMenuItem goToRAFPackerLeagueCraftTHreadToolStripMenuItem;
+        private System.Windows.Forms.StatusStrip changesStatusStrip;
+        private System.Windows.Forms.ToolStripStatusLabel changesViewStatusLabel;
     }
 }
 
