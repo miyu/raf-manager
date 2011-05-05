@@ -12,6 +12,12 @@ namespace RAFManager
     public partial class FileEntryAmbiguityResolver : Form
     {
         Object[] values = null;
+
+        /// <summary>
+        /// Opens a generic ambiguity resolver
+        /// 
+        /// It takes in values of any type and provides a selection box for them.
+        /// </summary>
         public FileEntryAmbiguityResolver(Object[] values, string reason)
         {
             InitializeComponent();
@@ -30,12 +36,20 @@ namespace RAFManager
             this.ResizeEnd += new EventHandler(FileEntryAmbiguityResolver_ResizeEnd);
         }
 
+        /// <summary>
+        /// When the cancel button is clicked, deselect the current entry and close the form
+        /// We deselect because the SelectedItem field
+        /// returns the selected item...
+        /// </summary>
         void cancelButton_Click(object sender, EventArgs e)
         {
             this.optionsListBox.ClearSelected();
             this.Close();
         }
 
+        /// <summary>
+        /// Manages the GUI when the window is resized
+        /// </summary>
         void FileEntryAmbiguityResolver_Resize(object sender, EventArgs e)
         {
             this.optionsListBox.Width = this.ClientSize.Width - this.optionsListBox.Left * 2;
@@ -48,21 +62,34 @@ namespace RAFManager
             this.optionsListBox.Height = this.ClientSize.Height - this.optionsListBox.Top - this.doneButton.Height - 12;
         }
 
+        /// <summary>
+        /// Updates the GUI when the window is resized
+        /// </summary>
         void FileEntryAmbiguityResolver_ResizeEnd(object sender, EventArgs e)
         {
             FileEntryAmbiguityResolver_Resize(sender, e);
         }
 
+        /// <summary>
+        /// When an item is selected, enable the "Done" button
+        /// </summary>
         void optionsListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             doneButton.Enabled = true;
         }
-
+        
+        /// <summary>
+        /// When the done button is clicked, close the form
+        /// </summary>
         void doneButton_Click(object sender, EventArgs e)
         {
             if (optionsListBox.SelectedIndex != -1)
                 Close();
         }
+
+        /// <summary>
+        /// GET: Yields the currently selected item or null
+        /// </summary>
         public Object SelectedItem
         {
             get

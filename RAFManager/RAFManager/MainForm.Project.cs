@@ -16,6 +16,10 @@ namespace RAFManager
     {
         private RAFProjectInfo projectInfo  = null;
         private bool hasProjectChanged      = false;
+
+        /// <summary>
+        /// Initializes the project system
+        /// </summary>
         public void InitializeProject()
         {
             ResetProject();
@@ -37,6 +41,11 @@ namespace RAFManager
 
             changesView.Rows.Clear();
         }
+
+        /// <summary>
+        /// When save is clicked, a SaveFileDialog is opened,
+        /// then the file is saved
+        /// </summary>
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFileDialog dialog = new SaveFileDialog();
@@ -49,6 +58,11 @@ namespace RAFManager
                 SaveProject(dialog.FileName);
             }
         }
+
+        /// <summary>
+        /// Performs a save operation of the current project
+        /// to the given location
+        /// </summary>
         private void SaveProject(string location)
         {
             changesView.ClearSelection();
@@ -79,7 +93,7 @@ namespace RAFManager
                         check = false;
                     else
                         check = (bool)row.Cells[CN_USE].Value;
-
+                    //1 localPath | rafPath
                     serialization += "\n" + (check ? "1" : "0")
                         + " " + (string)row.Cells[CN_LOCALPATH].Tag
                         + " | " + entry.RAFArchive.GetID() + "/" + entry.FileName;
@@ -89,6 +103,10 @@ namespace RAFManager
             File.WriteAllText(location, serialization);
             UpdateProjectGUI();
         }
+        /// <summary>
+        /// When the Open entry is clicked, create an openfiledialog
+        /// then save at the appropriate location
+        /// </summary>
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog();
@@ -101,6 +119,11 @@ namespace RAFManager
                 LoadProject(dialog.FileName);
             }
         }
+
+        /// <summary>
+        /// preforms the action of loading a project, located
+        /// at the given location
+        /// </summary>
         private void LoadProject(string location)
         {
             //Get a clean project first, before we load in contents
@@ -126,6 +149,8 @@ namespace RAFManager
 
                 int rowId = changesView.Rows.Add();
 
+
+                //Update GUI, save necessary states
                 changesView.Rows[rowId].Cells[CN_USE].Value = check;
 
                 changesView.Rows[rowId].Cells[CN_LOCALPATH].Value = localPath;
@@ -139,11 +164,21 @@ namespace RAFManager
             UpdateChangesGUI();
         }
 
+        /// <summary>
+        /// Updates the project GUI
+        ///  - Updates the project name display
+        ///  - Updates the window title
+        /// </summary>
         private void UpdateProjectGUI()
         {
             projectNameTb.Text = this.projectInfo.ProjectName;
             Title(GetWindowTitle());
         }
+
+        /// <summary>
+        /// Gets the appropriate window title for this project
+        /// Including the asterisk for hasedited
+        /// </summary>
         private string GetWindowTitle()
         {
             string result = "";
@@ -177,6 +212,10 @@ namespace RAFManager
             this.ResetProject();
             this.UpdateProjectGUI();
         }
+
+        /// <summary>
+        /// Represents whether or not a change has been applied to this project since its last load
+        /// </summary>
         public bool HasProjectChanged
         {
             get

@@ -47,6 +47,10 @@ namespace RAFManager
             this.Resize += delegate(object sender, EventArgs e) { UpdateChangesGUI(); };
         }
 
+        /// <summary>
+        /// When a cell is changed, commit the changes to the backend buffer
+        /// so that saving doesn't read the previous value until we deselect the cell
+        /// </summary>
         void changesView_CurrentCellDirtyStateChanged(object sender, EventArgs e)
         {
             if (changesView.CurrentCell is DataGridViewCheckBoxCell)
@@ -58,6 +62,11 @@ namespace RAFManager
             }
         }
 
+        /// <summary>
+        /// When a row is added, add text to its select buttons
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void changesView_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
             for (int i = 0; i < changesView.RowCount; i++)
@@ -67,21 +76,31 @@ namespace RAFManager
             }
         }
 
+        /// <summary>
+        /// Event handler for when a DragDrop operation completed on top of the changesview
+        /// </summary>
         void changesView_DragDrop(object sender, DragEventArgs e)
         {
+            //Check if we have a file/list of filfes
             if (e.Data is DataObject && ((DataObject)e.Data).ContainsFileDropList())
             {
                 DataObject dataObject = (DataObject)e.Data;
                 StringCollection rootPaths = dataObject.GetFileDropList();
+
+                //Iterate through all given files
                 foreach(string rootPath in rootPaths)
                 {
                     Console.WriteLine(rootPath);
                     //Get all files in path
                     string[] filePaths;
+
+                    //If it's a directory, get a list of its files
                     if (File.GetAttributes(rootPath).HasFlag(FileAttributes.Directory))
                         filePaths = Util.GetAllChildFiles(rootPath);//Directory.GetFiles(rootPath, "**", SearchOption.AllDirectories);
-                    else
+                    else //If it's a file, we have a list of 1 file
                         filePaths = new string[] { rootPath };
+
+                    //Iterate through all files
                     for(int z = 0; z < filePaths.Length; z++)
                     {
                         SetTaskbarProgress(z * 100 / filePaths.Length);
@@ -99,6 +118,8 @@ namespace RAFManager
                         RAFFileListEntry matchedEntry = null;
                         List<RAFFileListEntry> lastMatches = null;
                         bool done = false;
+
+                        //Smart search insertion
                         for (int i = 1; i < pathParts.Length+1 && !done; i++)
                         {
                             string[] searchPathParts = pathParts.SubArray(pathParts.Length - i, i);
@@ -155,15 +176,22 @@ namespace RAFManager
             SetTaskbarProgress(0);
         }
 
+        /// <summary>
+        /// Event Handler for when a file is dragged over our ChangesView control
+        /// </summary>
         void changesView_DragOver(object sender, DragEventArgs e)
         {
             if (e.Data is DataObject && ((DataObject)e.Data).ContainsFileDropList())
-            {
+            {   //If we are dragging a file over, say that a copy operation is "rammus: ok"
                 e.Effect = DragDropEffects.Copy;
                 Application.DoEvents();
             }            
         }
 
+        /// <summary>
+        /// When a cell changes, we tell the project that it has been changed, so an asterisk
+        /// is stuck next to the project name
+        /// </summary>
         void changesView_CurrentCellChanged(object sender, EventArgs e)
         {
             HasProjectChanged = true;
@@ -184,6 +212,7 @@ namespace RAFManager
             Graphics g = this.CreateGraphics();
             if (g != null)
             {
+                //Measures the length of the cells so that we can fit our text into them
                 for (int i = 0; i < changesView.Rows.Count-1; i++)
                 {
                     DataGridViewCell localPathCell = changesView.Rows[i].Cells[CN_LOCALPATH];
@@ -191,7 +220,7 @@ namespace RAFManager
 
                     DataGridViewCell rafPathCell = changesView.Rows[i].Cells[CN_RAFPATH];
                     RAFFileListEntry entry = (RAFFileListEntry)rafPathCell.Tag;
-                    if (entry == null)
+                    if (entry == null)          //Will happen if we have a new row that hasn't had a RAF Path selected yet
                     {
                         rafPathCell.Value = "";
                     }
@@ -204,6 +233,11 @@ namespace RAFManager
                 g.Dispose();
             }
         }
+
+        /// <summary>
+        /// Cuts the given string to the given width, cutting it so that its end always displays,
+        /// while its start might be cut off and replaced with "..."
+        /// </summary>
         private string CutStringToWidth(string s, int width, Graphics g, Font font)
         {
             if (s == null) return null;
@@ -267,6 +301,16 @@ namespace RAFManager
             UpdateChangesGUI();
         }
 
+        /// <summary>
+        /// When the RAF Content view has a dragover operation
+        /// ???  Likely have an insert file operation, though
+        /// I think this wouldn't be friendly to the user.
+        /// 
+        /// Dragging to the changesview is what the user wants more
+        /// 
+        /// Perhaps show a dialog if the user actually intends to
+        /// add to the dragged over dialog
+        /// </summary>
         void rafContentView_DragOver(object sender, DragEventArgs e)
         {
             if (e.Data is DataObject && ((DataObject)e.Data).ContainsFileDropList())
@@ -280,6 +324,9 @@ namespace RAFManager
             }
         }
 
+        /// <summary>
+        /// When a RafContentView node is double clicked, extract and view its content
+        /// </summary>
         void rafContentView_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             RAFInMemoryFileSystemObject node = (RAFInMemoryFileSystemObject)e.Node;
@@ -299,7 +346,8 @@ namespace RAFManager
                 ).First();
 
                 //Now select a viewer to use for the file.
-                if (entry.FileName.ToLower().EndsWith("inibin") || entry.FileName.ToLower().EndsWith("troybin"))
+                if (entry.FileName.ToLower().EndsWith("inibin") ||
+                    entry.FileName.ToLower().EndsWith("troybin"))
                 {
                     new TextViewer(this.baseTitle + " - inibin/troybin view - " + nodeInternalPath,
                         new InibinFile().main(entry.GetContent())
@@ -310,13 +358,17 @@ namespace RAFManager
                 {
                     if (entry.GetContent().All(c => c >= ' ' && c <= '~') || 
                         entry.FileName.ToLower().EndsWith("cfg") ||
-                        entry.FileName.ToLower().EndsWith("ini")) //All content is ascii
+                        entry.FileName.ToLower().EndsWith("ini") ||
+                        entry.FileName.ToLower().EndsWith("txt") ||
+                        entry.FileName.ToLower().EndsWith("log") ||
+                        entry.FileName.ToLower().EndsWith("list")
+                    ) //All content is displayable text, likely
                     {
                         new TextViewer(this.baseTitle + " - Text View - " + nodeInternalPath,
                             Encoding.ASCII.GetString(entry.GetContent())
                         ).Show();
                     }
-                    else
+                    else //If all else fails, just use the binary viewer
                     {
                         new BinaryViewer(this.baseTitle + " - Binary View by Be.HexEditor http://sourceforge.net/projects/hexbox/- " + nodeInternalPath,
                             entry.GetContent()

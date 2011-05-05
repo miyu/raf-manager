@@ -13,7 +13,13 @@ namespace RAFManager
     {
         private static Size lastSize = Size.Empty;
         private static Point lastLocation = Point.Empty;
-        public RAFPathSelector(TreeNode[] nodes)
+        /// <summary>
+        /// Instantiated a new RAFPathSelector, which takes
+        /// in a group of RAF In memory FSOs and allows the user to select
+        /// a single node.
+        /// </summary>
+        /// <param name="nodes"></param>
+        public RAFPathSelector(RAFInMemoryFileSystemObject[] nodes)
         {
             InitializeComponent();
             //Resizes layout and add handler for resizing
@@ -39,17 +45,28 @@ namespace RAFManager
             if (lastLocation != Point.Empty) this.Location = lastLocation;
         }
 
+        /// <summary>
+        /// When a node is clicked, update the selectedItemLabel's text
+        /// </summary>
         void treeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             this.selectedItemLabel.Text = ((RAFInMemoryFileSystemObject)e.Node).GetRAFPath();
             this.selectedItemLabel.SelectionStart = this.selectedItemLabel.Text.Length;
         }
 
+        /// <summary>
+        /// When the form closes, store its location+size so upon opening again,
+        /// we can place ourself there
+        /// </summary>
         void TreeNodeSelector_FormClosing(object sender, FormClosingEventArgs e)
         {
             lastSize = this.Size;
             lastLocation = this.Location;
         }
+
+        /// <summary>
+        /// Manages the layout of this form
+        /// </summary>
         private void ManageLayout()
         {
             bigContainer.SplitterDistance = this.ClientSize.Height - this.doneButton.Height;
@@ -60,6 +77,10 @@ namespace RAFManager
             this.selectedItemLabel.Width = this.ClientSize.Width - this.doneButton.Width;
             this.selectedItemLabel.ReadOnly = true;
         }
+
+        /// <summary>
+        /// GET - Gets the path of the selected node, including its RAFPath
+        /// </summary>
         public string SelectedNodePath
         {
             get
@@ -70,6 +91,9 @@ namespace RAFManager
             }
         }
 
+        /// <summary>
+        /// When the done button is clicked, close
+        /// </summary>
         private void doneButton_Click(object sender, EventArgs e)
         {
             this.Close();
