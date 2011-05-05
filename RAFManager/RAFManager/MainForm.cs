@@ -1,4 +1,5 @@
-﻿//TODO: Import folder to raf manager
+﻿//#define TaskBar
+//TODO: Import folder to raf manager
 
 using System;
 using System.Collections.Generic;
@@ -50,8 +51,10 @@ namespace RAFManager
             InitializeUtil();
             InitializeProject();
 
+#if TaskBar
             Windows7.DesktopIntegration.Windows7Taskbar.AllowTaskbarWindowMessagesThroughUIPI();
             Windows7.DesktopIntegration.Windows7Taskbar.SetWindowAppId(this.Handle, "RAFManager");
+#endif
         }
         /// <summary>
         /// Sets the progress value of our taskbar entry
@@ -59,10 +62,12 @@ namespace RAFManager
         /// <param name="n">progress from 0-100</param>
         void SetTaskbarProgress(int n)
         {
+#if TaskBar
             if(n <= 0)
                 Windows7.DesktopIntegration.Windows7Taskbar.SetProgressState(this.Handle, Windows7.DesktopIntegration.Windows7Taskbar.ThumbnailProgressState.NoProgress);
             else
                 Windows7.DesktopIntegration.Windows7Taskbar.SetProgressValue(this.Handle, (UInt32)n, 100);
+#endif
         }
         void MainForm_Load(object sender, EventArgs e)
         {
@@ -73,6 +78,8 @@ namespace RAFManager
             Title("Loading RAF Files - ");            
             log.Text = "www.ItzWarty.com Riot Archive File Packer/Unpacker 30-April-2011 4:34pm build";
 
+            byte[] a;
+            
             //Enumerate RAF files
             string[] archivePaths = Directory.GetDirectories(archivesRoot);
             #region load_raf_archives
