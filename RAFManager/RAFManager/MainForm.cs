@@ -76,7 +76,7 @@ namespace RAFManager
 
 
             Title("Loading RAF Files - ");            
-            log.Text = "www.ItzWarty.com Riot Archive File Packer/Unpacker 30-April-2011 4:34pm build";
+            log.Text = "www.ItzWarty.com Riot Archive File Packer/Unpacker "+ApplicationInformation.BuildTime;
 
             byte[] a;
             
