@@ -30,7 +30,7 @@ namespace RAFManager
         /// </summary>
         private void InitializeChangesView()
         {
-            StylizeChangesView();
+            UpdateChangesGUI();
 
             changesView.CellClick += new DataGridViewCellEventHandler(changesView_CellClick);
             changesView.CurrentCellChanged += new EventHandler(changesView_CurrentCellChanged);
@@ -42,7 +42,7 @@ namespace RAFManager
             rafContentView.AllowDrop = true;
             rafContentView.DragOver += new DragEventHandler(rafContentView_DragOver);
 
-            this.Resize += delegate(object sender, EventArgs e) { StylizeChangesView(); };
+            this.Resize += delegate(object sender, EventArgs e) { UpdateChangesGUI(); };
         }
 
         void changesView_DragDrop(object sender, DragEventArgs e)
@@ -119,8 +119,8 @@ namespace RAFManager
                         }
                         if (matchedEntry != null) //If it's still not resolved
                         {
-                            changesView.Rows[rowIndex].Cells[CN_RAFPATH].Value = matchedEntry.FileName;
-                            changesView.Rows[rowIndex].Cells[CN_RAFPATH].Tag = matchedEntry.FileName;
+                            changesView.Rows[rowIndex].Cells[CN_RAFPATH].Value = matchedEntry.RAFArchive.GetID() + "/" + matchedEntry.FileName;
+                            changesView.Rows[rowIndex].Cells[CN_RAFPATH].Tag = matchedEntry;
                         }
                         else
                         {
@@ -128,9 +128,9 @@ namespace RAFManager
                         }
                     }
                 }
-                StylizeChangesView();
+                UpdateChangesGUI();
             }
-            SetTaskbarProgress(-1);
+            SetTaskbarProgress(0);
         }
 
         void changesView_DragOver(object sender, DragEventArgs e)
@@ -144,14 +144,13 @@ namespace RAFManager
 
         void changesView_CurrentCellChanged(object sender, EventArgs e)
         {
-            project.HasChanged = true;
-
-            Title(project.GetWindowTitle());
+            HasProjectChanged = true;
+            UpdateProjectGUI();
         }
         /// <summary>
         /// Sizes the columns in the modifications view
         /// </summary>
-        private void StylizeChangesView()
+        private void UpdateChangesGUI()
         {
             changesView.Columns[0].Width = 50;
             changesView.Columns[1].Width = (changesView.Width - 110 - 20) / 2;
@@ -163,13 +162,22 @@ namespace RAFManager
             Graphics g = this.CreateGraphics();
             if (g != null)
             {
-                for (int i = 0; i < changesView.Rows.Count; i++)
+                for (int i = 0; i < changesView.Rows.Count-1; i++)
                 {
                     DataGridViewCell localPathCell = changesView.Rows[i].Cells[CN_LOCALPATH];
                     localPathCell.Value = CutStringToWidth((string)localPathCell.Tag, (changesView.Width - 110 - 20) / 2 - 20, g, changesView.Font);
 
                     DataGridViewCell rafPathCell = changesView.Rows[i].Cells[CN_RAFPATH];
-                    rafPathCell.Value = CutStringToWidth((string)rafPathCell.Tag, (changesView.Width - 110 - 20) / 2 -20, g, changesView.Font);
+                    RAFFileListEntry entry = (RAFFileListEntry)rafPathCell.Tag;
+                    if (entry == null)
+                    {
+                        rafPathCell.Value = "";
+                    }
+                    else
+                    {
+                        string displayedFullPath = entry.RAFArchive.GetID() + "/" + entry.FileName;
+                        rafPathCell.Value = CutStringToWidth(displayedFullPath, (changesView.Width - 110 - 20) / 2 - 20, g, changesView.Font);
+                    }
                 }
                 g.Dispose();
             }
@@ -205,8 +213,10 @@ namespace RAFManager
                 string rafPath = PickRafPath();
                 if (rafPath != "")
                 {
-                    row.Cells[CN_RAFPATH].Value = rafPath;
-                    row.Cells[CN_RAFPATH].Tag = rafPath;
+                    Console.WriteLine(rafPath);
+                    RAFFileListEntry entry = ResolveRAFPathToEntry(rafPath);
+                    row.Cells[CN_RAFPATH].Value = entry.RAFArchive.GetID() + "/" + entry.FileName;
+                    row.Cells[CN_RAFPATH].Tag = ResolveRAFPathToEntry(rafPath);
                     if (cell.RowIndex == changesView.Rows.Count - 1)
                     {
                         //Tell the view that the currently selected cell is "dirty", so it makes a
@@ -232,7 +242,7 @@ namespace RAFManager
                     }
                 }
             }
-            StylizeChangesView();
+            UpdateChangesGUI();
         }
 
         void rafContentView_DragOver(object sender, DragEventArgs e)
