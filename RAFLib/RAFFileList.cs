@@ -78,18 +78,11 @@ namespace RAFLib
             for (int i = 0; i < fileEntries.Count; i++)
             {
                 string lowerFilename = fileEntries[i].FileName.ToLower();
-                if (lowerFilename.Contains("ezreal.skl"))
-                {
-                    Console.WriteLine(" pp: " + lowerPath);
-                    Console.WriteLine("LFN: " + lowerFilename);
-                    Console.WriteLine(" EW: " + lowerFilename.EndsWith(lowerPath));
-                }
                 if (lowerFilename.EndsWith(lowerPath))
                 {
                     result.Add(fileEntries[i]);
                 }
             }
-            Console.WriteLine("result length: " + result.Count);
             return result;
         }
     }
