@@ -22,8 +22,6 @@ namespace RAFManager
 {
     public partial class MainForm : Form
     {
-        private RAFProject project = null;
-
         //TODO: Configuration file to set this stuff
         //And a pretty editor.
         private string archivesRoot = @"C:\Riot Games\League of Legends\RADS\projects\lol_game_client\filearchives\";
@@ -50,8 +48,7 @@ namespace RAFManager
 
             InitializeChangesView();
             InitializeUtil();
-
-            project = new RAFProject();
+            InitializeProject();
 
             Windows7.DesktopIntegration.Windows7Taskbar.AllowTaskbarWindowMessagesThroughUIPI();
             Windows7.DesktopIntegration.Windows7Taskbar.SetWindowAppId(this.Handle, "RAFManager");
@@ -118,15 +115,7 @@ namespace RAFManager
             Title("Done loading RAF Files");
 
             LogInstructions();
-            Title(project.GetWindowTitle());
-            projectNameTb.Text = project.ProjectInfo.ProjectName;
-            projectNameTb.TextChanged += new EventHandler(projectNameTb_TextChanged);
-        }
-
-        void projectNameTb_TextChanged(object sender, EventArgs e)
-        {
-            project.ProjectInfo.ProjectName = projectNameTb.Text;
-            Title(project.GetWindowTitle());            
+            UpdateProjectGUI();
         }
         private void Log(string s)
         {
@@ -148,23 +137,49 @@ namespace RAFManager
             Log("Be.HexEditor by http://sourceforge.net/projects/hexbox/");
         }
 
-        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        private void packToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (project != null)
+            DialogResult result = MessageBox.Show("Are all archives backed up?  This application has been tested quite a bit, but errors might one day pop up.  You should backup your archive files (run the backup menu item).  Do you want to continue?  This is your last warning.", "Confirm backup", MessageBoxButtons.YesNo);
+
+            //Verify
+            if (!VerifyPackPrecondition()) MessageBox.Show("Not all preconditions for packing were met.  Read the log, located at the bottom of the main window.");
+
+            if (result == System.Windows.Forms.DialogResult.Yes)
             {
-                if (project.HasChanged)
+                //We shall do our stuffs.
+                for (int i = 0; i < changesView.Rows.Count; i++)
                 {
-                    //Save Dialog                               HUEHUEHUEHUEHUEHUEHUEHUEHUE
-                    DialogResult result = MessageBox.Show("You have unsaved changes.\nClick cancel to save those changes before you do anything else.\nClick ok to continue onwards.", "Insert Funny Comment here", MessageBoxButtons.OKCancel);
-                    if (result == System.Windows.Forms.DialogResult.Cancel) return;
-                    else
-                        Log("Rammus: ok");
+                    DataGridViewRow row = changesView.Rows[i];
+                    string rafPath = (string)row.Cells[CN_RAFPATH].Value;
+                    string localPath = (string)row.Cells[CN_LOCALPATH].Value;
+
                 }
             }
-
-            project = new RAFProject();
-            projectNameTb.Text = project.ProjectInfo.ProjectName;
-            Title(project.GetWindowTitle());
+        }
+        private bool VerifyPackPrecondition()
+        {
+            for (int i = 0; i < changesView.Rows.Count; i++)
+            {
+                DataGridViewRow row = changesView.Rows[i];
+                if (row.Cells[CN_RAFPATH].Value == "" || row.Cells[CN_LOCALPATH].Value == "")
+                {
+                    Log("Row of rafpath value '" + (string)row.Cells[CN_RAFPATH].Value + "' and localPath value '" + (string)row.Cells[CN_LOCALPATH].Value + "' is incomplete'");
+                    return false;
+                }else{
+                    List<RAFArchive> archives = new List<RAFArchive>(rafArchives.Values);
+                    bool foundEntry = false;
+                    foreach(RAFArchive archive in archives)
+                    {
+                        if (archive.GetDirectoryFile().GetFileList().GetFileEntry((string)row.Cells[CN_RAFPATH].Value) != null) foundEntry = true;
+                    }
+                    if (!foundEntry)
+                    {
+                        Log("RAFPath '" + (string)row.Cells[CN_RAFPATH].Value + "' couldn't be found in RAF archives.  ");
+                        return false;
+                    }
+                }
+            }
+            return true;
         }
     }
 }

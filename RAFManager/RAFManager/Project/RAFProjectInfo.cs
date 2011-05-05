@@ -8,7 +8,11 @@ namespace RAFManager.Project
     public class RAFProjectInfo
     {
         private string projectName = "";
+
+        //Reserved, though unused at the moment
         private string projectPath = "";
+
+        //Reserved, though unused at the moment
         private string fileArchivesDirectory = "";
 
         public string ProjectName

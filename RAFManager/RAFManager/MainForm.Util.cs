@@ -5,6 +5,8 @@ using System.Text;
 
 using System.Windows.Forms;
 
+using RAFLib;
+
 namespace RAFManager
 {
     partial class MainForm:Form
@@ -36,17 +38,26 @@ namespace RAFManager
             RAFPathSelector selectorDialog = new RAFPathSelector(nodes);
             selectorDialog.ShowDialog();
             return selectorDialog.SelectedNodePath;
+        }
+        /// <summary>
+        /// In this case, rafpack includes the preceeding 0.0.0.xx/
+        /// </summary>
+        /// <param name="rafPath"></param>
+        /// <returns></returns>
+        private RAFFileListEntry ResolveRAFPathToEntry(string rafPath)
+        {
+            int firstSlash = rafPath.IndexOf("/");
+            string archiveId = rafPath.Substring(0, firstSlash);  //Get everything before first slash
+            string internalPath = rafPath.Substring(firstSlash + 1); //Get everything after first slash
 
-            rafContentView.SelectedNode = null;
-
-            string oldTitle = this.Text;
-            while (rafContentView.SelectedNode == null)
+            foreach (RAFArchive archive in rafArchives.Values)
             {
-                Title("Double click a file from the raf browser.");
-                Application.DoEvents();
+                if (archive.GetID() == archiveId)
+                {
+                    return archive.GetDirectoryFile().GetFileList().GetFileEntry(internalPath);
+                }
             }
-            this.Text = oldTitle;
-            return ((RAFInMemoryFileSystemObject)rafContentView.SelectedNode).GetRAFPath();
+            return null;
         }
     }
 }
