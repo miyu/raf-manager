@@ -161,7 +161,7 @@ namespace RAFManager
             for (int i = 0; i < changesView.Rows.Count; i++)
             {
                 DataGridViewRow row = changesView.Rows[i];
-                if (row.Cells[CN_RAFPATH].Value == "" || row.Cells[CN_LOCALPATH].Value == "")
+                if ((string)row.Cells[CN_RAFPATH].Value == "" || (string)row.Cells[CN_LOCALPATH].Value == "")
                 {
                     Log("Row of rafpath value '" + (string)row.Cells[CN_RAFPATH].Value + "' and localPath value '" + (string)row.Cells[CN_LOCALPATH].Value + "' is incomplete'");
                     return false;
