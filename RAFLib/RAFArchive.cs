@@ -15,9 +15,10 @@ namespace RAFLib
     {
         private FileStream dataFileStream = null;
         private RAFDirectoryFile directoryFile = null;
-
+        private string rafPath = "";
         public RAFArchive(string rafPath)
         {
+            this.rafPath = rafPath;
             dataFileStream = new FileStream(rafPath+".dat", FileMode.Open);
             this.directoryFile  = new RAFDirectoryFile(this, rafPath);
         }
@@ -181,6 +182,15 @@ namespace RAFLib
                     Directory.CreateDirectory(dirPath);
                 //Console.WriteLine(dirPath);
             }
+        }
+        /// <summary>
+        /// Returns what i'm calling the ID of an archive, though it's probably related to LoL versioning.
+        /// IE: 0.0.0.25, 0.0.0.26
+        /// </summary>
+        /// <returns></returns>
+        public string GetID()
+        {
+            return new FileInfo(this.rafPath).Directory.Name;
         }
     }
 }
