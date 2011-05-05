@@ -77,6 +77,16 @@ namespace RAFLib
         {
             return this.stringTable;
         }
+
+        /// <summary>
+        /// Returns the DirectoryFile that is currently in memory.
+        /// If it fileEntries have been changed, this will reflect those changes.
+        /// </summary>
+        /// <returns></returns>
+        public byte[] GetContent()
+        {
+            return content;
+        }
         /*
         private void PrintFileList()
         {

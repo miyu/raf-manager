@@ -14,7 +14,7 @@ namespace RAFLib
         private byte[] directoryFileContent = null;
         private UInt32 offsetEntry = 0;
         private RAFArchive raf = null;
-        public RAFFileListEntry(RAFArchive raf, byte[] directoryFileContent, UInt32 offsetEntry)
+        public RAFFileListEntry(RAFArchive raf, ref byte[] directoryFileContent, UInt32 offsetEntry)
         {
             this.raf = raf;
             this.directoryFileContent = directoryFileContent;
@@ -53,6 +53,11 @@ namespace RAFLib
             get
             {
                 return BitConverter.ToUInt32(directoryFileContent, (int)offsetEntry+8);
+            }
+            set
+            {
+                byte[] valueBytes = BitConverter.GetBytes(value);
+                Array.Copy(valueBytes, 0, directoryFileContent, offsetEntry + 8, 4);
             }
         }
         /// <summary>

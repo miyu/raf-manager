@@ -16,8 +16,13 @@ namespace RAFLib
         private FileStream dataFileStream = null;
         private RAFDirectoryFile directoryFile = null;
         private string rafPath = "";
+        private string[] nocompress = null;
         public RAFArchive(string rafPath)
         {
+            nocompress = RAFLib.Properties.Resources.nocompress.Split("\n");
+            for (int i = 0; i < nocompress.Length; i++)
+                nocompress[i] = nocompress[i].ToLower();
+
             this.rafPath = rafPath;
             dataFileStream = new FileStream(rafPath+".dat", FileMode.Open);
             this.directoryFile  = new RAFDirectoryFile(this, rafPath);
@@ -166,10 +171,71 @@ namespace RAFLib
             //Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new Form1());
         }
+        //Inserts a file into the raf archive...
         public bool InsertFile(string fileName, byte[] content)
         {
+            Console.WriteLine("    Insert: " + fileName);
+            Console.WriteLine("        To: " + GetID());
+
             RAFFileListEntry fileentry = this.GetDirectoryFile().GetFileList().GetFileEntry(fileName);
-            return false; //TODO
+
+            UInt32 oldOffset = (UInt32)fileentry.FileOffset;
+            UInt32 oldSize = (UInt32)fileentry.FileSize;
+            Console.WriteLine("Old Offset: " + oldOffset +"; Old Size: " + oldSize);
+
+            Console.WriteLine("Begin modify game files...  This may take a while");
+            try
+            {
+                Console.WriteLine("    Get File Stream");
+                FileStream datFileStream = GetDataFileContentStream();
+                //navigate to the end of it, add the file.
+                datFileStream.Seek(0, SeekOrigin.End);
+                UInt32 offset = (UInt32)datFileStream.Length;
+
+                byte[] finalContent;
+                if (nocompress.Contains(fileName))
+                {
+                    finalContent = content;
+                }
+                else
+                {
+                    Console.WriteLine("    Begin compression of content");
+                    MemoryStream mStream = new MemoryStream();
+                    zlib.ZOutputStream oStream = new zlib.ZOutputStream(mStream, zlib.zlibConst.Z_DEFAULT_COMPRESSION); //using default compression level
+                    oStream.Write(content, 0, content.Length);
+                    oStream.finish();
+                    finalContent = mStream.ToArray();
+                }
+
+                Console.WriteLine("    Begin DAT Write");
+                datFileStream.Write(finalContent, 0, finalContent.Length);
+
+                Console.WriteLine("    Begin FileEntry Write");
+                fileentry.FileOffset = offset;
+                fileentry.FileSize = (UInt32)finalContent.Length;
+                //directoryFile.Save();
+                Console.WriteLine("    Done.");
+                return true;
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("!! An error occurred in inserting a file.");
+                Console.WriteLine("!! Note that the content of the raf archive has been added to");
+                Console.WriteLine("!! But the directory file that points the game to the data in the content file");
+                Console.WriteLine("!! Has not been modified.  In other words, if the game read the RAF archive now");
+                Console.WriteLine("!! It wouldn't see a difference.");
+                Console.WriteLine("!! However, the RAF archive is a bit bigger than before.");
+                Console.WriteLine(e.ToString());
+
+                fileentry.FileOffset = oldOffset;
+                fileentry.FileSize = oldSize;
+                //directoryFile.GetContent();
+                return false;
+            }
+        }
+        public void SaveDirectoryFile()
+        {
+            File.WriteAllBytes(rafPath, directoryFile.GetContent());
         }
         private static void PrepareDirectory(string path)
         {
