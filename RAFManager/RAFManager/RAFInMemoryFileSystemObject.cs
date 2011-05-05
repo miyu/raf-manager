@@ -20,6 +20,12 @@ namespace RAFManager
     public class RAFInMemoryFileSystemObject : TreeNode
     {
         private RAFFSOType fsoType;
+        /// <summary>
+        /// TreeNode that can be displayed in a treeview.  Represents a RAF Internal File System Object.
+        /// </summary>
+        /// <param name="parent"></param>
+        /// <param name="fsoType"></param>
+        /// <param name="name"></param>
         public RAFInMemoryFileSystemObject(RAFInMemoryFileSystemObject parent, RAFFSOType fsoType, string name)
             :base( //lol.  Is this a sign that I haven't played with C# enough?
                 (fsoType==RAFFSOType.DIRECTORY?
@@ -122,10 +128,20 @@ namespace RAFManager
             return resultSb.ToString();
         }
 
+        /// <summary>
+        /// Gets the {RAFFSOType} File System Object type, ex: Archive, Directory, File
+        /// </summary>
+        /// <returns></returns>
         public RAFFSOType GetFSOType()
         {
             return this.fsoType;
         }
+
+        /// <summary>
+        /// Gets the topmost parent of this RAF In Memory FSO
+        /// Also known as, the archive itself
+        /// </summary>
+        /// <returns></returns>
         public RAFInMemoryFileSystemObject GetTopmostParent()
         {
             RAFInMemoryFileSystemObject currentNode = this;
@@ -134,6 +150,12 @@ namespace RAFManager
             return currentNode;
         }
 
+        /// <summary>
+        /// Creates a new deep copy of this RAF In Memory FSO
+        /// 
+        /// ...Only Nodes are deep copied
+        /// </summary>
+        /// <returns></returns>
         public override object Clone()
         {
             RAFInMemoryFileSystemObject result = new RAFInMemoryFileSystemObject(null, this.fsoType, this.Name);

@@ -13,6 +13,11 @@ namespace RAFManager
 {
     public partial class TextViewer : Form
     {
+        /// <summary>
+        /// Instantiates a TextViewer form which displays a string
+        /// </summary>
+        /// <param name="title">Title of the window</param>
+        /// <param name="content">Content displayed</param>
         public TextViewer(string title, string content)
         {
             InitializeComponent();

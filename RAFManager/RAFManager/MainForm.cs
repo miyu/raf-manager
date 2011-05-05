@@ -117,12 +117,20 @@ namespace RAFManager
             LogInstructions();
             UpdateProjectGUI();
         }
+
+        /// <summary>
+        /// Logs a message to our console
+        /// </summary>
         private void Log(string s)
         {
             log.Text += "\r\n" + s;
             log.SelectionStart = log.Text.Length;
             log.ScrollToCaret();
         }
+
+        /// <summary>
+        /// Writes the instructions/welcome of this app to our logger
+        /// </summary>
         private void LogInstructions()
         {
             Log("");
@@ -137,6 +145,12 @@ namespace RAFManager
             Log("Be.HexEditor by http://sourceforge.net/projects/hexbox/");
         }
 
+        /// <summary>
+        /// When the toolstrip->pack is clicked,
+        /// 1) Ask the user if archives are backed up
+        /// 2) Verify Preconditions
+        /// 3) Pack
+        /// </summary>
         private void packToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show("Are all archives backed up?  This application has been tested quite a bit, but errors might one day pop up.  You should backup your archive files (run the backup menu item).  Do you want to continue?  This is your last warning.", "Confirm backup", MessageBoxButtons.YesNo);
@@ -157,15 +171,22 @@ namespace RAFManager
                     RAFFileListEntry entry = (RAFFileListEntry)row.Cells[CN_RAFPATH].Tag;
                     string rafPath = entry.FileName;
                     string localPath = (string)row.Cells[CN_LOCALPATH].Tag;
+                    bool useFile = (bool)row.Cells[CN_USE].Tag;
 
                     //Open the RAF archive, insert.
-                    entry.RAFArchive.InsertFile(rafPath, File.ReadAllBytes(localPath));
+                    if(useFile)
+                        entry.RAFArchive.InsertFile(rafPath, File.ReadAllBytes(localPath));
                 }
                 List<RAFArchive> archives = new List<RAFArchive>(rafArchives.Values);
                 for (int i = 0; i < archives.Count; i++)
                     archives[i].SaveDirectoryFile();
             }
         }
+        /// <summary>
+        /// Verifies that the project is ready for packing:
+        /// All rows need to be filled properly
+        /// </summary>
+        /// <returns></returns>
         private bool VerifyPackPrecondition()
         {
             for (int i = 0; i < changesView.Rows.Count-1; i++)

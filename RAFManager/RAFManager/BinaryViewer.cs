@@ -15,6 +15,9 @@ namespace RAFManager
 {
     public partial class BinaryViewer : Form
     {
+        /// <summary>
+        /// Implements a Binary viewer (More Hex-Editor) using the Be.HexBox control
+        /// </summary>
         public BinaryViewer(string title, byte[] content)
         {
             InitializeComponent();
