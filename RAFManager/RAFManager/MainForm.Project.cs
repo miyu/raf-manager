@@ -51,6 +51,7 @@ namespace RAFManager
         }
         private void SaveProject(string location)
         {
+            changesView.ClearSelection();
             /**
              * Output:
              * ProjectName
@@ -67,16 +68,26 @@ namespace RAFManager
             string serialization = projectInfo.ProjectName;
             serialization += "\n" + " ";
             serialization += "\n" + " ";
-            for (int i = 0; i < changesView.RowCount - 1; i++)
+            for (int i = 0; i < changesView.RowCount; i++)
             {
                 DataGridViewRow row = changesView.Rows[i];
                 RAFFileListEntry entry = ((RAFFileListEntry)row.Cells[CN_RAFPATH].Tag);
-                bool check = row.Cells[CN_USE].Value==null?false:(bool)row.Cells[CN_USE].Value ;
-                serialization += "\n" + (check ? "1" : "0")
-                    + " " + (string)row.Cells[CN_LOCALPATH].Tag
-                    + " | " + entry.RAFArchive.GetID() + "/" + entry.FileName;
+                if (entry != null)
+                {
+                    bool check = true;
+                    if (row.Cells[CN_USE].Value == null)
+                        check = false;
+                    else
+                        check = (bool)row.Cells[CN_USE].Value;
+
+                    serialization += "\n" + (check ? "1" : "0")
+                        + " " + (string)row.Cells[CN_LOCALPATH].Tag
+                        + " | " + entry.RAFArchive.GetID() + "/" + entry.FileName;
+                }
             }
+            HasProjectChanged = false;
             File.WriteAllText(location, serialization);
+            UpdateProjectGUI();
         }
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -114,6 +125,9 @@ namespace RAFManager
                 string rafPath = parts[1].Trim();       //includes RAF Archive Id (0.0.0.xx)
 
                 int rowId = changesView.Rows.Add();
+
+                changesView.Rows[rowId].Cells[CN_USE].Value = check;
+
                 changesView.Rows[rowId].Cells[CN_LOCALPATH].Value = localPath;
                 changesView.Rows[rowId].Cells[CN_LOCALPATH].Tag = localPath;
 

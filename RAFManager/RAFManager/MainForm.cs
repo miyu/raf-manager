@@ -142,35 +142,51 @@ namespace RAFManager
             DialogResult result = MessageBox.Show("Are all archives backed up?  This application has been tested quite a bit, but errors might one day pop up.  You should backup your archive files (run the backup menu item).  Do you want to continue?  This is your last warning.", "Confirm backup", MessageBoxButtons.YesNo);
 
             //Verify
-            if (!VerifyPackPrecondition()) MessageBox.Show("Not all preconditions for packing were met.  Read the log, located at the bottom of the main window.");
+            if (!VerifyPackPrecondition())
+            {
+                MessageBox.Show("Not all preconditions for packing were met.  Read the log, located at the bottom of the main window.");
+                return;
+            }
 
             if (result == System.Windows.Forms.DialogResult.Yes)
             {
                 //We shall do our stuffs.
-                for (int i = 0; i < changesView.Rows.Count; i++)
+                for (int i = 0; i < changesView.Rows.Count-1; i++)
                 {
                     DataGridViewRow row = changesView.Rows[i];
-                    string rafPath = (string)row.Cells[CN_RAFPATH].Value;
-                    string localPath = (string)row.Cells[CN_LOCALPATH].Value;
+                    RAFFileListEntry entry = (RAFFileListEntry)row.Cells[CN_RAFPATH].Tag;
+                    string rafPath = entry.FileName;
+                    string localPath = (string)row.Cells[CN_LOCALPATH].Tag;
 
+                    //Open the RAF archive, insert.
+                    entry.RAFArchive.InsertFile(rafPath, File.ReadAllBytes(localPath));
                 }
+                List<RAFArchive> archives = new List<RAFArchive>(rafArchives.Values);
+                for (int i = 0; i < archives.Count; i++)
+                    archives[i].SaveDirectoryFile();
             }
         }
         private bool VerifyPackPrecondition()
         {
-            for (int i = 0; i < changesView.Rows.Count; i++)
+            for (int i = 0; i < changesView.Rows.Count-1; i++)
             {
                 DataGridViewRow row = changesView.Rows[i];
-                if (((string)row.Cells[CN_RAFPATH].Value) == "" || ((string)row.Cells[CN_LOCALPATH].Value) == "")
+                if (((string)row.Cells[CN_LOCALPATH].Tag) == "" || row.Cells[CN_RAFPATH].Tag == null)
                 {
                     Log("Row of rafpath value '" + (string)row.Cells[CN_RAFPATH].Value + "' and localPath value '" + (string)row.Cells[CN_LOCALPATH].Value + "' is incomplete'");
                     return false;
                 }else{
+                    if (!File.Exists((string)row.Cells[CN_LOCALPATH].Tag))
+                    {
+                        Log("Local File Path '" + (string)row.Cells[CN_LOCALPATH].Tag + "' couldn't be found");
+                        return false;
+                    }
                     List<RAFArchive> archives = new List<RAFArchive>(rafArchives.Values);
                     bool foundEntry = false;
+                    RAFFileListEntry entry = (RAFFileListEntry)row.Cells[CN_RAFPATH].Tag;
                     foreach(RAFArchive archive in archives)
                     {
-                        if (archive.GetDirectoryFile().GetFileList().GetFileEntry((string)row.Cells[CN_RAFPATH].Value) != null) foundEntry = true;
+                        if (archive.GetDirectoryFile().GetFileList().GetFileEntry(entry.FileName) != null) foundEntry = true;
                     }
                     if (!foundEntry)
                     {

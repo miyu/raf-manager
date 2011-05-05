@@ -37,12 +37,34 @@ namespace RAFManager
             changesView.AllowDrop = true;
             changesView.DragOver += new DragEventHandler(changesView_DragOver);
             changesView.DragDrop += new DragEventHandler(changesView_DragDrop);
+            changesView.RowsAdded += new DataGridViewRowsAddedEventHandler(changesView_RowsAdded);
+            changesView.CurrentCellDirtyStateChanged += new EventHandler(changesView_CurrentCellDirtyStateChanged);
 
             rafContentView.NodeMouseDoubleClick += new TreeNodeMouseClickEventHandler(rafContentView_NodeMouseDoubleClick);
             rafContentView.AllowDrop = true;
             rafContentView.DragOver += new DragEventHandler(rafContentView_DragOver);
 
             this.Resize += delegate(object sender, EventArgs e) { UpdateChangesGUI(); };
+        }
+
+        void changesView_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+            if (changesView.CurrentCell is DataGridViewCheckBoxCell)
+            {
+                //Commit cell changes to the back end data cache
+                //This is so things using the save context is okay even if a cell is being edited
+                //The current cell's state is saved.
+                changesView.CommitEdit(DataGridViewDataErrorContexts.Commit);
+            }
+        }
+
+        void changesView_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            for (int i = 0; i < changesView.RowCount; i++)
+            {
+                changesView.Rows[i].Cells[CN_LOCALPATHPICKER].Value = "...";
+                changesView.Rows[i].Cells[CN_RAFPATHPICKER].Value = "...";
+            }
         }
 
         void changesView_DragDrop(object sender, DragEventArgs e)
