@@ -167,19 +167,38 @@ namespace RAFManager
                 //We shall do our stuffs.
                 for (int i = 0; i < changesView.Rows.Count-1; i++)
                 {
+                    if (changesView.Rows.Count == 1)
+                        SetTaskbarProgress(50);
+                    else
+                        SetTaskbarProgress((i+1)*100 / changesView.Rows.Count - 1);
                     DataGridViewRow row = changesView.Rows[i];
                     RAFFileListEntry entry = (RAFFileListEntry)row.Cells[CN_RAFPATH].Tag;
                     string rafPath = entry.FileName;
                     string localPath = (string)row.Cells[CN_LOCALPATH].Tag;
-                    bool useFile = (bool)row.Cells[CN_USE].Tag;
+                    bool useFile = (bool)row.Cells[CN_USE].Value;
 
                     //Open the RAF archive, insert.
                     if(useFile)
-                        entry.RAFArchive.InsertFile(rafPath, File.ReadAllBytes(localPath));
+                        entry.RAFArchive.InsertFile(
+                            rafPath, 
+                            File.ReadAllBytes(localPath), 
+                            new LogTextWriter(
+                                (Func<string,object>)delegate(string s)
+                                {
+                                    Log(s);
+                                    return null;
+                                }
+                            )
+                        );
                 }
                 List<RAFArchive> archives = new List<RAFArchive>(rafArchives.Values);
                 for (int i = 0; i < archives.Count; i++)
+                {
+                    SetTaskbarProgress((i+1)*100 / (archives.Count + 1));
                     archives[i].SaveDirectoryFile();
+                }
+
+                SetTaskbarProgress(0);
             }
         }
         /// <summary>
