@@ -32,7 +32,7 @@ namespace RAFLib
             for (UInt32 currentOffset = offsetEntriesStart;
                 currentOffset < offsetEntriesStart + 16 * fileListCount; currentOffset += 16)
             {
-                this.fileEntries.Add(new RAFFileListEntry(raf, directoryFileContent, currentOffset));
+                this.fileEntries.Add(new RAFFileListEntry(raf, ref directoryFileContent, currentOffset));
             }
         }
         public List<RAFFileListEntry> GetFileEntries()
