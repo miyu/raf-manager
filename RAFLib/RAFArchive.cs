@@ -172,21 +172,24 @@ namespace RAFLib
             //Application.Run(new Form1());
         }
         //Inserts a file into the raf archive...
-        public bool InsertFile(string fileName, byte[] content)
+        public bool InsertFile(string fileName, byte[] content, TextWriter ostream)
         {
-            Console.WriteLine("    Insert: " + fileName);
-            Console.WriteLine("        To: " + GetID());
+            ostream.WriteLine("    Insert: " + fileName);
+            ostream.WriteLine("        To: " + GetID());
 
             RAFFileListEntry fileentry = this.GetDirectoryFile().GetFileList().GetFileEntry(fileName);
 
+            //store the old offsets just in case we need to perform a restore.
+            //This actually isn't necessary currently, since the raf directory file is saved
+            //After packing.
             UInt32 oldOffset = (UInt32)fileentry.FileOffset;
             UInt32 oldSize = (UInt32)fileentry.FileSize;
-            Console.WriteLine("Old Offset: " + oldOffset +"; Old Size: " + oldSize);
+            ostream.WriteLine("Old Offset: " + oldOffset +"; Old Size: " + oldSize);
 
-            Console.WriteLine("Begin modify game files...  This may take a while");
+            ostream.WriteLine("Begin modify game files...  This may take a while");
             try
             {
-                Console.WriteLine("    Get File Stream");
+                ostream.WriteLine("    Get File Stream");
                 FileStream datFileStream = GetDataFileContentStream();
                 //navigate to the end of it, add the file.
                 datFileStream.Seek(0, SeekOrigin.End);
@@ -199,7 +202,7 @@ namespace RAFLib
                 }
                 else
                 {
-                    Console.WriteLine("    Begin compression of content");
+                    ostream.WriteLine("    Begin compression of content");
                     MemoryStream mStream = new MemoryStream();
                     zlib.ZOutputStream oStream = new zlib.ZOutputStream(mStream, zlib.zlibConst.Z_DEFAULT_COMPRESSION); //using default compression level
                     oStream.Write(content, 0, content.Length);
@@ -207,25 +210,25 @@ namespace RAFLib
                     finalContent = mStream.ToArray();
                 }
 
-                Console.WriteLine("    Begin DAT Write");
+                ostream.WriteLine("    Begin DAT Write");
                 datFileStream.Write(finalContent, 0, finalContent.Length);
 
-                Console.WriteLine("    Begin FileEntry Write");
+                ostream.WriteLine("    Begin FileEntry Write");
                 fileentry.FileOffset = offset;
                 fileentry.FileSize = (UInt32)finalContent.Length;
                 //directoryFile.Save();
-                Console.WriteLine("    Done.");
+                ostream.WriteLine("    Done.");
                 return true;
             }
             catch(Exception e)
             {
-                Console.WriteLine("!! An error occurred in inserting a file.");
-                Console.WriteLine("!! Note that the content of the raf archive has been added to");
-                Console.WriteLine("!! But the directory file that points the game to the data in the content file");
-                Console.WriteLine("!! Has not been modified.  In other words, if the game read the RAF archive now");
-                Console.WriteLine("!! It wouldn't see a difference.");
-                Console.WriteLine("!! However, the RAF archive is a bit bigger than before.");
-                Console.WriteLine(e.ToString());
+                ostream.WriteLine("!! An error occurred in inserting a file.");
+                ostream.WriteLine("!! Note that the content of the raf archive has been added to");
+                ostream.WriteLine("!! But the directory file that points the game to the data in the content file");
+                ostream.WriteLine("!! Has not been modified.  In other words, if the game read the RAF archive now");
+                ostream.WriteLine("!! It wouldn't see a difference.");
+                ostream.WriteLine("!! However, the RAF archive is a bit bigger than before.");
+                ostream.WriteLine(e.ToString());
 
                 fileentry.FileOffset = oldOffset;
                 fileentry.FileSize = oldSize;
@@ -233,10 +236,18 @@ namespace RAFLib
                 return false;
             }
         }
+
+        /// <summary>
+        /// Saves the directory file by overwriting the old directory file
+        /// </summary>
         public void SaveDirectoryFile()
         {
             File.WriteAllBytes(rafPath, directoryFile.GetContent());
         }
+
+        /// <summary>
+        /// Creates the given directory and all directories leading up to it.
+        /// </summary>
         private static void PrepareDirectory(string path)
         {
             path = path.Replace("/", "\\");
@@ -246,7 +257,7 @@ namespace RAFLib
                 String dirPath = String.Join("\\", dirs.SubArray(0, i)) + "\\";
                 if (!Directory.Exists(dirPath))
                     Directory.CreateDirectory(dirPath);
-                //Console.WriteLine(dirPath);
+                //ostream.WriteLine(dirPath);
             }
         }
         /// <summary>
