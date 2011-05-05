@@ -71,6 +71,9 @@ namespace RAFLib
             }
         }
 
+        /// <summary>
+        /// Returns the internal raf path of this entry, not including the RafID
+        /// </summary>
         public String FileName
         {
             get
@@ -79,6 +82,9 @@ namespace RAFLib
             }
         }
 
+        /// <summary>
+        /// Returns the content of the actual file (extracts from raf archive)
+        /// </summary>
         public byte[] GetContent()
         {
             FileStream fStream = this.raf.GetDataFileContentStream();
@@ -110,6 +116,9 @@ namespace RAFLib
                 return buffer;
             }
         }
+        /// <summary>
+        /// Returns the corresponding RAFArchive of this entry
+        /// </summary>
         public RAFArchive RAFArchive
         {
             get
@@ -117,6 +126,10 @@ namespace RAFLib
                 return raf;
             }
         }
+
+        /// <summary>
+        /// ToString is overrided to return our filename
+        /// </summary>
         public override string ToString()
         {
             return FileName;
