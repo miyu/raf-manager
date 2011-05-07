@@ -9,6 +9,8 @@ using System.Windows.Forms;
 
 namespace RAFManager
 {
+    public delegate void NodeClickedHandler(TristateTreeNode node, MouseEventArgs e);
+    public delegate void NodeRightClickedHandler(TristateTreeNode node, MouseEventArgs e);
     public partial class TristateTreeView : Control
     {
         private VScrollBar vscrollbar           = new VScrollBar();
@@ -17,6 +19,11 @@ namespace RAFManager
                                                       //go down to a childnode for rendering
         private Graphics g                      = null;
         private Point startDrawOffset           = new Point(5, 5);
+        private string emptyComment             = null;
+
+        public event NodeClickedHandler NodeClicked = null;
+        public event NodeRightClickedHandler NodeRightClicked = null;
+
         public TristateTreeView()
         {
             InitializeComponent();
@@ -49,12 +56,14 @@ namespace RAFManager
         }
         private void SizeVScrollbar()
         {
-            Console.WriteLine("TDH: " + this.TreeDrawingHeight);
-            Console.WriteLine("H: " + this.Height);
+            //Console.WriteLine("TDH: " + this.TreeDrawingHeight);
+            //Console.WriteLine("H: " + this.Height);
             if (this.TreeDrawingHeight < this.Height)
             {
                 this.vscrollbar.Enabled = false;
-                this.vscrollbar.Value = 0;
+                this.vscrollbar.Minimum = 0;
+                this.vscrollbar.Maximum = 10;
+                this.vscrollbar.Value = 2;
             }
             else
             {
@@ -71,27 +80,43 @@ namespace RAFManager
         {
             mousedown = true;
             TristateTreeNode node = GetNodeAtLocation(new Point(e.X, e.Y + vscrollbar.Value));
+            selectedNode = node;
             Console.WriteLine("Clicked: " + (node == null?"nothing":node.Text));
             if (node != null)
             {
                 Point nodeLocation = node.GetLocation();
                 Console.WriteLine("nLoc: " + nodeLocation);
-                selectedNode = node;
                 node.ProcessClick(
                      new Point(
                          e.X - nodeLocation.X,
                          e.Y - nodeLocation.Y + vscrollbar.Value
-                     )
+                     ), e
                 );
                 SizeVScrollbar();
                 Invalidate();
             }
+            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+                if (NodeClicked != null) NodeClicked(selectedNode, e);
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+                if (NodeRightClicked != null) NodeRightClicked(selectedNode, e);
+
         }
         void TristateTreeView_MouseMove(object sender, MouseEventArgs e)
         {
             if (mousedown && selectedNode != null) //Dragging a node
             {
                 //TODO
+            }
+        }
+        public TristateTreeNode SelectedNode
+        {
+            get
+            {
+                return this.selectedNode;
+            }
+            set
+            {
+                this.selectedNode = value;
             }
         }
         private TristateTreeNode GetNodeAtLocation(Point point)
@@ -130,9 +155,13 @@ namespace RAFManager
         {
             get
             {
+                if (this.nodes.Count == 0) return 0;
                 TristateTreeNode currentNode = this.nodes[this.nodes.Count - 1];
-                while (currentNode.Nodes.Count > 0 && currentNode.HasToggle?currentNode.IsToggled:true)
+                while (currentNode.Nodes.Count != 0 && (currentNode.HasToggle ? currentNode.IsToggled : true))
+                {
+                    Console.WriteLine(currentNode.Nodes.Count);
                     currentNode = currentNode.Nodes[currentNode.Nodes.Count - 1];
+                }
                 return currentNode.GetLocation().Y + currentNode.BigSize.Height; //HACK
             }
         }
@@ -157,7 +186,10 @@ namespace RAFManager
             Graphics g = (e == null ? this.CreateGraphics() : e.Graphics);
             g.Clear(SystemColors.ControlLightLight);
             g.DrawImage(backBuffer, new Point(0, 0));
-            Console.WriteLine(this.Width);
+            //Console.WriteLine(this.Width);
+
+            if (this.nodes.Count == 0)
+                g.DrawString(emptyComment, Font, Brushes.Black, new Point(0, 0));
         }
         protected override void OnPaintBackground(PaintEventArgs pevent)
         {
@@ -183,6 +215,18 @@ namespace RAFManager
             get
             {
                 return nodes;
+            }
+        }
+        public string EmptyComment
+        {
+            get
+            {
+                return emptyComment;
+            }
+            set
+            {
+                emptyComment = value;
+                Invalidate();
             }
         }
     }

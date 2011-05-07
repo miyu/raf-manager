@@ -93,6 +93,7 @@
             this.Controls.Add(this.optionsListBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "FileEntryAmbiguityResolver";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Resolve File Ambiguity";
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -39,7 +39,7 @@ namespace RAFManager
             projectInfo.ProjectPath = "";
             projectInfo.FileArchivesDirectory = "";
 
-            //changesView.Nodes.Clear();
+            changesView.Nodes.Clear();
         }
 
         /// <summary>
@@ -48,6 +48,7 @@ namespace RAFManager
         /// </summary>
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            Title("Saving Project... ");
             SaveFileDialog dialog = new SaveFileDialog();
             dialog.DefaultExt = ".rmproj";
             dialog.AddExtension = true;
@@ -68,39 +69,50 @@ namespace RAFManager
             //changesView.ClearSelection();
             /**
              * Output:
-             * ProjectName
-             * PathToProject [reserved, leave as space]
-             * RafDirectory [reserved, leave as space]
-             * 1 localPathTag | rafPathIncludingArchive
-             * 1 localPathTag | rafPathIncludingArchive
-             * 1 localPathTag | rafPathIncludingArchive
-             * ...etc
-             * 
-             * 1 is either 1 or 0.  1 = use (check the box), 0 = don't use (uncheck)
-             * localPath and rafPath should be trimmed before use.
+             * RAF
+             * [Project Name]
+             * -blank-
+             * > NodeBegin
+             * e entry
+             * < End
              */
-            string serialization = projectInfo.ProjectName;
-            serialization += "\n" + " "; //Path to project, probably won't be used to allow project movement
-            serialization += "\n" + " ";
-            /*
-            for (int i = 0; i < changesView.RowCount; i++)
+            string crnl = "\r\n"; //To make it viewable with notepad, as oposed to the original unix style
+            string serialization = "RAF";
+            serialization += crnl + projectInfo.ProjectName;
+            serialization += crnl + ""; //blank
+
+            Stack<TristateTreeNode> nodeStack = new Stack<TristateTreeNode>();
+            for (int i = changesView.Nodes.Count - 1; i >= 0; i--)
+                nodeStack.Push(changesView.Nodes[i]);
+            while(nodeStack.Count != 0)
             {
-                DataGridViewRow row = changesView.Rows[i];
-                RAFFileListEntry entry = ((RAFFileListEntry)row.Cells[CN_RAFPATH].Tag);
-                if (entry != null)
+                //If a node has no children, we ignore it, since that means it's just a description node
+                //IE: the nodes sitting under the "fileName.dds" nodes, with no cboxes
+                TristateTreeNode node = nodeStack.Pop();
+                if (node == null)
                 {
-                    bool check = true;
-                    if (row.Cells[CN_USE].Value == null)
-                        check = false;
+                    //Append < for done with this node
+                    serialization += crnl + "<";
+                }
+                else if (node.Nodes.Count == 0) { } //Do nothing.  reserved?
+                else //Node has children.  Push null (for done) and all children...
+                {
+                    if (node.Tag == null) //Is a group node
+                    {
+                        nodeStack.Push(null);
+                        for (int i = node.Nodes.Count - 1; i >= 0; i--)
+                            nodeStack.Push(node.Nodes[i]);
+                        serialization += crnl + "> " + node.Text;
+                    }
                     else
-                        check = (bool)row.Cells[CN_USE].Value;
-                    //1 localPath | rafPath
-                    serialization += "\n" + (check ? "1" : "0")
-                        + " " + (string)row.Cells[CN_LOCALPATH].Tag
-                        + " | " + entry.RAFArchive.GetID() + "/" + entry.FileName;
+                    {
+                        ChangesViewEntry entry = (ChangesViewEntry)node.Tag;
+                        serialization += crnl + "e " + (entry.Checked ? "1" : "0") + " " + entry.LocalPath + " | " +
+                                        entry.Entry.RAFArchive.GetID() + "/" + entry.Entry.FileName;
+                    }
                 }
             }
-             */
+
             HasProjectChanged = false;
             File.WriteAllText(location, serialization);
             UpdateProjectGUI();
@@ -111,6 +123,7 @@ namespace RAFManager
         /// </summary>
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            Title("Opening Project... ");
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.DefaultExt = ".rmproj";
             dialog.AddExtension = true;
@@ -132,7 +145,16 @@ namespace RAFManager
             ResetProject();
 
             string[] lines = File.ReadAllLines(location);
-            string projectName = lines[0];
+            for (int i = 0; i < lines.Length; i++)
+                lines[i] = lines[i].Split(";")[0].Trim();
+
+            string header = lines[0];
+            if (header != "RAF")
+            {
+                MessageBox.Show("Invalid RAF Project.\r\nPerhaps the RMProj file format has changed.\r\nYou will have to create a new project.", "=[");
+                return;
+            }
+            string projectName = lines[1];
             string projectPath = location;// lines[1];
             string rafDirectory= lines[2];
 
@@ -140,27 +162,53 @@ namespace RAFManager
             projectInfo.ProjectName = projectName.Trim();
             projectInfo.ProjectPath = location;
             projectInfo.FileArchivesDirectory = rafDirectory;
+            Stack<TristateTreeNode> nodeStack = new Stack<TristateTreeNode>();
             for (int i = 3; i < lines.Length; i++)
             {
-                string line = lines[i];
-                bool check = line[0] == '1';
-                string afterCheck = line.Substring(1); //get everything after the check
-                string[] parts = afterCheck.Split("|"); //yields {localPath, rafPath}
-                string localPath = parts[0].Trim();
-                string rafPath = parts[1].Trim();       //includes RAF Archive Id (0.0.0.xx)
-                /*
-                int rowId = changesView.Rows.Add();
+                string line = lines[i].Trim();
+                if (line != "")
+                {
+                    switch(line[0])
+                    {
+                        case '>':
+                        {
+                            TristateTreeNode node = new TristateTreeNode(line.Substring(1).Trim());
+                            if (nodeStack.Count == 0)
+                                changesView.Nodes.Add(node);
+                            else
+                                nodeStack.Peek().Nodes.Add(node);
+                            node.HasCheckBox = true;
+                            nodeStack.Push(node);
+                            break;
+                        }
+                        case 'e': //entry
+                        {
+                            bool check = line[2] == '1';
+                            string afterCheck = line.Substring(3); //get everything after the check
+                            string[] parts = afterCheck.Split("|"); //yields {localPath, rafPath}
+                            string localPath = parts[0].Trim().Replace("\\", "/");
+                            string rafPath = parts[1].Trim().Replace("\\", "/");       //includes RAF Archive Id (0.0.0.xx)
 
-
-                //Update GUI, save necessary states
-                changesView.Rows[rowId].Cells[CN_USE].Value = check;
-
-                changesView.Rows[rowId].Cells[CN_LOCALPATH].Value = localPath;
-                changesView.Rows[rowId].Cells[CN_LOCALPATH].Tag = localPath;
-
-                changesView.Rows[rowId].Cells[CN_RAFPATH].Value = rafPath;
-                changesView.Rows[rowId].Cells[CN_RAFPATH].Tag = ResolveRAFPathToEntry(rafPath);
-                 */
+                            TristateTreeNode node = new TristateTreeNode(localPath.Split("/").Last());
+                            node.Nodes.Add(new TristateTreeNode("Local Path: " + localPath));
+                            node.Nodes.Add(new TristateTreeNode("RAF Path: " + rafPath));
+                            node.Nodes[0].HasCheckBox = false;
+                            node.Nodes[1].HasCheckBox = false;
+                            node.Tag = new ChangesViewEntry(localPath, ResolveRAFPathToEntry(rafPath), node);
+                            node.HasCheckBox = true;
+                            if (nodeStack.Count == 0)
+                                changesView.Nodes.Add(node);
+                            else
+                                nodeStack.Peek().Nodes.Add(node);
+                            break;
+                        }
+                        case '<':
+                        {
+                            nodeStack.Pop();
+                            break;
+                        }
+                    }
+                }
             }
 
             UpdateProjectGUI();
@@ -230,5 +278,132 @@ namespace RAFManager
                 this.hasProjectChanged = value;
             }
         }
+
+        /// <summary>
+        /// When the toolstrip->pack is clicked,
+        /// 1) Ask the user if archives are backed up
+        /// 2) Verify Preconditions
+        /// 3) Pack
+        /// </summary>
+        private void packToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Are all archives backed up?  This application has been tested quite a bit, but errors might one day pop up.  You should backup your archive files (run the backup menu item).  Do you want to continue?  This is your last warning.", "Confirm backup", MessageBoxButtons.YesNo);
+
+            //Verify
+            if (!VerifyPackPrecondition())
+            {
+                MessageBox.Show("Not all preconditions for packing were met.  Read the log, located at the bottom of the main window.");
+                return;
+            }
+
+            if (result == System.Windows.Forms.DialogResult.Yes)
+            {
+                for (int i = 0; i < changesView.Nodes.Count; i++)
+                    PackNode(changesView.Nodes[i]);
+            }
+        }
+        private void PackNode(TristateTreeNode node)
+        {
+            ChangesViewEntry cventry = (ChangesViewEntry)node.Tag;
+            if (cventry == null) //Group node
+                for (int i = 0; i < node.Nodes.Count; i++)
+                    PackNode(node.Nodes[i]);
+            else
+            {
+                RAFFileListEntry entry = cventry.Entry;
+                string rafPath = entry.FileName;
+                string localPath = cventry.LocalPath;
+                bool useFile = cventry.Checked;
+
+                Title("Pack File: " + localPath.Replace("\\", "/").Split("/").Last());
+
+                Console.WriteLine(Environment.CurrentDirectory + "/backup/");
+                PrepareDirectory(Environment.CurrentDirectory + "/backup/");
+                string fileBackupLoc = Environment.CurrentDirectory + "/backup/" + entry.FileName.Replace("/", "_");
+                if (!File.Exists(fileBackupLoc))
+                    File.WriteAllBytes(fileBackupLoc, entry.GetContent());
+
+                //Open the RAF archive, insert.
+                if (useFile)
+                    entry.RAFArchive.InsertFile(
+                        rafPath,
+                        File.ReadAllBytes(localPath),
+                        new LogTextWriter(
+                            (Func<string, object>)delegate(string s)
+                            {
+                                Log(s);
+                                return null;
+                            }
+                        )
+                    );
+                else
+                {
+                    //Insert backup
+                    entry.RAFArchive.InsertFile(
+                        rafPath,
+                        File.ReadAllBytes(fileBackupLoc),
+                        new LogTextWriter(
+                            (Func<string, object>)delegate(string s)
+                            {
+                                Log(s);
+                                return null;
+                            }
+                        )
+                    );
+                }
+                List<RAFArchive> archives = new List<RAFArchive>(rafArchives.Values);
+                for (int i = 0; i < archives.Count; i++)
+                {
+                    SetTaskbarProgress((i + 1) * 100 / (archives.Count + 1));
+                    archives[i].SaveDirectoryFile();
+                }
+
+                SetTaskbarProgress(0);
+            }
+        }
+        /// <summary>
+        /// Verifies that the project is ready for packing:
+        /// All rows need to be filled properly
+        /// </summary>
+        /// <returns></returns>
+        private bool VerifyPackPrecondition()
+        {
+            Stack<TristateTreeNode> nodeStack = new Stack<TristateTreeNode>();
+            for (int i = changesView.Nodes.Count - 1; i >= 0; i--)
+                nodeStack.Push(changesView.Nodes[i]);
+            while (nodeStack.Count != 0)
+            {
+                //If a node has no children, we ignore it, since that means it's just a description node
+                //IE: the nodes sitting under the "fileName.dds" nodes, with no cboxes
+                TristateTreeNode node = nodeStack.Pop();
+                if (node.Nodes.Count == 0) { } //Do nothing.  Desciptor node such as RAF Path: nodes
+                else //Node has children.  Push node
+                {
+                    if (node.Tag == null) //Is a group node
+                    {
+                        for (int i = node.Nodes.Count - 1; i >= 0; i--)
+                            nodeStack.Push(node.Nodes[i]);
+                    }
+                    else
+                    {
+                        ChangesViewEntry entry = (ChangesViewEntry)node.Tag;
+                        if (ResolveRAFPathToEntry(entry.Entry.RAFArchive.GetID() + "/" + entry.Entry.FileName) == null)
+                        {
+                            Log("Precondition fail!: ");
+                            Log("RAF Path Doesnt Exist: "+entry.Entry.RAFArchive.GetID()+"/"+entry.Entry.FileName);
+                            return false;
+                        }
+                        else if (!File.Exists(entry.LocalPath))
+                        {
+                            Log("Precondition fail!: ");
+                            Log("Local Path Doesnt Exist: " + entry.LocalPath);
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
     }
 }

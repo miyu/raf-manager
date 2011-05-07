@@ -18,11 +18,36 @@ namespace RAFManager
         {
             nodes.Add(node);
             node.Parent = owner;
+
+            if (owner is TristateTreeView)
+                ((TristateTreeView)owner).Invalidate();
+            else
+                if(owner != null && ((TristateTreeNode)owner).TreeView != null)
+                    ((TristateTreeNode)owner).TreeView.Invalidate();
         }
         public void Remove(TristateTreeNode node)
         {
             nodes.Remove(node);
             node.Parent = null;
+
+            if (owner is TristateTreeView)
+                ((TristateTreeView)owner).Invalidate();
+            else
+                if (owner != null && ((TristateTreeNode)owner).TreeView != null)
+                    ((TristateTreeNode)owner).TreeView.Invalidate();
+        }
+        public void Clear()
+        {
+            nodes.Clear();
+            if (owner is TristateTreeView)
+                ((TristateTreeView)owner).Invalidate();
+            else
+                if (owner != null && ((TristateTreeNode)owner).TreeView != null)
+                    ((TristateTreeNode)owner).TreeView.Invalidate();
+        }
+        public int IndexOf(TristateTreeNode node)
+        {
+            return this.nodes.IndexOf(node);
         }
         public TristateTreeNode this[int index]
         {

@@ -30,35 +30,27 @@ namespace RAFManager
         //Names of our archives
         private Dictionary<string, RAFArchive> rafArchives = new Dictionary<string, RAFArchive>();
 
+        private TristateTreeView changesView = null;
+
         public MainForm()
         {
             InitializeComponent();
-            ImageList list = new ImageList();
-            list.Images.Add(Properties.Resources.Checkbox_Unchecked);
-            list.Images.Add(Properties.Resources.Checkbox_Partial);
-            list.Images.Add(Properties.Resources.Checkbox_Checked);
+            changesView = new TristateTreeView();
+            changesView.Dock = DockStyle.Fill;
+            changesView.EmptyComment = "No items have been added yet!  Drag skin files in!";
+            this.smallContainer.Panel2.Controls.Add(changesView);
 
-            TristateTreeView triview = new TristateTreeView();
-            triview.Dock = DockStyle.Fill;
-            for (int i = 0; i < 10; i++)
+            /*
+             * TristateTreeNode test
+            for (int i = 0; i < 5; i++)
             {
-                triview.Nodes.Add(new TristateTreeNode(i + "lol"));
-                for (int j = 0; j < 10; j++)
+                changesView.Nodes.Add(new TristateTreeNode("...."));
+                for (int j = 0; j < 5; j++)
                 {
-                    triview.Nodes[i].Nodes.Add(new TristateTreeNode(j + "child"));
-                    for (int k = 0; k < 10; k++)
-                    {
-                        triview.Nodes[i].Nodes[j].Nodes.Add(new TristateTreeNode(k + "child"));
-                    }
+                    changesView.Nodes[i].Nodes.Add(new TristateTreeNode("...."));
                 }
             }
-
-            this.smallContainer.Panel2.Controls.Add(triview);
-
-            //changesView.ImageList = list;
-            //changesView.ImageIndex = 0;
-            //changesView.Nodes[0].Nodes[0].ImageIndex = 1;
-
+             */
             CheckForUpdates();
 
             SetArchivesRoot();
@@ -69,12 +61,21 @@ namespace RAFManager
             int smallSplitterDistanceFromLeft = smallContainer.SplitterDistance;
             this.ResizeBegin += delegate(object sender, EventArgs e)
             {
-                bigSplitterDistanceFromBottom = bigContainer.Height - bigContainer.SplitterDistance;
-                smallSplitterDistanceFromLeft = smallContainer.SplitterDistance;
+                try
+                {
+                    bigSplitterDistanceFromBottom = bigContainer.Height - bigContainer.SplitterDistance;
+                    smallSplitterDistanceFromLeft = smallContainer.SplitterDistance;
+                }
+                catch { }
             };
-            this.Resize += delegate(object sender, EventArgs e){
-                bigContainer.SplitterDistance = bigContainer.Height - bigSplitterDistanceFromBottom;
-                smallContainer.SplitterDistance = smallSplitterDistanceFromLeft;
+            this.Resize += delegate(object sender, EventArgs e)
+            {
+                try
+                {
+                    bigSplitterDistanceFromBottom = bigContainer.Height - bigContainer.SplitterDistance;
+                    smallSplitterDistanceFromLeft = smallContainer.SplitterDistance;
+                }
+                catch { }
             };
 
             InitializeChangesView();
@@ -184,126 +185,6 @@ namespace RAFManager
             Log("INIBIN/TROYBIN Reader by Engberg @ http://bit.ly/kThoeF");
             Log("Be.HexEditor by http://sourceforge.net/projects/hexbox/");
         }
-
-        /// <summary>
-        /// When the toolstrip->pack is clicked,
-        /// 1) Ask the user if archives are backed up
-        /// 2) Verify Preconditions
-        /// 3) Pack
-        /// </summary>
-        private void packToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            /*
-            DialogResult result = MessageBox.Show("Are all archives backed up?  This application has been tested quite a bit, but errors might one day pop up.  You should backup your archive files (run the backup menu item).  Do you want to continue?  This is your last warning.", "Confirm backup", MessageBoxButtons.YesNo);
-
-            //Verify
-            if (!VerifyPackPrecondition())
-            {
-                MessageBox.Show("Not all preconditions for packing were met.  Read the log, located at the bottom of the main window.");
-                return;
-            }
-
-            if (result == System.Windows.Forms.DialogResult.Yes)
-            {
-                //We shall do our stuffs.
-                for (int i = 0; i < changesView.Nodes.Count-1; i++)
-                {
-                    //if (changesView.Rows.Count == 1)
-                        //SetTaskbarProgress(50);
-                    //else
-                        //SetTaskbarProgress((i+1)*100 / changesView.Rows.Count - 1);
-                    DataGridViewRow row = changesView.Rows[i];
-                    RAFFileListEntry entry = (RAFFileListEntry)row.Cells[CN_RAFPATH].Tag;
-                    string rafPath = entry.FileName;
-                    string localPath = (string)row.Cells[CN_LOCALPATH].Tag;
-                    bool useFile = (bool)row.Cells[CN_USE].Value;
-
-                    Console.WriteLine(Environment.CurrentDirectory+"/backup/");
-                    PrepareDirectory(Environment.CurrentDirectory+ "/backup/");
-                    string fileBackupLoc = Environment.CurrentDirectory + "/backup/" + entry.FileName.Replace("/", "_");
-                    if (!File.Exists(fileBackupLoc))
-                        File.WriteAllBytes(fileBackupLoc, entry.GetContent());
-
-                    //Open the RAF archive, insert.
-                    if (useFile)
-                        entry.RAFArchive.InsertFile(
-                            rafPath,
-                            File.ReadAllBytes(localPath),
-                            new LogTextWriter(
-                                (Func<string, object>)delegate(string s)
-                                {
-                                    Log(s);
-                                    return null;
-                                }
-                            )
-                        );
-                    else
-                    {
-                        //Insert backup
-                        entry.RAFArchive.InsertFile(
-                            rafPath,
-                            File.ReadAllBytes(fileBackupLoc),
-                            new LogTextWriter(
-                                (Func<string, object>)delegate(string s)
-                                {
-                                    Log(s);
-                                    return null;
-                                }
-                            )
-                        );
-                    }
-                }
-                List<RAFArchive> archives = new List<RAFArchive>(rafArchives.Values);
-                for (int i = 0; i < archives.Count; i++)
-                {
-                    SetTaskbarProgress((i+1)*100 / (archives.Count + 1));
-                    archives[i].SaveDirectoryFile();
-                }
-
-                SetTaskbarProgress(0);
-            }
-             */
-        }
-        /// <summary>
-        /// Verifies that the project is ready for packing:
-        /// All rows need to be filled properly
-        /// </summary>
-        /// <returns></returns>
-        private bool VerifyPackPrecondition()
-        {
-            return false;
-            /*
-            for (int i = 0; i < changesView.Rows.Count-1; i++)
-            {
-                DataGridViewRow row = changesView.Rows[i];
-                if (((string)row.Cells[CN_LOCALPATH].Tag) == "" || row.Cells[CN_RAFPATH].Tag == null)
-                {
-                    Log("Row of rafpath value '" + (string)row.Cells[CN_RAFPATH].Value + "' and localPath value '" + (string)row.Cells[CN_LOCALPATH].Value + "' is incomplete'");
-                    return false;
-                }else{
-                    if (!File.Exists((string)row.Cells[CN_LOCALPATH].Tag))
-                    {
-                        Log("Local File Path '" + (string)row.Cells[CN_LOCALPATH].Tag + "' couldn't be found");
-                        return false;
-                    }
-                    List<RAFArchive> archives = new List<RAFArchive>(rafArchives.Values);
-                    bool foundEntry = false;
-                    RAFFileListEntry entry = (RAFFileListEntry)row.Cells[CN_RAFPATH].Tag;
-                    foreach(RAFArchive archive in archives)
-                    {
-                        if (archive.GetDirectoryFile().GetFileList().GetFileEntry(entry.FileName) != null) foundEntry = true;
-                    }
-                    if (!foundEntry)
-                    {
-                        Log("RAFPath '" + (string)row.Cells[CN_RAFPATH].Value + "' couldn't be found in RAF archives.  ");
-                        return false;
-                    }
-                }
-            }
-            return true;
-             */
-        }
-
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new AboutBox().ShowDialog();
