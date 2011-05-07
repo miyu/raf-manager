@@ -349,11 +349,16 @@ namespace RAFManager
                 if (entry.FileName.ToLower().EndsWith("inibin") ||
                     entry.FileName.ToLower().EndsWith("troybin"))
                 {
-                    new TextViewer(this.baseTitle + " - inibin/troybin view - " + nodeInternalPath,
-                        new InibinFile().main(entry.GetContent())
-                    ).Show();
+                    try
+                    {
+                        new TextViewer(this.baseTitle + " - inibin/troybin view - " + nodeInternalPath,
+                            new InibinFile().main(entry.GetContent())
+                        ).Show();
+                        return;
+                    }
+                    catch { Log("Error parsing INIBIN/TROYBIN file"); } //Fall back to textviewer
                 }
-                else if (entry.FileSize < 10000 || //If > 200, ask, then continue
+                if (entry.FileSize < 10000 || //If > 200, ask, then continue
                        MessageBox.Show("This file is quite large ({0} bytes).  Sure you want to read it?".F(entry.FileSize), "", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
                 {
                     if (entry.GetContent().All(c => c >= ' ' && c <= '~') || 

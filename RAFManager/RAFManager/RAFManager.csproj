@@ -57,11 +57,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="BinaryViewer.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="BinaryViewer.Designer.cs">
       <DependentUpon>BinaryViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UpdateAvailableDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UpdateAvailableDialog.Designer.cs">
+      <DependentUpon>UpdateAvailableDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="FileEntryAmbiguityResolver.cs">
       <SubType>Form</SubType>
@@ -111,8 +123,14 @@
     <Compile Include="RAFPathSelector.Designer.cs">
       <DependentUpon>RAFPathSelector.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BinaryViewer.resx">
       <DependentUpon>BinaryViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UpdateAvailableDialog.resx">
+      <DependentUpon>UpdateAvailableDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FileEntryAmbiguityResolver.resx">
       <DependentUpon>FileEntryAmbiguityResolver.cs</DependentUpon>
@@ -148,6 +166,10 @@
     <ProjectReference Include="..\..\RAFLib\RAFLib.csproj">
       <Project>{4661A92E-7729-4021-B35F-D5BDA01A79F9}</Project>
       <Name>RAFLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RAFManagerUpdater\RAFManagerUpdater.csproj">
+      <Project>{77C89F4F-0C28-4857-BB14-41365FCC7E4C}</Project>
+      <Name>RAFManagerUpdater</Name>
     </ProjectReference>
     <ProjectReference Include="..\ThirdParty\Be.Windows.Forms.HexBox\Be.Windows.Forms.HexBox.csproj">
       <Project>{26C5F25F-B450-4CAF-AD8B-B8D11AE73457}</Project>

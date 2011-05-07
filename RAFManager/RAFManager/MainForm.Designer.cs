@@ -134,28 +134,28 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(114, 24);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(114, 24);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(114, 24);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // packToolStripMenuItem
             // 
             this.packToolStripMenuItem.Name = "packToolStripMenuItem";
-            this.packToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.packToolStripMenuItem.Size = new System.Drawing.Size(114, 24);
             this.packToolStripMenuItem.Text = "Pack";
             this.packToolStripMenuItem.Click += new System.EventHandler(this.packToolStripMenuItem_Click);
             // 
@@ -177,6 +177,7 @@
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(542, 24);
             this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // goToRAFPackerLeagueOfLegendsThreadToolStripMenuItem
             // 
@@ -184,6 +185,7 @@
             this.goToRAFPackerLeagueOfLegendsThreadToolStripMenuItem.Name = "goToRAFPackerLeagueOfLegendsThreadToolStripMenuItem";
             this.goToRAFPackerLeagueOfLegendsThreadToolStripMenuItem.Size = new System.Drawing.Size(542, 24);
             this.goToRAFPackerLeagueOfLegendsThreadToolStripMenuItem.Text = "Go to RAF Packer League of Legends Thread (North American Forums)";
+            this.goToRAFPackerLeagueOfLegendsThreadToolStripMenuItem.Click += new System.EventHandler(this.goToRAFPackerLeagueOfLegendsThreadToolStripMenuItem_Click);
             // 
             // goToRAFPackerLeagueCraftTHreadToolStripMenuItem
             // 
@@ -191,6 +193,7 @@
             this.goToRAFPackerLeagueCraftTHreadToolStripMenuItem.Name = "goToRAFPackerLeagueCraftTHreadToolStripMenuItem";
             this.goToRAFPackerLeagueCraftTHreadToolStripMenuItem.Size = new System.Drawing.Size(542, 24);
             this.goToRAFPackerLeagueCraftTHreadToolStripMenuItem.Text = "Go to RAF Packer LeagueCraft Thread";
+            this.goToRAFPackerLeagueCraftTHreadToolStripMenuItem.Click += new System.EventHandler(this.goToRAFPackerLeagueCraftTHreadToolStripMenuItem_Click);
             // 
             // toolStripLabel1
             // 
@@ -263,9 +266,9 @@
             this.pickRafPathColumn});
             this.changesView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.changesView.Location = new System.Drawing.Point(0, 0);
-            this.changesView.MultiSelect = false;
             this.changesView.Name = "changesView";
             this.changesView.RowHeadersVisible = false;
+            this.changesView.RowHeadersWidth = 25;
             this.changesView.RowTemplate.Height = 24;
             this.changesView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.changesView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
