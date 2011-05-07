@@ -44,6 +44,7 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.goToRAFPackerLeagueOfLegendsThreadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.goToRAFPackerLeagueCraftTHreadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.goToRAFManagerHomePageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
@@ -165,7 +166,8 @@
             this.toolStripDropDownButton2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem,
             this.goToRAFPackerLeagueOfLegendsThreadToolStripMenuItem,
-            this.goToRAFPackerLeagueCraftTHreadToolStripMenuItem});
+            this.goToRAFPackerLeagueCraftTHreadToolStripMenuItem,
+            this.goToRAFManagerHomePageToolStripMenuItem});
             this.toolStripDropDownButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton2.Image")));
             this.toolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton2.Name = "toolStripDropDownButton2";
@@ -194,6 +196,14 @@
             this.goToRAFPackerLeagueCraftTHreadToolStripMenuItem.Size = new System.Drawing.Size(542, 24);
             this.goToRAFPackerLeagueCraftTHreadToolStripMenuItem.Text = "Go to RAF Packer LeagueCraft Thread";
             this.goToRAFPackerLeagueCraftTHreadToolStripMenuItem.Click += new System.EventHandler(this.goToRAFPackerLeagueCraftTHreadToolStripMenuItem_Click);
+            // 
+            // goToRAFManagerHomePageToolStripMenuItem
+            // 
+            this.goToRAFManagerHomePageToolStripMenuItem.Image = global::RAFManager.Properties.Resources.RafManager;
+            this.goToRAFManagerHomePageToolStripMenuItem.Name = "goToRAFManagerHomePageToolStripMenuItem";
+            this.goToRAFManagerHomePageToolStripMenuItem.Size = new System.Drawing.Size(542, 24);
+            this.goToRAFManagerHomePageToolStripMenuItem.Text = "Go to RAF Manager Home Page";
+            this.goToRAFManagerHomePageToolStripMenuItem.Click += new System.EventHandler(this.goToRAFManagerHomePageToolStripMenuItem_Click);
             // 
             // toolStripLabel1
             // 
@@ -330,6 +340,7 @@
             this.Controls.Add(this.toolStrip);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "RAF Manager";
             this.logContainer.ResumeLayout(false);
             this.logContainer.PerformLayout();
@@ -376,6 +387,7 @@
         private System.Windows.Forms.DataGridViewButtonColumn pickLocalPathColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn rafPathColumn;
         private System.Windows.Forms.DataGridViewButtonColumn pickRafPathColumn;
+        private System.Windows.Forms.ToolStripMenuItem goToRAFManagerHomePageToolStripMenuItem;
     }
 }
 
