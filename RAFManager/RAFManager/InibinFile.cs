@@ -274,7 +274,8 @@ namespace RAFManager
 	            foreach (long key in readSegmentKeys()) {
 		            long val = readU32();
 		            debug("U32 prop(" + key + ")", val);
-		            properties.Add(key, val);
+                    if (!properties.ContainsKey(key))
+		                properties.Add(key, val);
 	            }
 	        }
 
@@ -286,7 +287,8 @@ namespace RAFManager
 	            foreach (long key in readSegmentKeys()) {
 		        float val = readFloat();
 		        debug("float prop(" + key + ")", val);
-		        properties.Add(key, val);
+                if (!properties.ContainsKey(key))
+		            properties.Add(key, val);
 	            }
 	        }
 
@@ -298,7 +300,8 @@ namespace RAFManager
 	            foreach (long key in readSegmentKeys()) {
 		            float val = readU8() * 0.1F;
 		            debug("U8/10 prop(" + key + ")", val);
-		            properties.Add(key, val);
+                    if (!properties.ContainsKey(key))
+		                properties.Add(key, val);
 	            }
 	        }
 
@@ -310,7 +313,8 @@ namespace RAFManager
 	            foreach (long key in readSegmentKeys()) {
 		            int val = readU16();
 		            debug("U16 prop(" + key + ")", val);
-		            properties.Add(key, val);
+                    if (!properties.ContainsKey(key))
+		                properties.Add(key, val);
 	            }
 	        }
 
@@ -322,7 +326,8 @@ namespace RAFManager
 	            foreach(long key in readSegmentKeys()) {
 		            int val = 0xff & readU8();
 		            debug("U8 prop(" + key + ")", val);
-		            properties.Add(key, val);
+                    if (!properties.ContainsKey(key))
+		                properties.Add(key, val);
 	            }
 	        }
 
@@ -340,7 +345,8 @@ namespace RAFManager
 		                long key = booleanKeys[index];
 		                int val = 0x1 & bits;
 		                debug("Boolean prop(" + key + ")", val);
-		                properties.Add(key, val);
+                        if (!properties.ContainsKey(key))
+		                    properties.Add(key, val);
 		                bits = bits >> 1;
 		                if (++index == booleanKeys.Length) {
 			            break;
@@ -357,7 +363,8 @@ namespace RAFManager
 	            foreach (long key in readSegmentKeys()) {
 		            long val = readU32();
 		            debug("U32 color prop(" + key + ")", val);
-		            properties.Add(key, val);
+                    if (!properties.ContainsKey(key))
+		                properties.Add(key, val);
 	            }
 	        }
 
@@ -372,7 +379,8 @@ namespace RAFManager
 		            debug("String offset(" + key + ")", offset);
 		            String val = readNulTerminatedString(oldStyleOffset + offset);
 		            debug("String prop(" + key + ")", val);
-		            properties.Add(key, val);
+                    if(!properties.ContainsKey(key))
+		                properties.Add(key, val);
 		            lastOffset = offset;
 	            }
 	        }

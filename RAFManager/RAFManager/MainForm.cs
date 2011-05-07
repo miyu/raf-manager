@@ -32,6 +32,8 @@ namespace RAFManager
 
         public MainForm()
         {
+            SetArchivesRoot();
+
             InitializeComponent();
             this.Load += new EventHandler(MainForm_Load);
 
@@ -50,7 +52,7 @@ namespace RAFManager
             InitializeChangesView();
             InitializeUtil();
             InitializeProject();
-
+            CheckForUpdates();
 #if TaskBar
             Windows7.DesktopIntegration.Windows7Taskbar.AllowTaskbarWindowMessagesThroughUIPI();
             Windows7.DesktopIntegration.Windows7Taskbar.SetWindowAppId(this.Handle, "RAFManager");
@@ -184,19 +186,40 @@ namespace RAFManager
                     string localPath = (string)row.Cells[CN_LOCALPATH].Tag;
                     bool useFile = (bool)row.Cells[CN_USE].Value;
 
+                    Console.WriteLine(Environment.CurrentDirectory+"/backup/");
+                    PrepareDirectory(Environment.CurrentDirectory+ "/backup/");
+                    string fileBackupLoc = Environment.CurrentDirectory + "/backup/" + entry.FileName.Replace("/", "_");
+                    if (!File.Exists(fileBackupLoc))
+                        File.WriteAllBytes(fileBackupLoc, entry.GetContent());
+
                     //Open the RAF archive, insert.
-                    if(useFile)
+                    if (useFile)
                         entry.RAFArchive.InsertFile(
-                            rafPath, 
-                            File.ReadAllBytes(localPath), 
+                            rafPath,
+                            File.ReadAllBytes(localPath),
                             new LogTextWriter(
-                                (Func<string,object>)delegate(string s)
+                                (Func<string, object>)delegate(string s)
                                 {
                                     Log(s);
                                     return null;
                                 }
                             )
                         );
+                    else
+                    {
+                        //Insert backup
+                        entry.RAFArchive.InsertFile(
+                            rafPath,
+                            File.ReadAllBytes(fileBackupLoc),
+                            new LogTextWriter(
+                                (Func<string, object>)delegate(string s)
+                                {
+                                    Log(s);
+                                    return null;
+                                }
+                            )
+                        );
+                    }
                 }
                 List<RAFArchive> archives = new List<RAFArchive>(rafArchives.Values);
                 for (int i = 0; i < archives.Count; i++)
@@ -243,6 +266,21 @@ namespace RAFManager
                 }
             }
             return true;
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new AboutBox().ShowDialog();
+        }
+
+        private void goToRAFPackerLeagueOfLegendsThreadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://www.leagueoflegends.com/board/showthread.php?t=722943");
+        }
+
+        private void goToRAFPackerLeagueCraftTHreadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://forum.leaguecraft.com/index.php?/topic/31543-rafmanager-release/");
         }
     }
 }

@@ -7,6 +7,10 @@ using System.Windows.Forms;
 
 using RAFLib;
 
+
+using System.IO;
+using ItzWarty;
+
 namespace RAFManager
 {
     partial class MainForm:Form
@@ -58,6 +62,82 @@ namespace RAFManager
                 }
             }
             return null;
+        }
+
+        private void CheckForUpdates()
+        {
+            RAFManagerUpdater.Autoupdater.CheckUpdate(
+                delegate(RAFManagerUpdater.UpdateResult result, string message, string newVersion)
+                {
+                    if (result == RAFManagerUpdater.UpdateResult.NewUpdate)
+                    {
+                        new UpdateAvailableDialog(message, newVersion).ShowDialog();
+                        //MessageBox.Show(message);
+                    }
+                    else if (result == RAFManagerUpdater.UpdateResult.NoUpdates)
+                    {
+                        Log("The program is up to date.  RAFManager just checked!");
+                        Log("Update Domain: " + RAFManagerUpdater.Autoupdater.updateDomain);
+                    }
+                    else
+                    {
+                        Log("Unable to connect to update server.");
+                        Log("Please check http://www.leagueoflegends.com/board/showthread.php?t=704945");
+                        Log("For more information, or redownload the client at www.ItzWarty.com/RAF/");
+                    }
+                    return null;
+                }
+            );
+        }
+        /// <summary>
+        /// Creates the given directory and all directories leading up to it.
+        /// </summary>
+        private static void PrepareDirectory(string path)
+        {
+            path = path.Replace("/", "\\");
+            String[] dirs = path.Split("\\");
+            for (int i = 1; i < dirs.Length; i++)
+            {
+                String dirPath = String.Join("\\", dirs.SubArray(0, i)) + "\\";
+                if (!Directory.Exists(dirPath))
+                    Directory.CreateDirectory(dirPath);
+                //ostream.WriteLine(dirPath);
+            }
+        }
+
+        private void SetArchivesRoot()
+        {
+            string expectedPath = @"C:\Riot Games\League of Legends\RADS\projects\lol_game_client\filearchives\";
+
+            if(Directory.Exists(expectedPath)) archivesRoot = expectedPath;
+            else if(File.Exists("riotgamesroot.txt"))
+            {
+                string lastPath = File.ReadAllText("riotgamesroot.txt");
+                if(Directory.Exists(lastPath))
+                {
+                    archivesRoot = lastPath+@"\League of Legends\RADS\projects\lol_game_client\filearchives\";
+                    return;
+                }
+            }else{
+                FolderBrowserDialog fbd = new FolderBrowserDialog();
+                fbd.Description = "Select your Riot Games folder";
+                fbd.ShowDialog();
+
+                string result = fbd.SelectedPath;
+                if (Directory.Exists(result + @"\League of Legends\RADS\projects\lol_game_client\filearchives\"))
+                {
+                    //success
+                    archivesRoot = result + @"\League of Legends\RADS\projects\lol_game_client\filearchives\";
+                    //save
+                    File.WriteAllText("riotgamesroot.txt", result);
+                }
+                else
+                {
+                    MessageBox.Show("Invalid directory: \r\n"+result + @"\League of Legends\RADS\projects\lol_game_client\filearchives\", "Couldn't find directory");
+                    Application.Exit();
+                    Environment.Exit(0);
+                }
+            }
         }
     }
 }
