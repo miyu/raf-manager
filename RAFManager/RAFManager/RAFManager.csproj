@@ -195,6 +195,8 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="Images\CheckboxToggleDisable.png" />
+    <Content Include="Images\CheckboxToggleEnable.png" />
     <Content Include="Images\Checkbox_Checked.png" />
     <Content Include="Images\Checkbox_Partial.png" />
     <Content Include="Images\Checkbox_Unchecked.png" />
