@@ -32,6 +32,8 @@ namespace RAFManager
 
         public MainForm()
         {
+            CheckForUpdates();
+
             SetArchivesRoot();
 
             InitializeComponent();
@@ -52,7 +54,6 @@ namespace RAFManager
             InitializeChangesView();
             InitializeUtil();
             InitializeProject();
-            CheckForUpdates();
 #if TaskBar
             Windows7.DesktopIntegration.Windows7Taskbar.AllowTaskbarWindowMessagesThroughUIPI();
             Windows7.DesktopIntegration.Windows7Taskbar.SetWindowAppId(this.Handle, "RAFManager");
@@ -281,6 +282,11 @@ namespace RAFManager
         private void goToRAFPackerLeagueCraftTHreadToolStripMenuItem_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("http://forum.leaguecraft.com/index.php?/topic/31543-rafmanager-release/");
+        }
+
+        private void goToRAFManagerHomePageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://www.ItzWarty.com/RAF/");
         }
     }
 }

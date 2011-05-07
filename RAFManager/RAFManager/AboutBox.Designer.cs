@@ -61,6 +61,7 @@
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "www.ItzWarty.com/RAF/";
             this.linkLabel1.VisitedLinkColor = System.Drawing.Color.Blue;
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // AboutBox
             // 
@@ -72,6 +73,7 @@
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "AboutBox";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Very Descriptive About Box";
             this.ResumeLayout(false);
             this.PerformLayout();

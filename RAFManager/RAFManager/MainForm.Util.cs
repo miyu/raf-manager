@@ -107,7 +107,7 @@ namespace RAFManager
 
         private void SetArchivesRoot()
         {
-            string expectedPath = @"C:\Riot Games\League of Legends\RADS\projects\lol_game_client\filearchives\";
+            string expectedPath = @"C:\Riot Gaames\League of Legends\RADS\projects\lol_game_client\filearchives\";
 
             if(Directory.Exists(expectedPath)) archivesRoot = expectedPath;
             else if(File.Exists("riotgamesroot.txt"))
@@ -120,7 +120,7 @@ namespace RAFManager
                 }
             }else{
                 FolderBrowserDialog fbd = new FolderBrowserDialog();
-                fbd.Description = "Select your Riot Games folder";
+                fbd.Description = "Select your the parent folder of your league of legends folder (Usually Riot Games)";
                 fbd.ShowDialog();
 
                 string result = fbd.SelectedPath;

@@ -67,10 +67,10 @@ namespace RAFManager.Properties {
             }
         }
         
-        internal static System.Drawing.Icon RafManager {
+        internal static System.Drawing.Bitmap RafManager {
             get {
                 object obj = ResourceManager.GetObject("RafManager", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }
