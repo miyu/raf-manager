@@ -166,6 +166,7 @@ namespace RAFLib
             File.WriteAllText(hashesFile, hashesLog);
             File.WriteAllText(notcompressedsFile, notcompressedsLog);
             ostream.WriteLine("DONE!" + " ".Repeat(30));
+            //fStream.Close();
             return true;
             //Application.EnableVisualStyles();
             //Application.SetCompatibleTextRenderingDefault(false);
@@ -217,6 +218,8 @@ namespace RAFLib
                 fileentry.FileOffset = offset;
                 fileentry.FileSize = (UInt32)finalContent.Length;
                 //directoryFile.Save();
+
+                //datFileStream.Close();
                 ostream.WriteLine("    Done.");
                 return true;
             }
