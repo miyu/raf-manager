@@ -39,7 +39,7 @@ namespace RAFManager
             projectInfo.ProjectPath = "";
             projectInfo.FileArchivesDirectory = "";
 
-            changesView.Rows.Clear();
+            //changesView.Nodes.Clear();
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace RAFManager
         /// </summary>
         private void SaveProject(string location)
         {
-            changesView.ClearSelection();
+            //changesView.ClearSelection();
             /**
              * Output:
              * ProjectName
@@ -82,6 +82,7 @@ namespace RAFManager
             string serialization = projectInfo.ProjectName;
             serialization += "\n" + " "; //Path to project, probably won't be used to allow project movement
             serialization += "\n" + " ";
+            /*
             for (int i = 0; i < changesView.RowCount; i++)
             {
                 DataGridViewRow row = changesView.Rows[i];
@@ -99,6 +100,7 @@ namespace RAFManager
                         + " | " + entry.RAFArchive.GetID() + "/" + entry.FileName;
                 }
             }
+             */
             HasProjectChanged = false;
             File.WriteAllText(location, serialization);
             UpdateProjectGUI();
@@ -146,7 +148,7 @@ namespace RAFManager
                 string[] parts = afterCheck.Split("|"); //yields {localPath, rafPath}
                 string localPath = parts[0].Trim();
                 string rafPath = parts[1].Trim();       //includes RAF Archive Id (0.0.0.xx)
-
+                /*
                 int rowId = changesView.Rows.Add();
 
 
@@ -158,10 +160,11 @@ namespace RAFManager
 
                 changesView.Rows[rowId].Cells[CN_RAFPATH].Value = rafPath;
                 changesView.Rows[rowId].Cells[CN_RAFPATH].Tag = ResolveRAFPathToEntry(rafPath);
+                 */
             }
 
             UpdateProjectGUI();
-            UpdateChangesGUI();
+            //UpdateChangesGUI();
         }
 
         /// <summary>

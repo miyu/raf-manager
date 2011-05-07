@@ -32,11 +32,26 @@ namespace RAFManager
 
         public MainForm()
         {
+            InitializeComponent();
+            ImageList list = new ImageList();
+            list.Images.Add(Properties.Resources.Checkbox_Unchecked);
+            list.Images.Add(Properties.Resources.Checkbox_Partial);
+            list.Images.Add(Properties.Resources.Checkbox_Checked);
+
+            TristateTreeView triview = new TristateTreeView();
+            triview.Dock = DockStyle.Fill;
+            triview.Nodes.Add(new TristateTreeNode("lol"));
+            triview.Nodes[0].Nodes.Add(new TristateTreeNode("child"));
+            this.smallContainer.Panel2.Controls.Add(triview);
+
+            //changesView.ImageList = list;
+            //changesView.ImageIndex = 0;
+            //changesView.Nodes[0].Nodes[0].ImageIndex = 1;
+
             CheckForUpdates();
 
             SetArchivesRoot();
 
-            InitializeComponent();
             this.Load += new EventHandler(MainForm_Load);
 
             int bigSplitterDistanceFromBottom = bigContainer.Height - bigContainer.SplitterDistance;
@@ -133,9 +148,13 @@ namespace RAFManager
         /// </summary>
         private void Log(string s)
         {
-            log.Text += "\r\n" + s;
-            log.SelectionStart = log.Text.Length;
-            log.ScrollToCaret();
+            try
+            {
+                log.Text += "\r\n" + s;
+                log.SelectionStart = log.Text.Length;
+                log.ScrollToCaret();
+            }
+            catch { }
         }
 
         /// <summary>
@@ -163,6 +182,7 @@ namespace RAFManager
         /// </summary>
         private void packToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            /*
             DialogResult result = MessageBox.Show("Are all archives backed up?  This application has been tested quite a bit, but errors might one day pop up.  You should backup your archive files (run the backup menu item).  Do you want to continue?  This is your last warning.", "Confirm backup", MessageBoxButtons.YesNo);
 
             //Verify
@@ -175,12 +195,12 @@ namespace RAFManager
             if (result == System.Windows.Forms.DialogResult.Yes)
             {
                 //We shall do our stuffs.
-                for (int i = 0; i < changesView.Rows.Count-1; i++)
+                for (int i = 0; i < changesView.Nodes.Count-1; i++)
                 {
-                    if (changesView.Rows.Count == 1)
-                        SetTaskbarProgress(50);
-                    else
-                        SetTaskbarProgress((i+1)*100 / changesView.Rows.Count - 1);
+                    //if (changesView.Rows.Count == 1)
+                        //SetTaskbarProgress(50);
+                    //else
+                        //SetTaskbarProgress((i+1)*100 / changesView.Rows.Count - 1);
                     DataGridViewRow row = changesView.Rows[i];
                     RAFFileListEntry entry = (RAFFileListEntry)row.Cells[CN_RAFPATH].Tag;
                     string rafPath = entry.FileName;
@@ -231,6 +251,7 @@ namespace RAFManager
 
                 SetTaskbarProgress(0);
             }
+             */
         }
         /// <summary>
         /// Verifies that the project is ready for packing:
@@ -239,6 +260,8 @@ namespace RAFManager
         /// <returns></returns>
         private bool VerifyPackPrecondition()
         {
+            return false;
+            /*
             for (int i = 0; i < changesView.Rows.Count-1; i++)
             {
                 DataGridViewRow row = changesView.Rows[i];
@@ -267,6 +290,7 @@ namespace RAFManager
                 }
             }
             return true;
+             */
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
