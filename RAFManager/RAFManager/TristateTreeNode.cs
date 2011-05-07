@@ -26,14 +26,16 @@ namespace RAFManager
         private TristateTreeNodeState checkboxState = TristateTreeNodeState.Unchecked;
         private int tabWidth = 40; //How much we shift to the right when we
                                    //go down to a childnode for rendering
-        private TristateTreeNode parent = null;
+        private Object parent = null;
 
         public TristateTreeNode()
         {
+            nodes = new TristateTreeNodeCollection(this);
         }
         public TristateTreeNode(string text)
         {
             this.text = text;
+            nodes = new TristateTreeNodeCollection(this);
         }
 
         public string Text
@@ -55,9 +57,20 @@ namespace RAFManager
             }
             set
             {
-                if (!parent.nodes.Contains(this))
-                    parent.nodes.Add(this);
-                this.parent = value;
+                if (value is TristateTreeNode)
+                {
+                    TristateTreeNode p = (TristateTreeNode)value;
+                    if (!p.nodes.Contains(this))
+                        p.nodes.Add(this);
+                    this.parent = value;
+                }
+                else if(value is TristateTreeView)
+                {
+                    TristateTreeView p = (TristateTreeView)value;
+                    if (!p.Nodes.Contains(this))
+                        p.Nodes.Add(this);
+                    this.parent = value;
+                }
             }
         }
 
@@ -79,12 +92,58 @@ namespace RAFManager
 
         private Font GetFont()
         {
-            Object currentNode = this;
-            int maxDepth = 100; //Maximum depth before we just throw an exception
-            for (int i = 0; i < maxDepth; i++)
+            return this.TreeView.Font;
+        }
+        private Graphics GetGraphics()
+        {
+            return this.TreeView.GetGraphics();
+        }
+        public Point GetLocation()
+        {
+            Object currentNode = this.parent;
+            int offsetX = 0;
+            int offsetY = 0;
+            int depth   = 0; //How many levels/tabs in are we? 
+            while (currentNode is TristateTreeNode)
             {
-                if(currentNode is TristateTreeView)
+                TristateTreeNode cNode = (TristateTreeNode)currentNode;
+                offsetY += cNode.Size.Height;
+                Console.WriteLine(offsetY);
+                for (int i = 0; i < cNode.nodes.Count; i++)
+                {
+                    if (!cNode.nodes[i].Contains(this) && cNode.nodes[i] != this) //Not our owner, just add its height
+                    {
+                        //Console.WriteLine(cNode.text + " " + cNode.nodes[i].BigSize.Height);
+                        Console.WriteLine("add height: " + cNode.nodes[i].BigSize.Height);
+                        offsetY += cNode.nodes[i].BigSize.Height;
+                    }
+                    else //We found our owner, don't add offset, since we've already done so earlier
+                    {
+                        i = cNode.nodes.Count; //Done.
+                    }
+                }
+                //Console.WriteLine(offsetY);
+                depth++;
+                currentNode = cNode.parent;
             }
+            //curentNode is now a tristatetreeview
+            TristateTreeView view = (TristateTreeView)currentNode;
+            bool done = false;
+            for (int i = 0; i < view.Nodes.Count && !done; i++)
+                if (view.Nodes[i].Contains(this) || view.Nodes[i] == this)
+                    done = true;
+                else
+                    offsetY += view.Nodes[i].BigSize.Height;
+            return new Point(tabWidth * depth + ((TristateTreeView)currentNode).StartDrawOffset.X, offsetY);
+        }
+        public bool Contains(TristateTreeNode node)
+        {
+            bool result = nodes.Contains(node);
+            for (int i = 0; i < nodes.Count; i++)
+            {
+                result |= nodes[i].Contains(node);
+            }
+            return result;
         }
 
         /// <summary>
@@ -95,18 +154,56 @@ namespace RAFManager
         /// <returns>New drawing offset (bottom left)</returns>
         public Point Draw(Graphics g, Point location)
         {
-            g.DrawImage(GetCheckboxBitmap(), new Rectangle(location, new Size(20, 20)));
-            g.DrawString(this.text, 
-                         this.font, 
-                         Brushes.Black, 
-                         new Point(
-                             location.X + 20,
-                             location.Y + (20 - (int)g.MeasureString(text, font).Height)/2
-                         )
-            );
-            return GetDrawingOffset(g, location);
+            if (HasToggle)
+            {
+                g.DrawImage(GetToggleBitmap(), new Rectangle(location, new Size(19, 20)));
+                g.DrawImage(GetCheckboxBitmap(), new Rectangle(new Point(location.X + 19, location.Y), new Size(20, 20)));
+                g.DrawString(this.text,
+                             this.GetFont(),
+                             Brushes.Black,
+                             new Point(
+                                 location.X + 20 + 19,
+                                 location.Y + (20 - (int)g.MeasureString(text, this.GetFont()).Height) / 2
+                             )
+                );
+                if (toggle)
+                {
+                    Point offset = new Point(
+                        location.X + tabWidth,
+                        location.Y + this.Size.Height
+                    );
+                    for (int i = 0; i < nodes.Count; i++)
+                    {
+                        offset = nodes[i].Draw(g, offset);
+                    }
+                    //RenderNodes(nodes[i].Nodes, g, offset);
+                    //offset.X -= tabWidth;
+                }
+                return GetDrawingOffset(g, location);
+            }
+            else
+            {
+                g.DrawImage(GetCheckboxBitmap(), new Rectangle(
+                    new Point(location.X + 19, location.Y), new Size(20, 20)));
+                g.DrawString(this.text,
+                             this.GetFont(),
+                             Brushes.Black,
+                             new Point(
+                                 location.X + 19+ 20,
+                                 location.Y + (20 - (int)g.MeasureString(text, this.GetFont()).Height) / 2
+                             )
+                );
+                return GetDrawingOffset(g, location);
+            }
         }
 
+        private Bitmap GetToggleBitmap()
+        {
+            if (toggle)
+                return Properties.Resources.CheckboxToggleEnable;
+            else
+                return Properties.Resources.CheckboxToggleDisable;
+        }
         private Bitmap GetCheckboxBitmap()
         {
             if ((this.checkboxState & TristateTreeNodeState.Disabled) > 0)
@@ -137,11 +234,17 @@ namespace RAFManager
         /// <returns></returns>
         public Point GetDrawingOffset(Graphics g, Point location)
         {
-            return new Point(
+            Point result = new Point(
                 location.X,
-                location.Y + Math.Max(g.MeasureString(text, font).ToSize().Height, 
+                location.Y + Math.Max(g.MeasureString(text, GetFont()).ToSize().Height, 
                                       20)
             );
+            if(HasToggle && toggle)
+                for(int i = 0; i < this.nodes.Count; i++)
+                {
+                    result = this.nodes[i].GetDrawingOffset(g, result);
+                }
+            return result;
         }
         public Point GetBottomRightDrawingOffset(Graphics g, Point location)
         {
@@ -155,11 +258,17 @@ namespace RAFManager
         {
             get
             {
-                Size textSize = g.MeasureString(text, font).ToSize();
-                return new Size(
-                    20 + 2 + textSize.Width,
-                    Math.Max(textSize.Height, 20)
-                );
+                Size textSize = GetGraphics().MeasureString(text, GetFont()).ToSize();
+                if(HasToggle)
+                    return new Size(
+                        20 + 19 + 2 + textSize.Width,
+                        Math.Max(textSize.Height, 20)
+                    );
+                else
+                    return new Size(
+                        20 + 19 + 2 + textSize.Width,
+                        Math.Max(textSize.Height, 20)
+                    );
             }
         }
 
@@ -170,24 +279,25 @@ namespace RAFManager
         {
             get
             {
-                Size textSize = g.MeasureString(text, font).ToSize();
-                int width = 20 + 2 + textSize.Width;
+                Size textSize = GetGraphics().MeasureString(text, GetFont()).ToSize();
+                int width = 20 + 19 + 2 + textSize.Width;
                 int height = 20;
-                for (int i = 0; i < nodes.Count; i++)
-                {
-                    Size bigSize = nodes[i].BigSize;
-                    height += bigSize.Height;
-                    width = Math.Max(tabWidth + bigSize.Width, width);
-                }
+                if(HasToggle && toggle)
+                    for (int i = 0; i < nodes.Count; i++)
+                    {
+                        Size bigSize = nodes[i].BigSize;
+                        height += bigSize.Height;
+                        width = Math.Max(tabWidth + bigSize.Width, width);
+                    }
                 return new Size(width, height);
             }
         }
-        
-        public List<TristateTreeNode> Nodes
+
+        public TristateTreeNodeCollection Nodes
         {
             get
             {
-                return nodes;
+                return this.nodes;
             }
         }
 
@@ -195,11 +305,12 @@ namespace RAFManager
         {
             if (new Rectangle(new Point(0, 0), Size).Contains(point)) return this;
 
-            Point offset = this.GetDrawingOffset(g, new Point(tabWidth, 0));
+            Point offset = new Point(tabWidth, this.Size.Height);
+            Console.WriteLine("co: " + offset);
             for (int i = 0; i < nodes.Count; i++)
             {
                 TristateTreeNode node = nodes[i];
-                if (new Rectangle(offset, node.Size).Contains(point))
+                if (new Rectangle(offset, node.BigSize).Contains(point))
                 {
                     return node.GetNodeAtLocation(
                         new Point(
@@ -208,10 +319,26 @@ namespace RAFManager
                         )
                     );
                 }
-                offset = node.GetDrawingOffset(g, offset);
+                offset = node.GetDrawingOffset(GetGraphics(), offset);
+                Console.WriteLine("co: " + offset);
             }
             return null;
         }
+        public bool HasToggle
+        {
+            get
+            {
+                return this.nodes.Count > 0;
+            }
+        }
+        public bool IsToggled
+        {
+            get
+            {
+                return toggle;
+            }
+        }
+        private bool toggle = false;
 
         /// <summary>
         /// 
@@ -219,28 +346,102 @@ namespace RAFManager
         /// <returns>Whether or not we are now selected</returns>
         public bool ProcessClick(Point point)
         {
-            if (new Rectangle(0, 0, 20, 20).Contains(point))
+            Console.WriteLine("PC: " + point);
+            if (HasToggle)
             {
-                //Checkbox click
-                ToggleChecked();
-                return true;
+                if (new Rectangle(2, 2, 15, 16).Contains(point))
+                {   //Toggle click
+                    Toggle();
+                }
+                if (new Rectangle(19, 0, 20, 20).Contains(point))
+                {
+                    //Checkbox click
+                    ToggleChecked();
+                    return true;
+                }
+            }
+            else
+            {
+                if (new Rectangle(19, 0, 20, 20).Contains(point))
+                {
+                    //Checkbox click
+                    ToggleChecked();
+                    return true;
+                }
             }
             return false;
+        }
+        public void Toggle()
+        {
+            toggle = !toggle;
         }
         public void ToggleChecked()
         {
             if (this.checkboxState.HasFlag(TristateTreeNodeState.Checked))
-                this.checkboxState = (this.checkboxState & ~TristateTreeNodeState.Checked) | TristateTreeNodeState.Unchecked;
+                SetCheckState(TristateTreeNodeState.Unchecked, true, true);
             else if (this.checkboxState.HasFlag(TristateTreeNodeState.Unchecked))
-                this.checkboxState = (this.checkboxState & ~TristateTreeNodeState.Unchecked) | TristateTreeNodeState.Checked;
+                SetCheckState(TristateTreeNodeState.Checked, true, true);
             else if (this.checkboxState.HasFlag(TristateTreeNodeState.Partial))
-                this.checkboxState = (this.checkboxState & ~TristateTreeNodeState.Partial) | TristateTreeNodeState.;
+                SetCheckState(TristateTreeNodeState.Checked, true, true);
         }
-        public void SetCheckState(TristateTreeNodeState state)
+        private void ModifyChildState()
+        {
+            if ((this.checkboxState & TristateTreeNodeState.Checked) > 0) //we be checked
+            {
+                for (int i = 0; i < this.nodes.Count; i++)
+                    this.nodes[i].SetCheckState(TristateTreeNodeState.Checked, true, false);
+            }
+            else if ((this.checkboxState & TristateTreeNodeState.Unchecked) > 0) //we be checked
+                for (int i = 0; i < this.nodes.Count; i++)
+                    this.nodes[i].SetCheckState(TristateTreeNodeState.Unchecked, true, false);
+        }
+        private void UpdateCheckState(bool bubbleToChildren, bool bubbleToParent)
+        {
+            if (this.nodes.Count == 0) return;
+            bool allChecked = true;
+            bool allEmpty = true;
+            for (int i = 0; i < this.nodes.Count; i++)
+            {
+                TristateTreeNodeState state = this.nodes[i].CheckState;
+                if (state == TristateTreeNodeState.Checked)
+                    allEmpty = false;
+                else if (state == TristateTreeNodeState.Unchecked)
+                    allChecked = false;
+                else //partial
+                {
+                    allEmpty = false;
+                    allChecked = false;
+                }
+            }
+            if (allChecked) SetCheckState(TristateTreeNodeState.Checked, bubbleToChildren, bubbleToParent);
+            else if (allEmpty) SetCheckState(TristateTreeNodeState.Unchecked, bubbleToChildren, bubbleToParent);
+            else SetCheckState(TristateTreeNodeState.Partial, bubbleToChildren, bubbleToParent);
+        }
+        public void SetCheckState(TristateTreeNodeState state, bool bubbleToChildren, bool bubbleToParent)
         {
             bool disabled = (this.checkboxState & TristateTreeNodeState.Disabled) > 0;
             TristateTreeNodeState flags = disabled ? TristateTreeNodeState.Disabled : TristateTreeNodeState.Empty;
-            flags &= state;
+            flags |= state;
+            this.checkboxState = flags;
+
+            if(bubbleToChildren)
+                ModifyChildState();
+
+            //Update parent
+            if (this.parent is TristateTreeNode && bubbleToParent)
+                ((TristateTreeNode)this.parent).UpdateCheckState(false, true);
+        }
+        public TristateTreeNodeState CheckState
+        {
+            get
+            {
+                UpdateCheckState(false, false);
+                return this.checkboxState & ~TristateTreeNodeState.Disabled;
+            }
+            set
+            {
+                SetCheckState(value & ~TristateTreeNodeState.Disabled, true, true);
+            }
         }
     }
 }

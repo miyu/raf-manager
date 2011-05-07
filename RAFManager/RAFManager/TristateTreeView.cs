@@ -12,10 +12,11 @@ namespace RAFManager
     public partial class TristateTreeView : Control
     {
         private VScrollBar vscrollbar           = new VScrollBar();
-        private List<TristateTreeNode> nodes    = null;
+        private TristateTreeNodeCollection nodes = null;
         private int tabWidth                    = 40; //How much we shift to the right when we
                                                       //go down to a childnode for rendering
         private Graphics g                      = null;
+        private Point startDrawOffset           = new Point(5, 5);
         public TristateTreeView()
         {
             InitializeComponent();
@@ -23,11 +24,45 @@ namespace RAFManager
 
             this.g = this.CreateGraphics();
 
-            this.nodes = new List<TristateTreeNode>();
+            this.nodes = new TristateTreeNodeCollection(this);
 
             this.Paint += new PaintEventHandler(ProjectViewer_Paint);
+            this.Resize += new EventHandler(TristateTreeView_Resize);
             this.MouseDown += new MouseEventHandler(TristateTreeView_MouseDown);
+            this.MouseMove += new MouseEventHandler(TristateTreeView_MouseMove);
+
+            this.vscrollbar.ValueChanged += new EventHandler(vscrollbar_ValueChanged);
+
             this.Controls.Add(vscrollbar);
+            this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            this.SetStyle(ControlStyles.UserPaint, true);
+        }
+
+        void vscrollbar_ValueChanged(object sender, EventArgs e)
+        {
+            OnPaint(null);
+        }
+
+        void TristateTreeView_Resize(object sender, EventArgs e)
+        {
+            SizeVScrollbar();
+        }
+        private void SizeVScrollbar()
+        {
+            Console.WriteLine("TDH: " + this.TreeDrawingHeight);
+            Console.WriteLine("H: " + this.Height);
+            if (this.TreeDrawingHeight < this.Height)
+            {
+                this.vscrollbar.Enabled = false;
+                this.vscrollbar.Value = 0;
+            }
+            else
+            {
+                this.vscrollbar.Minimum = 0;
+                this.vscrollbar.Maximum = this.TreeDrawingHeight - this.Height + 20; //HACK: 20 added
+
+                this.vscrollbar.Enabled = true;
+            }
         }
 
         private bool mousedown = false;
@@ -35,15 +70,33 @@ namespace RAFManager
         void TristateTreeView_MouseDown(object sender, MouseEventArgs e)
         {
             mousedown = true;
-            TristateTreeNode node = GetNodeAtLocation(new Point(e.X, e.Y));
+            TristateTreeNode node = GetNodeAtLocation(new Point(e.X, e.Y + vscrollbar.Value));
             Console.WriteLine("Clicked: " + (node == null?"nothing":node.Text));
-            //if (node != null)
-            //    node.ProcessClick(e.X - e.Y);
+            if (node != null)
+            {
+                Point nodeLocation = node.GetLocation();
+                Console.WriteLine("nLoc: " + nodeLocation);
+                selectedNode = node;
+                node.ProcessClick(
+                     new Point(
+                         e.X - nodeLocation.X,
+                         e.Y - nodeLocation.Y + vscrollbar.Value
+                     )
+                );
+                SizeVScrollbar();
+                Invalidate();
+            }
         }
-
+        void TristateTreeView_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (mousedown && selectedNode != null) //Dragging a node
+            {
+                //TODO
+            }
+        }
         private TristateTreeNode GetNodeAtLocation(Point point)
         {
-            Point offset = new Point(5, 5);
+            Point offset = startDrawOffset;
             for (int i = 0; i < nodes.Count; i++)
             {
                 TristateTreeNode node = nodes[i];
@@ -57,40 +110,75 @@ namespace RAFManager
                     );
                 }
                 offset = node.GetDrawingOffset(g, offset);
+                Console.WriteLine("OFF: " + offset);
             }
             return null;
         }
 
-        private TristateTreeNode GetNodeLocation(TristateTreeNode search)
+        public Graphics GetGraphics()
         {
-            Point offset = new Point(5, 5);
-            for (int i = 0; i < nodes.Count; i++)
+            return this.g;
+        }
+        public Point StartDrawOffset
+        {
+            get
             {
-                TristateTreeNode node = nodes[i];
+                return startDrawOffset;
             }
-            return null;
         }
-        private 
-
-        void ProjectViewer_Paint(object sender, PaintEventArgs e)
+        public int TreeDrawingHeight
         {
-            Graphics g = e.Graphics;
-            g.Clear(SystemColors.ControlLightLight);
-            
-            RenderNodes(nodes, g, new Point(0, 0));
+            get
+            {
+                TristateTreeNode currentNode = this.nodes[this.nodes.Count - 1];
+                while (currentNode.Nodes.Count > 0 && currentNode.HasToggle?currentNode.IsToggled:true)
+                    currentNode = currentNode.Nodes[currentNode.Nodes.Count - 1];
+                return currentNode.GetLocation().Y + currentNode.BigSize.Height; //HACK
+            }
         }
-        private void RenderNodes(List<TristateTreeNode> nodes, Graphics g, Point offset)
+        Bitmap backBuffer = null;
+        private void ProjectViewer_Paint(object sender, PaintEventArgs e)
+        {
+            if (backBuffer == null) backBuffer = new Bitmap(this.Width, this.Height);
+            else if (backBuffer.Width != this.Width || backBuffer.Height != this.Height)
+            {
+                backBuffer.Dispose();
+                backBuffer = new Bitmap(this.Width, this.Height);
+            }
+            Graphics bbg = Graphics.FromImage(backBuffer);
+            bbg.Clear(SystemColors.ControlLightLight);
+            RenderNodes(nodes, bbg, 
+                new Point(
+                    startDrawOffset.X,
+                    startDrawOffset.Y - vscrollbar.Value
+                )
+            );
+
+            Graphics g = (e == null ? this.CreateGraphics() : e.Graphics);
+            g.Clear(SystemColors.ControlLightLight);
+            g.DrawImage(backBuffer, new Point(0, 0));
+            Console.WriteLine(this.Width);
+        }
+        protected override void OnPaintBackground(PaintEventArgs pevent)
+        {
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="nodes"></param>
+        /// <param name="g"></param>
+        /// <param name="offset"></param>
+        /// <returns>Height of image</returns>
+        private int RenderNodes(TristateTreeNodeCollection nodes, Graphics g, Point offset)
         {   //The recursion shouldn't go so deep as to get a stackoverflow...
             for (int i = 0; i < nodes.Count; i++)
             {
                 offset = nodes[i].Draw(g, offset);
-                offset.X += tabWidth;
-                RenderNodes(nodes[i].Nodes, g, offset);
-                offset.X -= tabWidth;
             }
+            return offset.Y;
         }
 
-        public List<TristateTreeNode> Nodes
+        public TristateTreeNodeCollection Nodes
         {
             get
             {

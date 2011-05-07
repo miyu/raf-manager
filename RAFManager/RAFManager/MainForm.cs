@@ -40,8 +40,19 @@ namespace RAFManager
 
             TristateTreeView triview = new TristateTreeView();
             triview.Dock = DockStyle.Fill;
-            triview.Nodes.Add(new TristateTreeNode("lol"));
-            triview.Nodes[0].Nodes.Add(new TristateTreeNode("child"));
+            for (int i = 0; i < 10; i++)
+            {
+                triview.Nodes.Add(new TristateTreeNode(i + "lol"));
+                for (int j = 0; j < 10; j++)
+                {
+                    triview.Nodes[i].Nodes.Add(new TristateTreeNode(j + "child"));
+                    for (int k = 0; k < 10; k++)
+                    {
+                        triview.Nodes[i].Nodes[j].Nodes.Add(new TristateTreeNode(k + "child"));
+                    }
+                }
+            }
+
             this.smallContainer.Panel2.Controls.Add(triview);
 
             //changesView.ImageList = list;

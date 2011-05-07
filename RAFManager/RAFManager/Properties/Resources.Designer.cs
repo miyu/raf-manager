@@ -81,6 +81,20 @@ namespace RAFManager.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap CheckboxToggleDisable {
+            get {
+                object obj = ResourceManager.GetObject("CheckboxToggleDisable", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap CheckboxToggleEnable {
+            get {
+                object obj = ResourceManager.GetObject("CheckboxToggleEnable", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Directory {
             get {
                 object obj = ResourceManager.GetObject("Directory", resourceCulture);

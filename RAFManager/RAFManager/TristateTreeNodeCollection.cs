@@ -19,6 +19,11 @@ namespace RAFManager
             nodes.Add(node);
             node.Parent = owner;
         }
+        public void Remove(TristateTreeNode node)
+        {
+            nodes.Remove(node);
+            node.Parent = null;
+        }
         public TristateTreeNode this[int index]
         {
             get
