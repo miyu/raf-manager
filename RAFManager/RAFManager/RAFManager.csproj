@@ -69,6 +69,14 @@
     <Compile Include="BinaryViewer.Designer.cs">
       <DependentUpon>BinaryViewer.cs</DependentUpon>
     </Compile>
+    <Compile Include="TristateTreeNodeCollection.cs" />
+    <Compile Include="TristateTreeNode.cs" />
+    <Compile Include="TristateTreeView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TristateTreeView.Designer.cs">
+      <DependentUpon>TristateTreeView.cs</DependentUpon>
+    </Compile>
     <Compile Include="UpdateAvailableDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -129,6 +137,9 @@
     <EmbeddedResource Include="BinaryViewer.resx">
       <DependentUpon>BinaryViewer.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="TristateTreeView.resx">
+      <DependentUpon>TristateTreeView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UpdateAvailableDialog.resx">
       <DependentUpon>UpdateAvailableDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -181,6 +192,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="LeagueCraftIcon.ico" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Images\Checkbox_Checked.png" />
+    <Content Include="Images\Checkbox_Partial.png" />
+    <Content Include="Images\Checkbox_Unchecked.png" />
+    <Content Include="Images\Directory.png" />
+    <Content Include="Images\File.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

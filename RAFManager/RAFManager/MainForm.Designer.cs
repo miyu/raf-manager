@@ -28,9 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.log = new System.Windows.Forms.TextBox();
             this.logContainer = new System.Windows.Forms.GroupBox();
             this.rafContentView = new System.Windows.Forms.TreeView();
@@ -51,12 +50,7 @@
             this.projectNameTb = new System.Windows.Forms.ToolStripTextBox();
             this.bigContainer = new System.Windows.Forms.SplitContainer();
             this.smallContainer = new System.Windows.Forms.SplitContainer();
-            this.changesView = new System.Windows.Forms.DataGridView();
-            this.shouldUseMod = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.localPathColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pickLocalPathColumn = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.rafPathColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pickRafPathColumn = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.logContainer.SuspendLayout();
             this.toolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bigContainer)).BeginInit();
@@ -65,9 +59,8 @@
             this.bigContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.smallContainer)).BeginInit();
             this.smallContainer.Panel1.SuspendLayout();
-            this.smallContainer.Panel2.SuspendLayout();
             this.smallContainer.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.changesView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // log
@@ -254,82 +247,9 @@
             // smallContainer.Panel1
             // 
             this.smallContainer.Panel1.Controls.Add(this.rafContentView);
-            // 
-            // smallContainer.Panel2
-            // 
-            this.smallContainer.Panel2.Controls.Add(this.changesView);
             this.smallContainer.Size = new System.Drawing.Size(770, 354);
             this.smallContainer.SplitterDistance = 263;
             this.smallContainer.TabIndex = 0;
-            // 
-            // changesView
-            // 
-            this.changesView.AllowUserToResizeColumns = false;
-            this.changesView.AllowUserToResizeRows = false;
-            this.changesView.BackgroundColor = System.Drawing.SystemColors.Control;
-            this.changesView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.changesView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.shouldUseMod,
-            this.localPathColumn,
-            this.pickLocalPathColumn,
-            this.rafPathColumn,
-            this.pickRafPathColumn});
-            this.changesView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.changesView.Location = new System.Drawing.Point(0, 0);
-            this.changesView.Name = "changesView";
-            this.changesView.RowHeadersVisible = false;
-            this.changesView.RowHeadersWidth = 25;
-            this.changesView.RowTemplate.Height = 24;
-            this.changesView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.changesView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.changesView.Size = new System.Drawing.Size(503, 354);
-            this.changesView.TabIndex = 0;
-            // 
-            // shouldUseMod
-            // 
-            this.shouldUseMod.HeaderText = "Use?";
-            this.shouldUseMod.MinimumWidth = 20;
-            this.shouldUseMod.Name = "shouldUseMod";
-            this.shouldUseMod.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.shouldUseMod.Width = 101;
-            // 
-            // localPathColumn
-            // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.localPathColumn.DefaultCellStyle = dataGridViewCellStyle1;
-            this.localPathColumn.HeaderText = "Local Path";
-            this.localPathColumn.Name = "localPathColumn";
-            this.localPathColumn.ReadOnly = true;
-            this.localPathColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.localPathColumn.Width = 102;
-            // 
-            // pickLocalPathColumn
-            // 
-            this.pickLocalPathColumn.HeaderText = "";
-            this.pickLocalPathColumn.Name = "pickLocalPathColumn";
-            this.pickLocalPathColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.pickLocalPathColumn.Text = "...";
-            this.pickLocalPathColumn.Width = 101;
-            // 
-            // rafPathColumn
-            // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.rafPathColumn.DefaultCellStyle = dataGridViewCellStyle2;
-            this.rafPathColumn.HeaderText = "RAF Path";
-            this.rafPathColumn.Name = "rafPathColumn";
-            this.rafPathColumn.ReadOnly = true;
-            this.rafPathColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.rafPathColumn.Width = 102;
-            // 
-            // pickRafPathColumn
-            // 
-            this.pickRafPathColumn.HeaderText = "";
-            this.pickRafPathColumn.Name = "pickRafPathColumn";
-            this.pickRafPathColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.pickRafPathColumn.Text = "...";
-            this.pickRafPathColumn.Width = 101;
             // 
             // MainForm
             // 
@@ -351,10 +271,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.bigContainer)).EndInit();
             this.bigContainer.ResumeLayout(false);
             this.smallContainer.Panel1.ResumeLayout(false);
-            this.smallContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.smallContainer)).EndInit();
             this.smallContainer.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.changesView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -376,18 +295,13 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.SplitContainer bigContainer;
         private System.Windows.Forms.SplitContainer smallContainer;
-        private System.Windows.Forms.DataGridView changesView;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripLabel toolStripLabel2;
         private System.Windows.Forms.ToolStripTextBox projectNameTb;
         private System.Windows.Forms.ToolStripMenuItem goToRAFPackerLeagueCraftTHreadToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem packToolStripMenuItem;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn shouldUseMod;
-        private System.Windows.Forms.DataGridViewTextBoxColumn localPathColumn;
-        private System.Windows.Forms.DataGridViewButtonColumn pickLocalPathColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn rafPathColumn;
-        private System.Windows.Forms.DataGridViewButtonColumn pickRafPathColumn;
         private System.Windows.Forms.ToolStripMenuItem goToRAFManagerHomePageToolStripMenuItem;
+        private System.Windows.Forms.BindingSource bindingSource1;
     }
 }
 

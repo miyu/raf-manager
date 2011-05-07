@@ -60,6 +60,41 @@ namespace RAFManager.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Checkbox_Checked {
+            get {
+                object obj = ResourceManager.GetObject("Checkbox_Checked", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Checkbox_Partial {
+            get {
+                object obj = ResourceManager.GetObject("Checkbox_Partial", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Checkbox_Unchecked {
+            get {
+                object obj = ResourceManager.GetObject("Checkbox_Unchecked", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Directory {
+            get {
+                object obj = ResourceManager.GetObject("Directory", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap File {
+            get {
+                object obj = ResourceManager.GetObject("File", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap LeagueCraftIcon {
             get {
                 object obj = ResourceManager.GetObject("LeagueCraftIcon", resourceCulture);
