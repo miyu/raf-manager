@@ -69,6 +69,13 @@
     <Compile Include="BinaryViewer.Designer.cs">
       <DependentUpon>BinaryViewer.cs</DependentUpon>
     </Compile>
+    <Compile Include="ChangesViewEntry.cs" />
+    <Compile Include="StringQueryDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StringQueryDialog.Designer.cs">
+      <DependentUpon>StringQueryDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="TristateTreeNodeCollection.cs" />
     <Compile Include="TristateTreeNode.cs" />
     <Compile Include="TristateTreeView.cs">
@@ -136,6 +143,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BinaryViewer.resx">
       <DependentUpon>BinaryViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StringQueryDialog.resx">
+      <DependentUpon>StringQueryDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TristateTreeView.resx">
       <DependentUpon>TristateTreeView.cs</DependentUpon>

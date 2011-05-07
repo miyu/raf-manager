@@ -29,11 +29,18 @@ namespace RAFManager
             optionsListBox.SelectedIndexChanged += new EventHandler(optionsListBox_SelectedIndexChanged);
             doneButton.Click += new EventHandler(doneButton_Click);
             cancelButton.Click += new EventHandler(cancelButton_Click);
+            this.optionsListBox.DoubleClick += new EventHandler(optionsListBox_DoubleClick);
 
             reasonLabel.Text = "Reason: " + reason;
 
             this.Resize += new EventHandler(FileEntryAmbiguityResolver_Resize);
             this.ResizeEnd += new EventHandler(FileEntryAmbiguityResolver_ResizeEnd);
+        }
+
+        void optionsListBox_DoubleClick(object sender, EventArgs e)
+        {
+            if (optionsListBox.SelectedItem != null)
+                Close();
         }
 
         /// <summary>

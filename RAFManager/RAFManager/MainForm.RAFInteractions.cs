@@ -34,8 +34,36 @@ namespace RAFManager
             rafContentView.AllowDrop = true;
             rafContentView.DragOver += new DragEventHandler(rafContentView_DragOver);
 
+            changesView.AllowDrop = true;
+            changesView.DragOver += new DragEventHandler(changesView_DragOver);
+            changesView.DragDrop += new DragEventHandler(changesView_DragDrop);
+            changesView.NodeRightClicked += new NodeRightClickedHandler(changesView_NodeRightClicked);
             //changesView.Nodes[0].
             //this.Resize += delegate(object sender, EventArgs e) { UpdateChangesGUI(); };
+        }
+
+        void changesView_NodeRightClicked(TristateTreeNode node, MouseEventArgs e)
+        {
+            ContextMenu cm = new ContextMenu();
+            MenuItem delete = new MenuItem("Delete");
+            delete.Click += delegate(object sender, EventArgs e2){
+                if (node.Parent is TristateTreeView)
+                {
+                    TristateTreeView p = (TristateTreeView)node.Parent;
+                    p.Nodes.Remove(node);
+                    if (p.SelectedNode == node) p.SelectedNode = null;
+                    p.Invalidate();
+                }
+                else
+                {
+                    TristateTreeNode n = (TristateTreeNode)node.Parent;
+                    n.Nodes.Remove(node);
+                    if (n.TreeView.SelectedNode == node) n.TreeView.SelectedNode = null;
+                    n.TreeView.Invalidate();
+                }
+            };
+            cm.MenuItems.Add(delete);
+            cm.Show(changesView, new Point(e.X, e.Y));
         }
 
         /// <summary>
@@ -46,94 +74,110 @@ namespace RAFManager
             //Check if we have a file/list of filfes
             if (e.Data is DataObject && ((DataObject)e.Data).ContainsFileDropList())
             {
+
                 DataObject dataObject = (DataObject)e.Data;
-                StringCollection rootPaths = dataObject.GetFileDropList();
+                StringCollection dropList = dataObject.GetFileDropList();
 
-                //Iterate through all given files
-                foreach(string rootPath in rootPaths)
+                List<string> filePaths = new List<string>();
+                foreach (string path in dropList)
                 {
-                    Console.WriteLine(rootPath);
-                    //Get all files in path
-                    string[] filePaths;
+                    if (File.GetAttributes(path).HasFlag(FileAttributes.Directory))
+                        filePaths.AddRange(Util.GetAllChildFiles(path));//Directory.GetFiles(rootPath, "**", SearchOption.AllDirectories);
+                    else
+                        filePaths.Add(path);
+                }
+                //Iterate through all files
+                StringQueryDialog nameQueryDialog = new StringQueryDialog("Type File Group Name:");
+                nameQueryDialog.ShowDialog();
+                if (nameQueryDialog.Value.Trim() == "")
+                {
+                    Log("Invalid name '{0}' given.  ".F(nameQueryDialog.Value.Trim()));
+                    return;
+                }
+                TristateTreeNode topNode = new TristateTreeNode(nameQueryDialog.Value);
+                topNode.HasCheckBox = true;
+                for (int z = 0; z < filePaths.Count; z++)
+                {
+                    SetTaskbarProgress(z * 100 / filePaths.Count);
+                    string filePath = filePaths[z].Replace("\\", "/");
+                    //Console.WriteLine(filePath);
 
-                    //If it's a directory, get a list of its files
-                    if (File.GetAttributes(rootPath).HasFlag(FileAttributes.Directory))
-                        filePaths = Util.GetAllChildFiles(rootPath);//Directory.GetFiles(rootPath, "**", SearchOption.AllDirectories);
-                    else //If it's a file, we have a list of 1 file
-                        filePaths = new string[] { rootPath };
+                    //ADD TO VIEW HERE
+                    TristateTreeNode node;
+                    topNode.Nodes.Add(
+                        node = new TristateTreeNode(filePath)
+                    );
+                    node.HasCheckBox = true;
 
-                    //Iterate through all files
-                    for(int z = 0; z < filePaths.Length; z++)
+                    //changesView.Rows[rowIndex].Cells[CN_LOCALPATH].Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+                    //Split the path into pieces split by FSOs...  Search the RAF archives and see if we can link it to the raf path
+
+                    string[] pathParts = filePath.Split("/");
+                    RAFFileListEntry matchedEntry = null;
+                    List<RAFFileListEntry> lastMatches = null;
+                    bool done = false;
+
+                    //Smart search insertion
+                    for (int i = 1; i < pathParts.Length + 1 && !done; i++)
                     {
-                        SetTaskbarProgress(z * 100 / filePaths.Length);
-                        string filePath = filePaths[z].Replace("\\", "/");
-                        //Console.WriteLine(filePath);
-
-                        //ADD TO VIEW HERE
-
-                        //changesView.Rows[rowIndex].Cells[CN_LOCALPATH].Style.Alignment = DataGridViewContentAlignment.MiddleRight;
-
-                        //Split the path into pieces split by FSOs...  Search the RAF archives and see if we can link it to the raf path
-
-                        string[] pathParts = filePath.Split("/");
-                        RAFFileListEntry matchedEntry = null;
-                        List<RAFFileListEntry> lastMatches = null;
-                        bool done = false;
-
-                        //Smart search insertion
-                        for (int i = 1; i < pathParts.Length+1 && !done; i++)
+                        string[] searchPathParts = pathParts.SubArray(pathParts.Length - i, i);
+                        string searchPath = String.Join("/", searchPathParts);
+                        //Console.WriteLine(searchPath);
+                        List<RAFFileListEntry> matches = new List<RAFFileListEntry>();
+                        RAFArchive[] archives = rafArchives.Values.ToArray();
+                        for (int j = 0; j < archives.Length; j++)
                         {
-                            string[] searchPathParts = pathParts.SubArray(pathParts.Length - i, i);
-                            string searchPath = String.Join("/", searchPathParts);
-                            Console.WriteLine(searchPath);
-                            List<RAFFileListEntry> matches = new List<RAFFileListEntry>();
-                            RAFArchive[] archives = rafArchives.Values.ToArray();
-                            for (int j = 0; j < archives.Length; j++)
-                            {
-                                List<RAFFileListEntry> newmatches = archives[j].GetDirectoryFile().GetFileList().SearchFileEntries(searchPath);
-                                matches.AddRange(newmatches);
-                            }
-                            if (matches.Count == 1)
-                            {
-                                matchedEntry = matches[0];
-                                done = true;
-                            }
-                            else if (matches.Count == 0)
-                            {
-                                done = true;
-                            }
-                            else
-                            {
-                                lastMatches = matches;
-                            }
+                            List<RAFFileListEntry> newmatches = archives[j].GetDirectoryFile().GetFileList().SearchFileEntries(searchPath);
+                            matches.AddRange(newmatches);
                         }
-                        if (matchedEntry == null)
+                        if (matches.Count == 1)
                         {
-                            if (lastMatches != null && lastMatches.Count > 0)
-                            {
-                                //Resolve ambiguity
-                                FileEntryAmbiguityResolver ambiguityResolver = new FileEntryAmbiguityResolver(lastMatches.ToArray(), "!");
-                                ambiguityResolver.ShowDialog();
-                                RAFFileListEntry resolvedItem = (RAFFileListEntry)ambiguityResolver.SelectedItem;
-                                if (resolvedItem != null)
-                                {
-                                    matchedEntry = resolvedItem;
-                                }
-                            }
+                            matchedEntry = matches[0];
+                            done = true;
                         }
-                        if (matchedEntry != null) //If it's still not resolved
+                        else if (matches.Count == 0)
                         {
-                            //changesView.Rows[rowIndex].Cells[CN_RAFPATH].Value = matchedEntry.RAFArchive.GetID() + "/" + matchedEntry.FileName;
-                            //changesView.Rows[rowIndex].Cells[CN_RAFPATH].Tag = matchedEntry;
+                            done = true;
                         }
                         else
                         {
-                            Log("Unable to link file '" + filePath + "' to RAF Archive.  Please manually select RAF path");
+                            lastMatches = matches;
                         }
                     }
+                    if (matchedEntry == null)
+                    {
+                        if (lastMatches != null && lastMatches.Count > 0)
+                        {
+                            //Resolve ambiguity
+                            FileEntryAmbiguityResolver ambiguityResolver = new FileEntryAmbiguityResolver(lastMatches.ToArray(), "!");
+                            ambiguityResolver.ShowDialog();
+                            RAFFileListEntry resolvedItem = (RAFFileListEntry)ambiguityResolver.SelectedItem;
+                            if (resolvedItem != null)
+                            {
+                                matchedEntry = resolvedItem;
+                            }
+                        }
+                    }
+                    if (matchedEntry != null) //If it's still not resolved
+                    {
+                        node.Tag = new ChangesViewEntry(filePath, matchedEntry, node);
+                        node.Nodes.Add(new TristateTreeNode("Local Path: " + filePath));
+                        node.Nodes.Add(new TristateTreeNode("RAF Path: " + matchedEntry.RAFArchive.GetID() + "/" + matchedEntry.FileName));
+                        node.Nodes[0].HasCheckBox = false;
+                        node.Nodes[1].HasCheckBox = false;
+                        //changesView.Rows[rowIndex].Cells[CN_RAFPATH].Value = matchedEntry.RAFArchive.GetID() + "/" + matchedEntry.FileName;
+                        //changesView.Rows[rowIndex].Cells[CN_RAFPATH].Tag = matchedEntry;
+                    }
+                    else
+                    {
+                        Log("Unable to link file '" + filePath + "' to RAF Archive.  Please manually select RAF path");
+                    }
                 }
+                changesView.Nodes.Add(topNode);
+                changesView.Invalidate();
+                SetTaskbarProgress(0);
             }
-            SetTaskbarProgress(0);
         }
 
         /// <summary>
