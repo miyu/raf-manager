@@ -122,5 +122,26 @@ namespace RAFManager.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        internal static System.Drawing.Bitmap RAFManagerIcon {
+            get {
+                object obj = ResourceManager.GetObject("RAFManagerIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap RAFManagerIcon50percent {
+            get {
+                object obj = ResourceManager.GetObject("RAFManagerIcon50percent", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap RAFManagerIcon66percent {
+            get {
+                object obj = ResourceManager.GetObject("RAFManagerIcon66percent", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

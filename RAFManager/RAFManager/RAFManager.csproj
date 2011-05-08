@@ -70,6 +70,13 @@
       <DependentUpon>BinaryViewer.cs</DependentUpon>
     </Compile>
     <Compile Include="ChangesViewEntry.cs" />
+    <Compile Include="MainWindowLoading.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainWindowLoading.Designer.cs">
+      <DependentUpon>MainWindowLoading.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RAFFSOTreeNodeSorter.cs" />
     <Compile Include="StringQueryDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -144,6 +151,9 @@
     <EmbeddedResource Include="BinaryViewer.resx">
       <DependentUpon>BinaryViewer.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MainWindowLoading.resx">
+      <DependentUpon>MainWindowLoading.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="StringQueryDialog.resx">
       <DependentUpon>StringQueryDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -188,6 +198,10 @@
       <Project>{4661A92E-7729-4021-B35F-D5BDA01A79F9}</Project>
       <Name>RAFLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Windows7IntegrationLibrary_Taskbar_Libraries\DesktopIntegration\Windows7.DesktopIntegration\Windows7.DesktopIntegration.csproj">
+      <Project>{E3F064A7-ECEF-46B8-83BD-299E4E8BDF82}</Project>
+      <Name>Windows7.DesktopIntegration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RAFManagerUpdater\RAFManagerUpdater.csproj">
       <Project>{77C89F4F-0C28-4857-BB14-41365FCC7E4C}</Project>
       <Name>RAFManagerUpdater</Name>
@@ -212,6 +226,9 @@
     <Content Include="Images\Checkbox_Unchecked.png" />
     <Content Include="Images\Directory.png" />
     <Content Include="Images\File.png" />
+    <Content Include="Images\RAFManagerIcon.png" />
+    <Content Include="Images\RAFManagerIcon50percent.png" />
+    <Content Include="Images\RAFManagerIcon66percent.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
