@@ -40,6 +40,7 @@ namespace RAFManager
             projectInfo.FileArchivesDirectory = "";
 
             changesView.Nodes.Clear();
+            hasProjectChanged = false;
         }
 
         /// <summary>
@@ -144,6 +145,7 @@ namespace RAFManager
             //Get a clean project first, before we load in contents
             ResetProject();
 
+            Title("Loading Project... This may take a while... ");
             string[] lines = File.ReadAllLines(location);
             for (int i = 0; i < lines.Length; i++)
                 lines[i] = lines[i].Split(";")[0].Trim();
@@ -200,6 +202,7 @@ namespace RAFManager
                                 changesView.Nodes.Add(node);
                             else
                                 nodeStack.Peek().Nodes.Add(node);
+                            node.SetCheckState(check ? TristateTreeNodeState.Checked : TristateTreeNodeState.Unchecked, true, true);
                             break;
                         }
                         case '<':
@@ -222,8 +225,10 @@ namespace RAFManager
         /// </summary>
         private void UpdateProjectGUI()
         {
+            bool beforeHasChanged = hasProjectChanged;
             projectNameTb.Text = this.projectInfo.ProjectName;
             Title(GetWindowTitle());
+            hasProjectChanged = beforeHasChanged;
         }
 
         /// <summary>
@@ -301,6 +306,7 @@ namespace RAFManager
                 for (int i = 0; i < changesView.Nodes.Count; i++)
                     PackNode(changesView.Nodes[i]);
             }
+            Log("Done Packing!");
             Title(GetWindowTitle());
         }
         int packTick = 0;
