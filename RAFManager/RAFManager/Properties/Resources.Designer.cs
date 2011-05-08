@@ -95,30 +95,9 @@ namespace RAFManager.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap Directory {
-            get {
-                object obj = ResourceManager.GetObject("Directory", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap File {
-            get {
-                object obj = ResourceManager.GetObject("File", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
         internal static System.Drawing.Bitmap LeagueCraftIcon {
             get {
                 object obj = ResourceManager.GetObject("LeagueCraftIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap RafManager {
-            get {
-                object obj = ResourceManager.GetObject("RafManager", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -133,13 +112,6 @@ namespace RAFManager.Properties {
         internal static System.Drawing.Bitmap RAFManagerIcon50percent {
             get {
                 object obj = ResourceManager.GetObject("RAFManagerIcon50percent", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap RAFManagerIcon66percent {
-            get {
-                object obj = ResourceManager.GetObject("RAFManagerIcon66percent", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

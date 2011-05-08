@@ -219,18 +219,14 @@
   <ItemGroup>
     <None Include="LeagueCraftIcon.ico" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Content Include="Images\CheckboxToggleDisable.png" />
-    <Content Include="Images\CheckboxToggleEnable.png" />
-    <Content Include="Images\Checkbox_Checked.png" />
-    <Content Include="Images\Checkbox_Partial.png" />
-    <Content Include="Images\Checkbox_Unchecked.png" />
-    <Content Include="Images\Directory.png" />
-    <Content Include="Images\File.png" />
-    <Content Include="Images\RAFManagerIcon.png" />
-    <Content Include="Images\RAFManagerIcon50percent.png" />
-    <Content Include="Images\RAFManagerIcon66percent.png" />
+    <Content Include="Images\CheckboxToggleDisable.jpg" />
+    <Content Include="Images\CheckboxToggleEnable.jpg" />
+    <Content Include="Images\Checkbox_Checked.jpg" />
+    <Content Include="Images\Checkbox_Partial.jpg" />
+    <Content Include="Images\Checkbox_Unchecked.jpg" />
+    <Content Include="Images\RAFManagerIcon.jpg" />
+    <Content Include="Images\RAFManagerIcon50percent.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
