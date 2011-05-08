@@ -190,6 +190,8 @@ namespace RAFManager
 
             if (this.nodes.Count == 0)
                 g.DrawString(emptyComment, Font, Brushes.Black, new Point(0, 0));
+
+            g.DrawRectangle(Pens.Gray, new Rectangle(0, 0, this.Width - 1, this.Height - 1));
         }
         protected override void OnPaintBackground(PaintEventArgs pevent)
         {

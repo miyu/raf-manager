@@ -21,6 +21,9 @@ namespace RAFManager
         Disabled  = 0x08
 
     }
+    /// <summary>
+    /// Lots of optimization has to be done here...
+    /// </summary>
     public class TristateTreeNode
     {
         private string text = "";
@@ -159,6 +162,8 @@ namespace RAFManager
         {
             if (HasToggle)
             {
+                if (location.Y > -20 && location.Y < TreeView.Height + 20)
+                {
                 if (HasCheckBox)
                 {
                     Point stringLocation = new Point(
@@ -196,6 +201,7 @@ namespace RAFManager
                                  stringLocation
                     );
                 }
+                    }
                 if (toggle)
                 {
                     Point offset = new Point(

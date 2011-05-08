@@ -32,10 +32,19 @@ namespace RAFManager
         {
             System.Diagnostics.Process.Start("http://bit.ly/kThoeF");
         }
-
+        private void linkLabel4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://bit.ly/mKDFYs");
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
+        private void linkLabel5_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://code.google.com/p/raf-manager/");
+        }
+
     }
 }

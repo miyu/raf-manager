@@ -76,6 +76,12 @@
     <Compile Include="MainWindowLoading.Designer.cs">
       <DependentUpon>MainWindowLoading.cs</DependentUpon>
     </Compile>
+    <Compile Include="NumberedTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NumberedTextBox.Designer.cs">
+      <DependentUpon>NumberedTextBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="RAFFSOTreeNodeSorter.cs" />
     <Compile Include="StringQueryDialog.cs">
       <SubType>Form</SubType>

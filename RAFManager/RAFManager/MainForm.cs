@@ -217,6 +217,10 @@ namespace RAFManager
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            PromptSaveToClose();
+        }
+        private void PromptSaveToClose()
+        {
             if (HasProjectChanged)
             {
                 if (DialogResult.Yes == MessageBox.Show("You haven't saved your project/changes!  Would you like to do so?", "U haz unsave changed!", MessageBoxButtons.YesNo))

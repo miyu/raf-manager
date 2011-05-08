@@ -33,6 +33,7 @@ namespace RAFManager
             rafContentView.NodeMouseDoubleClick += new TreeNodeMouseClickEventHandler(rafContentView_NodeMouseDoubleClick);
             rafContentView.AllowDrop = true;
             rafContentView.DragOver += new DragEventHandler(rafContentView_DragOver);
+            rafContentView.MouseClick += new MouseEventHandler(rafContentView_MouseClick);
 
             changesView = new TristateTreeView();
             changesView.Dock = DockStyle.Fill;
@@ -44,6 +45,125 @@ namespace RAFManager
             this.smallContainer.Panel2.Controls.Add(changesView);
             //changesView.Nodes[0].
             //this.Resize += delegate(object sender, EventArgs e) { UpdateChangesGUI(); };
+        }
+
+        void rafContentView_MouseClick(object sender, MouseEventArgs e)
+        {
+            rafContentView.SelectedNode = rafContentView.GetNodeAt(e.Location);
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                RAFInMemoryFileSystemObject fso = (RAFInMemoryFileSystemObject)rafContentView.SelectedNode;
+                if(fso != null)
+                {
+                    ContextMenu cm = new ContextMenu();
+                    MenuItem dump = new MenuItem("Dump");
+                    dump.Click += delegate(Object sender2, EventArgs e2)
+                    {
+                        if (fso.GetFSOType() == RAFFSOType.ARCHIVE || fso.GetFSOType() == RAFFSOType.DIRECTORY)
+                        {
+                            FolderBrowserDialog folderDialog = new FolderBrowserDialog();
+                            folderDialog.Description = "Select the folder where you wish to dump the files";
+                            folderDialog.ShowDialog();
+                            if (folderDialog.SelectedPath != "")
+                            {
+                                Title("Begin Dumping: " + fso.GetRAFPath());
+                                DumpRafArchiveByFSO(fso, folderDialog.SelectedPath);
+                                Log("Done dumping: " + fso.GetRAFPath());
+                                Title(GetWindowTitle());
+                            }
+                        }
+                        else
+                        {
+                            SaveFileDialog sfd = new SaveFileDialog();
+                            string fileName = fso.GetRAFPath().Replace("\\", "/").Split("/").Last();
+                            string fileExt = fileName.Substring(fileName.LastIndexOf(".") + 1);
+                            sfd.Filter = "File|." + fileExt;
+                            sfd.FileName = fileName;
+                            sfd.ShowDialog();
+
+                            if (sfd.FileName != "")
+                            {
+                                Log("Begin dumping: "+fileName);
+                                File.WriteAllBytes(
+                                    sfd.FileName, 
+                                    ResolveRAFPathToEntry(
+                                        fso.GetTopmostParent().Text + "/" + fso.GetRAFPath()
+                                    ).GetContent()
+                                );
+                                Log("Done dumping: "+fileName);
+                            }
+                        }
+                    };
+                    cm.MenuItems.Add(dump);
+                    if(fso.GetFSOType() == RAFFSOType.FILE)
+                    {
+                        MenuItem viewAsTextFile = new MenuItem("View As Text File");
+                        viewAsTextFile.Click += delegate(Object sender2, EventArgs e2)
+                        {
+                            new TextViewer(
+                                ResolveRAFPathToEntry(
+                                    fso.GetTopmostParent().Text + "/" + fso.GetRAFPath()
+                                )
+                            ).Show();
+                        };
+                        cm.MenuItems.Add(viewAsTextFile);
+
+                        MenuItem viewAsBinary = new MenuItem("View As Binary File");
+                        viewAsBinary.Click += delegate(Object sender2, EventArgs e2)
+                        {
+                            new BinaryViewer(this.baseTitle + " - " + fso.GetTopmostParent()+"/"+fso.GetRAFPath(),
+                                ResolveRAFPathToEntry(
+                                    fso.GetTopmostParent().Text + "/" + fso.GetRAFPath()
+                                ).GetContent()
+                            ).Show();
+                        };
+                        cm.MenuItems.Add(viewAsBinary);
+
+                        if (fso.GetRAFPath().ToLower().EndsWith("inibin") || fso.GetRAFPath().ToLower().EndsWith("troybin"))
+                        {
+                            MenuItem viewAsINIBIN = new MenuItem("View As INIBIN File");
+                            viewAsINIBIN.Click += delegate(Object sender2, EventArgs e2)
+                            {
+                                try
+                                {
+                                    new TextViewer(this.baseTitle + " - inibin/troybin view - " + fso.GetTopmostParent() + "/" + fso.GetRAFPath(),
+                                        new InibinFile().main(
+                                            ResolveRAFPathToEntry(
+                                                fso.GetTopmostParent().Text + "/" + fso.GetRAFPath()
+                                            ).GetContent()
+                                        )
+                                    ).Show();
+                                    return;
+                                }
+                                catch { Log("Error parsing INIBIN/TROYBIN file"); }
+                            };
+                            cm.MenuItems.Add(viewAsINIBIN);
+                        }
+                    }
+                    cm.Show(rafContentView, new Point(e.X, e.Y));
+                }
+            }
+        }
+        void DumpRafArchiveByFSO(RAFInMemoryFileSystemObject fso, string dumpDirectory)
+        {
+            Title("Dump: " + fso.GetRAFPath());
+            if (fso.GetFSOType() == RAFFSOType.ARCHIVE || fso.GetFSOType() == RAFFSOType.DIRECTORY)
+            {
+                PrepareDirectory(dumpDirectory + "/" + fso.GetRAFPath());
+            }
+            else
+            {
+                string containingFolderPath = fso.GetRAFPath().Replace("\\", "/").Reverse();
+                containingFolderPath = containingFolderPath.Substring(Math.Max(containingFolderPath.IndexOf("/"), 0));
+                containingFolderPath = containingFolderPath.Reverse();
+                PrepareDirectory(dumpDirectory + "/" + fso.GetRAFPath());
+                Console.WriteLine("Dump to: " + dumpDirectory + "/" + fso.GetRAFPath());
+                File.WriteAllBytes(dumpDirectory + "/" + fso.GetRAFPath(),
+                    ResolveRAFPathToEntry(fso.GetTopmostParent().Text + "/" + fso.GetRAFPath()).GetContent()
+                );
+            }
+            for (int i = 0; i < fso.Nodes.Count; i++)
+                DumpRafArchiveByFSO((RAFInMemoryFileSystemObject)fso.Nodes[i], dumpDirectory);
         }
 
         void changesView_NodeRightClicked(TristateTreeNode node, MouseEventArgs e)
@@ -106,6 +226,19 @@ namespace RAFManager
                     else
                         filePaths.Add(path);
                 }
+                if (filePaths.Count == 1) //test if its a project
+                {
+                    if (filePaths[0].ToLower().EndsWith(".rmproj"))
+                    {
+                        if (HasProjectChanged)
+                            PromptSaveToClose();
+
+                        //Load the project
+                        LoadProject(filePaths[0]);
+                        return;
+                    }
+                }
+
                 //Iterate through all files
                 StringQueryDialog nameQueryDialog = new StringQueryDialog("Type File Group Name:");
                 nameQueryDialog.ShowDialog();
@@ -291,8 +424,8 @@ namespace RAFManager
                         entry.FileName.ToLower().EndsWith("xml")
                     ) //All content is displayable text, likely
                     {
-                        new TextViewer(this.baseTitle + " - Text View - " + nodeInternalPath,
-                            Encoding.ASCII.GetString(entry.GetContent())
+                        new TextViewer(
+                            ResolveRAFPathToEntry(node.GetTopmostParent().Text + "/" + node.GetRAFPath())
                         ).Show();
                     }
                     else //If all else fails, just use the binary viewer
