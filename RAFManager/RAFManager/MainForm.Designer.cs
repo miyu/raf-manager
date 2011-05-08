@@ -202,7 +202,7 @@
             // 
             // goToRAFManagerHomePageToolStripMenuItem
             // 
-            this.goToRAFManagerHomePageToolStripMenuItem.Image = global::RAFManager.Properties.Resources.RafManager;
+            this.goToRAFManagerHomePageToolStripMenuItem.Image = global::RAFManager.Properties.Resources.RAFManagerIcon;
             this.goToRAFManagerHomePageToolStripMenuItem.Name = "goToRAFManagerHomePageToolStripMenuItem";
             this.goToRAFManagerHomePageToolStripMenuItem.Size = new System.Drawing.Size(558, 24);
             this.goToRAFManagerHomePageToolStripMenuItem.Text = "Go to RAF Manager Home Page";
