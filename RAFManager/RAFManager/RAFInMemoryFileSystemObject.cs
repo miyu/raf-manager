@@ -17,7 +17,7 @@ namespace RAFManager
         FILE,
         ARCHIVE
     }
-    public class RAFInMemoryFileSystemObject : TreeNode
+    public class RAFInMemoryFileSystemObject : TreeNode, IComparable
     {
         private RAFFSOType fsoType;
         /// <summary>
@@ -28,13 +28,13 @@ namespace RAFManager
         /// <param name="name"></param>
         public RAFInMemoryFileSystemObject(RAFInMemoryFileSystemObject parent, RAFFSOType fsoType, string name)
             :base( //lol.  Is this a sign that I haven't played with C# enough?
-                (fsoType==RAFFSOType.DIRECTORY?
+                /*(fsoType==RAFFSOType.DIRECTORY?
                     "[DIR] ":
                     (fsoType==RAFFSOType.ARCHIVE?
                         "[ARC] ":
                         "[FIL] "
                     )
-                ) +  name
+                ) +  */name
             )
         {
             //if(this.parent != null)
@@ -165,6 +165,11 @@ namespace RAFManager
             if (this.IsExpanded)
                 result.Expand();
             return result;
+        }
+
+        public int CompareTo(object obj)
+        {
+            return this.Text.CompareTo(obj);
         }
     }
 }

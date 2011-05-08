@@ -34,10 +34,14 @@ namespace RAFManager
             rafContentView.AllowDrop = true;
             rafContentView.DragOver += new DragEventHandler(rafContentView_DragOver);
 
+            changesView = new TristateTreeView();
+            changesView.Dock = DockStyle.Fill;
+            changesView.EmptyComment = "No items have been added yet!  Drag skin files in!\nClick Help->Guide to open up the manual!";
             changesView.AllowDrop = true;
             changesView.DragOver += new DragEventHandler(changesView_DragOver);
             changesView.DragDrop += new DragEventHandler(changesView_DragDrop);
             changesView.NodeRightClicked += new NodeRightClickedHandler(changesView_NodeRightClicked);
+            this.smallContainer.Panel2.Controls.Add(changesView);
             //changesView.Nodes[0].
             //this.Resize += delegate(object sender, EventArgs e) { UpdateChangesGUI(); };
         }
@@ -283,7 +287,8 @@ namespace RAFManager
                         entry.FileName.ToLower().EndsWith("ini") ||
                         entry.FileName.ToLower().EndsWith("txt") ||
                         entry.FileName.ToLower().EndsWith("log") ||
-                        entry.FileName.ToLower().EndsWith("list")
+                        entry.FileName.ToLower().EndsWith("list") ||
+                        entry.FileName.ToLower().EndsWith("xml")
                     ) //All content is displayable text, likely
                     {
                         new TextViewer(this.baseTitle + " - Text View - " + nodeInternalPath,
@@ -292,7 +297,7 @@ namespace RAFManager
                     }
                     else //If all else fails, just use the binary viewer
                     {
-                        new BinaryViewer(this.baseTitle + " - Binary View by Be.HexEditor http://sourceforge.net/projects/hexbox/- " + nodeInternalPath,
+                        new BinaryViewer(this.baseTitle + " - " + nodeInternalPath,
                             entry.GetContent()
                         ).Show();
                     }

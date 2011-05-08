@@ -1,4 +1,4 @@
-﻿//#define TaskBar
+﻿#define TaskBar
 //TODO: Import folder to raf manager
 
 using System;
@@ -35,47 +35,8 @@ namespace RAFManager
         public MainForm()
         {
             InitializeComponent();
-            changesView = new TristateTreeView();
-            changesView.Dock = DockStyle.Fill;
-            changesView.EmptyComment = "No items have been added yet!  Drag skin files in!";
-            this.smallContainer.Panel2.Controls.Add(changesView);
-
-            CheckForUpdates();
-
-            SetArchivesRoot();
 
             this.Load += new EventHandler(MainForm_Load);
-
-            int bigSplitterDistanceFromBottom = bigContainer.Height - bigContainer.SplitterDistance;
-            int smallSplitterDistanceFromLeft = smallContainer.SplitterDistance;
-            this.ResizeBegin += delegate(object sender, EventArgs e)
-            {
-                try
-                {
-                    bigSplitterDistanceFromBottom = bigContainer.Height - bigContainer.SplitterDistance;
-                    smallSplitterDistanceFromLeft = smallContainer.SplitterDistance;
-                    verboseLoggingCB.Left = bigContainer.Width - verboseLoggingCB.Width;
-                }
-                catch { }
-            };
-            this.Resize += delegate(object sender, EventArgs e)
-            {
-                try
-                {
-                    bigSplitterDistanceFromBottom = bigContainer.Height - bigContainer.SplitterDistance;
-                    smallSplitterDistanceFromLeft = smallContainer.SplitterDistance;
-                    verboseLoggingCB.Left = bigContainer.Width - verboseLoggingCB.Width;
-                }
-                catch { }
-            };
-
-            InitializeChangesView();
-            InitializeUtil();
-            InitializeProject();
-#if TaskBar
-            Windows7.DesktopIntegration.Windows7Taskbar.AllowTaskbarWindowMessagesThroughUIPI();
-            Windows7.DesktopIntegration.Windows7Taskbar.SetWindowAppId(this.Handle, "RAFManager");
-#endif
         }
         /// <summary>
         /// Sets the progress value of our taskbar entry
@@ -92,15 +53,61 @@ namespace RAFManager
         }
         void MainForm_Load(object sender, EventArgs e)
         {
-            this.Show();
-            Application.DoEvents();
+            //this.Show();
+            //Application.DoEvents();
+            MainWindowLoading loader = new MainWindowLoading();
+            loader.Show();
+
+            loader.Log("Begin Check For Updates");
+            CheckForUpdates();
+
+            loader.Log("Find Archives Folder");
+            SetArchivesRoot();
+
+            int bigSplitterDistanceFromBottom = bigContainer.Height - bigContainer.SplitterDistance;
+            int smallSplitterDistanceFromLeft = smallContainer.SplitterDistance;
+            this.ResizeBegin += delegate(object sender2, EventArgs e2)
+            {
+                try
+                {
+                    bigSplitterDistanceFromBottom = bigContainer.Height - bigContainer.SplitterDistance;
+                    smallSplitterDistanceFromLeft = smallContainer.SplitterDistance;
+                    verboseLoggingCB.Left = bigContainer.Width - verboseLoggingCB.Width;
+                }
+                catch { }
+            };
+            this.Resize += delegate(object sender2, EventArgs e2)
+            {
+                try
+                {
+                    bigSplitterDistanceFromBottom = bigContainer.Height - bigContainer.SplitterDistance;
+                    smallSplitterDistanceFromLeft = smallContainer.SplitterDistance;
+                    verboseLoggingCB.Left = bigContainer.Width - verboseLoggingCB.Width;
+                }
+                catch { }
+            };
+
+            loader.Log("Init Changes View");
+            InitializeChangesView();
+
+            loader.Log("Init Util");
+            InitializeUtil();
+
+            loader.Log("Init Project Manager");
+            InitializeProject();
+#if TaskBar
+            loader.Log("Init Win7 Taskbar Features");
+            Windows7.DesktopIntegration.Windows7Taskbar.AllowTaskbarWindowMessagesThroughUIPI();
+            Windows7.DesktopIntegration.Windows7Taskbar.SetWindowAppId(this.Handle, "RAFManager");
+#endif
 
 
-            Title("Loading RAF Files - ");            
+            loader.Log("Begin Loading RAF Archives");        
             log.Text = "www.ItzWarty.com Riot Archive File Packer/Unpacker "+ApplicationInformation.BuildTime;
 
             byte[] a;
-            
+
+            rafContentView.TreeViewNodeSorter = new RAFFSOTreeNodeSorter();
             //Enumerate RAF files
             string[] archivePaths = Directory.GetDirectories(archivesRoot);
             #region load_raf_archives
@@ -108,8 +115,9 @@ namespace RAFManager
             {
                 string archiveName = archivePaths[i].Replace(archivesRoot, "");
 
-                Title("Loading RAF File - " + archiveName);
-                Log("Loading RAF Archive Folder: " + archiveName[i]);
+                loader.Log("Load Archive - " + archiveName);
+                //Title("Loading RAF File - " + archiveName);
+                //Log("Loading RAF Archive Folder: " + archiveName);
 
                 RAFArchive raf = null;
                 RAFInMemoryFileSystemObject archiveRoot = new RAFInMemoryFileSystemObject(null, RAFFSOType.ARCHIVE, archiveName);
@@ -126,20 +134,33 @@ namespace RAFManager
                     List<RAFFileListEntry> entries = raf.GetDirectoryFile().GetFileList().GetFileEntries();
                     for (int j = 0; j < entries.Count; j++)
                     {
-                        if (j % 100 == 0)
-                            Title("Loading RAF Files - " + archiveName +" - " + j+"/"+entries.Count);
+                        //if (j % 1000 == 0)
+                        //    loader.Log(" - " + archiveName + " - " + j + "/" + entries.Count);
+                            //Title("Loading RAF Files - " + archiveName +" - " + j+"/"+entries.Count);
 
                         RAFInMemoryFileSystemObject node = archiveRoot.AddToTree(RAFFSOType.FILE, entries[j].FileName);
                     }
-                    Log(entries.Count.ToString() + " Files");
+                    //Log(entries.Count.ToString() + " Files");
                 }
                 catch (Exception exception) { Log("FAILED:\r\n" + exception.Message + "\r\n"); }
 
                 //Add to our tree displayer
+                loader.Log("Preparing Environment...");
+                //Title("Sorting nodes... this might take a while");
+                if (archiveRoot.Nodes.Count == 0)
+                {
+                    MessageBox.Show("Another instance of RAF Manager is likely already open.\r\n" +
+                                    "If not, then another application has not released control over the \r\n" +
+                                    "RAF Archives.  RAF Manager will continue to run, but some features \r\n" +
+                                    "may not work properly.  Usually a restart of the application will \r\n" +
+                                    "fix this.  If you have issues, post a reply on the forum thread, \r\n" +
+                                    "whose link can be found under the 'About' menu header.");
+                }
                 rafContentView.Nodes.Add(archiveRoot);
             }
             #endregion
 
+            loader.Hide();
             Title("Done loading RAF Files");
 
             LogInstructions();
@@ -165,13 +186,6 @@ namespace RAFManager
         /// </summary>
         private void LogInstructions()
         {
-            Log("");
-            Log("ItzWarty's RAFManager Instructions: (build time: " + ApplicationInformation.BuildTime + ")");
-            Log("Check www.ItzWarty.com/RAF/ for updates!");
-            Log("This program will _not_ automatically update as of yet.");
-            Log("");
-            Log("Double click a node on the file tree to the top left to view its contents.");
-            Log("Ask questions @ (LoL Forums)http://bit.ly/jnT4p8 or (LeagueCraft)http://bit.ly/mLitsi");
             Log("");
             Log("INIBIN/TROYBIN Reader by Engberg @ http://bit.ly/kThoeF");
             Log("Be.HexEditor by http://sourceforge.net/projects/hexbox/");
