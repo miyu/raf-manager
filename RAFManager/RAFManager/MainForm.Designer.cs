@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.log = new System.Windows.Forms.TextBox();
             this.logContainer = new System.Windows.Forms.GroupBox();
+            this.verboseLoggingCB = new System.Windows.Forms.CheckBox();
             this.rafContentView = new System.Windows.Forms.TreeView();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
@@ -44,7 +45,6 @@
             this.goToRAFPackerLeagueOfLegendsThreadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.goToRAFPackerLeagueCraftTHreadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.goToRAFManagerHomePageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.projectNameTb = new System.Windows.Forms.ToolStripTextBox();
@@ -76,6 +76,7 @@
             // 
             // logContainer
             // 
+            this.logContainer.Controls.Add(this.verboseLoggingCB);
             this.logContainer.Controls.Add(this.log);
             this.logContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.logContainer.Location = new System.Drawing.Point(0, 0);
@@ -84,6 +85,16 @@
             this.logContainer.TabIndex = 1;
             this.logContainer.TabStop = false;
             this.logContainer.Text = "Output";
+            // 
+            // verboseLoggingCB
+            // 
+            this.verboseLoggingCB.AutoSize = true;
+            this.verboseLoggingCB.Location = new System.Drawing.Point(448, 0);
+            this.verboseLoggingCB.Name = "verboseLoggingCB";
+            this.verboseLoggingCB.Size = new System.Drawing.Size(320, 21);
+            this.verboseLoggingCB.TabIndex = 1;
+            this.verboseLoggingCB.Text = "Enable Pack-Time Logging (Slows Pack Time)";
+            this.verboseLoggingCB.UseVisualStyleBackColor = true;
             // 
             // rafContentView
             // 
@@ -100,7 +111,6 @@
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripDropDownButton1,
             this.toolStripDropDownButton2,
-            this.toolStripLabel1,
             this.toolStripSeparator1,
             this.toolStripLabel2,
             this.projectNameTb});
@@ -170,7 +180,7 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(542, 24);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(558, 24);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -178,31 +188,25 @@
             // 
             this.goToRAFPackerLeagueOfLegendsThreadToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("goToRAFPackerLeagueOfLegendsThreadToolStripMenuItem.Image")));
             this.goToRAFPackerLeagueOfLegendsThreadToolStripMenuItem.Name = "goToRAFPackerLeagueOfLegendsThreadToolStripMenuItem";
-            this.goToRAFPackerLeagueOfLegendsThreadToolStripMenuItem.Size = new System.Drawing.Size(542, 24);
-            this.goToRAFPackerLeagueOfLegendsThreadToolStripMenuItem.Text = "Go to RAF Packer League of Legends Thread (North American Forums)";
+            this.goToRAFPackerLeagueOfLegendsThreadToolStripMenuItem.Size = new System.Drawing.Size(558, 24);
+            this.goToRAFPackerLeagueOfLegendsThreadToolStripMenuItem.Text = "Go to RAF Manager League of Legends Thread (North American Forums)";
             this.goToRAFPackerLeagueOfLegendsThreadToolStripMenuItem.Click += new System.EventHandler(this.goToRAFPackerLeagueOfLegendsThreadToolStripMenuItem_Click);
             // 
             // goToRAFPackerLeagueCraftTHreadToolStripMenuItem
             // 
             this.goToRAFPackerLeagueCraftTHreadToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("goToRAFPackerLeagueCraftTHreadToolStripMenuItem.Image")));
             this.goToRAFPackerLeagueCraftTHreadToolStripMenuItem.Name = "goToRAFPackerLeagueCraftTHreadToolStripMenuItem";
-            this.goToRAFPackerLeagueCraftTHreadToolStripMenuItem.Size = new System.Drawing.Size(542, 24);
-            this.goToRAFPackerLeagueCraftTHreadToolStripMenuItem.Text = "Go to RAF Packer LeagueCraft Thread";
+            this.goToRAFPackerLeagueCraftTHreadToolStripMenuItem.Size = new System.Drawing.Size(558, 24);
+            this.goToRAFPackerLeagueCraftTHreadToolStripMenuItem.Text = "Go to RAF Manager LeagueCraft Thread";
             this.goToRAFPackerLeagueCraftTHreadToolStripMenuItem.Click += new System.EventHandler(this.goToRAFPackerLeagueCraftTHreadToolStripMenuItem_Click);
             // 
             // goToRAFManagerHomePageToolStripMenuItem
             // 
             this.goToRAFManagerHomePageToolStripMenuItem.Image = global::RAFManager.Properties.Resources.RafManager;
             this.goToRAFManagerHomePageToolStripMenuItem.Name = "goToRAFManagerHomePageToolStripMenuItem";
-            this.goToRAFManagerHomePageToolStripMenuItem.Size = new System.Drawing.Size(542, 24);
+            this.goToRAFManagerHomePageToolStripMenuItem.Size = new System.Drawing.Size(558, 24);
             this.goToRAFManagerHomePageToolStripMenuItem.Text = "Go to RAF Manager Home Page";
             this.goToRAFManagerHomePageToolStripMenuItem.Click += new System.EventHandler(this.goToRAFManagerHomePageToolStripMenuItem_Click);
-            // 
-            // toolStripLabel1
-            // 
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(332, 24);
-            this.toolStripLabel1.Text = "Back up your LoL files before using this program!";
             // 
             // toolStripSeparator1
             // 
@@ -219,6 +223,7 @@
             // 
             this.projectNameTb.Name = "projectNameTb";
             this.projectNameTb.Size = new System.Drawing.Size(150, 27);
+            this.projectNameTb.TextChanged += new System.EventHandler(this.projectNameTb_TextChanged_1);
             // 
             // bigContainer
             // 
@@ -262,6 +267,7 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "RAF Manager";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.logContainer.ResumeLayout(false);
             this.logContainer.PerformLayout();
             this.toolStrip.ResumeLayout(false);
@@ -292,7 +298,6 @@
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton2;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem goToRAFPackerLeagueOfLegendsThreadToolStripMenuItem;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.SplitContainer bigContainer;
         private System.Windows.Forms.SplitContainer smallContainer;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
@@ -302,6 +307,7 @@
         private System.Windows.Forms.ToolStripMenuItem packToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem goToRAFManagerHomePageToolStripMenuItem;
         private System.Windows.Forms.BindingSource bindingSource1;
+        private System.Windows.Forms.CheckBox verboseLoggingCB;
     }
 }
 

@@ -301,7 +301,9 @@ namespace RAFManager
                 for (int i = 0; i < changesView.Nodes.Count; i++)
                     PackNode(changesView.Nodes[i]);
             }
+            Title(GetWindowTitle());
         }
+        int packTick = 0;
         private void PackNode(TristateTreeNode node)
         {
             ChangesViewEntry cventry = (ChangesViewEntry)node.Tag;
@@ -315,9 +317,11 @@ namespace RAFManager
                 string localPath = cventry.LocalPath;
                 bool useFile = cventry.Checked;
 
-                Title("Pack File: " + localPath.Replace("\\", "/").Split("/").Last());
+                packTick = (packTick + 1) % 10;
+                if(packTick == 0 || verboseLoggingCB.Checked)
+                    Title("Pack File: " + localPath.Replace("\\", "/").Split("/").Last());
 
-                Console.WriteLine(Environment.CurrentDirectory + "/backup/");
+                //Console.WriteLine(Environment.CurrentDirectory + "/backup/");
                 PrepareDirectory(Environment.CurrentDirectory + "/backup/");
                 string fileBackupLoc = Environment.CurrentDirectory + "/backup/" + entry.FileName.Replace("/", "_");
                 if (!File.Exists(fileBackupLoc))
@@ -331,7 +335,8 @@ namespace RAFManager
                         new LogTextWriter(
                             (Func<string, object>)delegate(string s)
                             {
-                                Log(s);
+                                if(verboseLoggingCB.Checked)
+                                    Log(s);
                                 return null;
                             }
                         )
@@ -345,7 +350,8 @@ namespace RAFManager
                         new LogTextWriter(
                             (Func<string, object>)delegate(string s)
                             {
-                                Log(s);
+                                if (verboseLoggingCB.Checked)
+                                    Log(s);
                                 return null;
                             }
                         )
@@ -368,9 +374,13 @@ namespace RAFManager
         /// <returns></returns>
         private bool VerifyPackPrecondition()
         {
+            return VerifyPackPrecondition(changesView.Nodes.ToList());
+        }
+        private bool VerifyPackPrecondition(List<TristateTreeNode> nodes)
+        {
             Stack<TristateTreeNode> nodeStack = new Stack<TristateTreeNode>();
-            for (int i = changesView.Nodes.Count - 1; i >= 0; i--)
-                nodeStack.Push(changesView.Nodes[i]);
+            for (int i = nodes.Count - 1; i >= 0; i--)
+                nodeStack.Push(nodes[i]);
             while (nodeStack.Count != 0)
             {
                 //If a node has no children, we ignore it, since that means it's just a description node

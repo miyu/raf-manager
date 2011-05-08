@@ -40,17 +40,6 @@ namespace RAFManager
             changesView.EmptyComment = "No items have been added yet!  Drag skin files in!";
             this.smallContainer.Panel2.Controls.Add(changesView);
 
-            /*
-             * TristateTreeNode test
-            for (int i = 0; i < 5; i++)
-            {
-                changesView.Nodes.Add(new TristateTreeNode("...."));
-                for (int j = 0; j < 5; j++)
-                {
-                    changesView.Nodes[i].Nodes.Add(new TristateTreeNode("...."));
-                }
-            }
-             */
             CheckForUpdates();
 
             SetArchivesRoot();
@@ -65,6 +54,7 @@ namespace RAFManager
                 {
                     bigSplitterDistanceFromBottom = bigContainer.Height - bigContainer.SplitterDistance;
                     smallSplitterDistanceFromLeft = smallContainer.SplitterDistance;
+                    verboseLoggingCB.Left = bigContainer.Width - verboseLoggingCB.Width;
                 }
                 catch { }
             };
@@ -74,6 +64,7 @@ namespace RAFManager
                 {
                     bigSplitterDistanceFromBottom = bigContainer.Height - bigContainer.SplitterDistance;
                     smallSplitterDistanceFromLeft = smallContainer.SplitterDistance;
+                    verboseLoggingCB.Left = bigContainer.Width - verboseLoggingCB.Width;
                 }
                 catch { }
             };
@@ -203,6 +194,22 @@ namespace RAFManager
         private void goToRAFManagerHomePageToolStripMenuItem_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("http://www.ItzWarty.com/RAF/");
+        }
+
+        private void projectNameTb_TextChanged_1(object sender, EventArgs e)
+        {
+            HasProjectChanged = true;
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (HasProjectChanged)
+            {
+                if (DialogResult.Yes == MessageBox.Show("You haven't saved your project/changes!  Would you like to do so?", "U haz unsave changed!", MessageBoxButtons.YesNo))
+                {
+                    saveToolStripMenuItem_Click(null, null);
+                }
+            }
         }
     }
 }
