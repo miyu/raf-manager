@@ -1,4 +1,4 @@
-﻿#define TaskBar
+﻿//#define TaskBar
 //TODO: Import folder to raf manager
 
 using System;
