@@ -62,7 +62,23 @@ namespace RAFManager
                     n.TreeView.Invalidate();
                 }
             };
+            MenuItem pack = new MenuItem("Pack");
+            pack.Click += delegate(object sender, EventArgs e2)
+            {
+                if (VerifyPackPrecondition(
+                    new List<TristateTreeNode>(
+                        new TristateTreeNode[] { node }
+                    )
+                ))
+                {
+                    Title("Begin Packing...");
+                    PackNode(node);
+                    Title(GetWindowTitle());
+                    Log("Pack done");
+                }
+            };
             cm.MenuItems.Add(delete);
+            cm.MenuItems.Add(pack);
             cm.Show(changesView, new Point(e.X, e.Y));
         }
 

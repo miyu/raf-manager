@@ -107,33 +107,33 @@ namespace RAFManager
 
         private void SetArchivesRoot()
         {
-            string expectedPath = @"C:\Riot Gaames\League of Legends\RADS\projects\lol_game_client\filearchives\";
+            string expectedPath = @"C:\Riot Games\League of Legends\RADS\projects\lol_game_client\filearchives\";
 
             if(Directory.Exists(expectedPath)) archivesRoot = expectedPath;
-            else if(File.Exists("riotgamesroot.txt"))
+            else if(File.Exists("lolroot.txt"))
             {
-                string lastPath = File.ReadAllText("riotgamesroot.txt");
+                string lastPath = File.ReadAllText("lolroot.txt");
                 if(Directory.Exists(lastPath))
                 {
-                    archivesRoot = lastPath+@"\League of Legends\RADS\projects\lol_game_client\filearchives\";
+                    archivesRoot = lastPath+@"\RADS\projects\lol_game_client\filearchives\";
                     return;
                 }
             }else{
                 FolderBrowserDialog fbd = new FolderBrowserDialog();
-                fbd.Description = "Select your the parent folder of your league of legends folder (Usually Riot Games)";
+                fbd.Description = "Please locate your League of Legends Folder (The folder that contains lol.launcher.exe)";
                 fbd.ShowDialog();
 
                 string result = fbd.SelectedPath;
-                if (Directory.Exists(result + @"\League of Legends\RADS\projects\lol_game_client\filearchives\"))
+                if (Directory.Exists(result + @"\RADS\projects\lol_game_client\filearchives\"))
                 {
                     //success
-                    archivesRoot = result + @"\League of Legends\RADS\projects\lol_game_client\filearchives\";
+                    archivesRoot = result + @"\RADS\projects\lol_game_client\filearchives\";
                     //save
-                    File.WriteAllText("riotgamesroot.txt", result);
+                    File.WriteAllText("lolroot.txt", result);
                 }
                 else
                 {
-                    MessageBox.Show("Invalid directory: \r\n"+result + @"\League of Legends\RADS\projects\lol_game_client\filearchives\", "Couldn't find directory");
+                    MessageBox.Show("Invalid directory: \r\n"+result + @"\RADS\projects\lol_game_client\filearchives\", "Couldn't find directory");
                     Application.Exit();
                     Environment.Exit(0);
                 }

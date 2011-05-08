@@ -14,10 +14,10 @@ namespace RAFManagerUpdater.Versioning
         public const int major = 1;
 
         //Represents addons that are nice but not huge, or big bugfixes
-        public const int minor = 0;
+        public const int minor = 1;
 
         //Represents addons that are minor, such as changing text or fixing a small bug
-        public const int revision = 2;
+        public const int revision = 0;
 
         //Represents Flags [dev, b], currently not used
         public const string flags = "";

@@ -71,5 +71,9 @@ namespace RAFManager
         {
             return this.nodes.Contains(node);
         }
+        public List<TristateTreeNode> ToList()
+        {
+            return new List<TristateTreeNode>(this.nodes);
+        }
     }
 }
