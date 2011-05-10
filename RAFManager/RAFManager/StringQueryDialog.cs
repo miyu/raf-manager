@@ -20,6 +20,16 @@ namespace RAFManager
             this.TopMost = true;
             ManageLayout();
         }
+        public StringQueryDialog(string title, string defaultText)
+        {
+            InitializeComponent();
+            this.Text = title;
+            this.Load += new EventHandler(StringQueryDialog_Load);
+            this.stringTb.KeyDown += new KeyEventHandler(stringTb_KeyDown);
+            this.TopMost = true;
+            stringTb.Text = defaultText;
+            ManageLayout();
+        }
 
         void stringTb_KeyDown(object sender, KeyEventArgs e)
         {

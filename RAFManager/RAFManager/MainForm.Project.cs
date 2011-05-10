@@ -16,6 +16,7 @@ namespace RAFManager
     {
         private RAFProjectInfo projectInfo  = null;
         private bool hasProjectChanged      = false;
+        private bool advancedUser           = false;
 
         /// <summary>
         /// Initializes the project system
@@ -214,7 +215,9 @@ namespace RAFManager
                 }
             }
 
+            HasProjectChanged = false;
             UpdateProjectGUI();
+            HasProjectChanged = false;
             //UpdateChangesGUI();
         }
 
@@ -281,6 +284,7 @@ namespace RAFManager
             set
             {
                 this.hasProjectChanged = value;
+                UpdateProjectGUI();
             }
         }
 
@@ -331,7 +335,12 @@ namespace RAFManager
                 PrepareDirectory(Environment.CurrentDirectory + "/backup/");
                 string fileBackupLoc = Environment.CurrentDirectory + "/backup/" + entry.FileName.Replace("/", "_");
                 if (!File.Exists(fileBackupLoc))
-                    File.WriteAllBytes(fileBackupLoc, entry.GetContent());
+                {
+                    if (entry.IsMemoryEntry)
+                        File.WriteAllText(fileBackupLoc, "this file should be deleted");
+                    else
+                        File.WriteAllBytes(fileBackupLoc, entry.GetContent());
+                }
 
                 //Open the RAF archive, insert.
                 if (useFile)
@@ -350,18 +359,26 @@ namespace RAFManager
                 else
                 {
                     //Insert backup
-                    entry.RAFArchive.InsertFile(
-                        rafPath,
-                        File.ReadAllBytes(fileBackupLoc),
-                        new LogTextWriter(
-                            (Func<string, object>)delegate(string s)
-                            {
-                                if (verboseLoggingCB.Checked)
-                                    Log(s);
-                                return null;
-                            }
-                        )
-                    );
+                    if (File.ReadAllText(fileBackupLoc) == "this file should be deleted")
+                    {
+                        //The file should be deleted...
+                        entry.RAFArchive.GetDirectoryFile().DeleteFileEntry(entry);
+                    }
+                    else
+                    {
+                        entry.RAFArchive.InsertFile(
+                            rafPath,
+                            File.ReadAllBytes(fileBackupLoc),
+                            new LogTextWriter(
+                                (Func<string, object>)delegate(string s)
+                                {
+                                    if (verboseLoggingCB.Checked)
+                                        Log(s);
+                                    return null;
+                                }
+                            )
+                        );
+                    }
                 }
                 List<RAFArchive> archives = new List<RAFArchive>(rafArchives.Values);
                 for (int i = 0; i < archives.Count; i++)
@@ -403,16 +420,17 @@ namespace RAFManager
                     else
                     {
                         ChangesViewEntry entry = (ChangesViewEntry)node.Tag;
-                        if (ResolveRAFPathToEntry(entry.Entry.RAFArchive.GetID() + "/" + entry.Entry.FileName) == null)
+                        //No longer necessary, sinec we now know our  hash func
+                        //if (ResolveRAFPathToEntry(entry.Entry.RAFArchive.GetID() + "/" + entry.Entry.FileName) == null)
+                        //{
+                         //   Log("Precondition fail!: ");
+                        //    Log("RAF Path Doesnt Exist: "+entry.Entry.RAFArchive.GetID()+"/"+entry.Entry.FileName);
+                         //   return false;
+                        //}
+                        if (!File.Exists(entry.LocalPath))
                         {
                             Log("Precondition fail!: ");
-                            Log("RAF Path Doesnt Exist: "+entry.Entry.RAFArchive.GetID()+"/"+entry.Entry.FileName);
-                            return false;
-                        }
-                        else if (!File.Exists(entry.LocalPath))
-                        {
-                            Log("Precondition fail!: ");
-                            Log("Local Path Doesnt Exist: " + entry.LocalPath);
+                            Log("Local Path Doesnt Exist: '" + entry.LocalPath+"', so it can't be packed!");
                             return false;
                         }
                     }

@@ -66,11 +66,13 @@ namespace RAFManager
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Text = "Inserting modified file...";
+            fileEntry.FileSize = (UInt32)this.contentTB.Text.Length;
             fileEntry.RAFArchive.InsertFile(
                 fileEntry.FileName,
                 this.contentTB.Text.ToBytes(),
                 Console.Out
             );
+            fileEntry.RAFArchive.SaveDirectoryFile();
             this.Text = defaultTitle;
         }
 
