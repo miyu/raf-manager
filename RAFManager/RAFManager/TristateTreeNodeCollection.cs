@@ -25,6 +25,30 @@ namespace RAFManager
                 if(owner != null && ((TristateTreeNode)owner).TreeView != null)
                     ((TristateTreeNode)owner).TreeView.Invalidate();
         }
+        public void Insert(int index, TristateTreeNode node)
+        {
+            nodes.Insert(index, node);
+            node.Parent = owner;
+
+            if (owner is TristateTreeView)
+                ((TristateTreeView)owner).Invalidate();
+            else
+                if (owner != null && ((TristateTreeNode)owner).TreeView != null)
+                    ((TristateTreeNode)owner).TreeView.Invalidate();
+        }
+        public void InsertRange(int index, IEnumerable<TristateTreeNode> newNodes)
+        {
+            foreach (TristateTreeNode n in newNodes)
+                n.Parent = owner;
+
+            nodes.InsertRange(index, nodes);
+
+            if (owner is TristateTreeView)
+                ((TristateTreeView)owner).Invalidate();
+            else
+                if (owner != null && ((TristateTreeNode)owner).TreeView != null)
+                    ((TristateTreeNode)owner).TreeView.Invalidate();
+        }
         public void Remove(TristateTreeNode node)
         {
             nodes.Remove(node);

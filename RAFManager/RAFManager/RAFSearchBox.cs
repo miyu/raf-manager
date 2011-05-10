@@ -64,6 +64,8 @@ namespace RAFManager
         }
         private List<RAFInMemoryFileSystemObject> Search(string phrase, RAFInMemoryFileSystemObject node, List<RAFInMemoryFileSystemObject> ignore)
         {
+            phrase = phrase.ToLower();
+
             List<RAFInMemoryFileSystemObject> results = new List<RAFInMemoryFileSystemObject>();
             if (node.Text.ToLower().Contains(phrase))
                 if (!ignore.Contains(node))

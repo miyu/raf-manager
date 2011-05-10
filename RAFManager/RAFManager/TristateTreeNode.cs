@@ -21,6 +21,11 @@ namespace RAFManager
         Disabled  = 0x08
 
     }
+    public enum TristateTreeNodeType : byte
+    {
+        Radio       = 0x01,
+        Checkboxes  = 0x02
+    }
     /// <summary>
     /// Lots of optimization has to be done here...
     /// </summary>
@@ -29,6 +34,11 @@ namespace RAFManager
         private string text = "";
         private TristateTreeNodeCollection nodes;
         private TristateTreeNodeState checkboxState = TristateTreeNodeState.Unchecked;
+
+        /// <summary>
+        /// Note that we look at ourselves first, then our parent to see what type we are...
+        /// </summary>
+        private TristateTreeNodeType nodeType = TristateTreeNodeType.Checkboxes;
         private int tabWidth = 40; //How much we shift to the right when we
                                    //go down to a childnode for rendering
         private Object parent = null;
@@ -162,6 +172,24 @@ namespace RAFManager
         {
             if (HasToggle)
             {
+                //Draw lines linking to parent
+                if (this.parent is TristateTreeNode)
+                {
+                    Pen pen = new Pen(Brushes.LightGray);
+                    pen.DashStyle = DashStyle.Dash;
+                    TristateTreeNodeCollection parentCNs = null;
+                    if (this.parent is TristateTreeNode) parentCNs = ((TristateTreeNode)parent).nodes;
+                    else parentCNs = ((TristateTreeView)parent).Nodes;
+
+                    int offset = 20;
+                    for (int i = 0; i < parentCNs.IndexOf(this); i++)
+                        offset += parentCNs[i].BigSize.Height;
+                    g.DrawLine(pen, location.X + 10, location.Y + 10, location.X - tabWidth + 10, location.Y + 10);
+                    //Vline up
+                    g.DrawLine(pen, location.X - tabWidth + 10, location.Y + 10, location.X - tabWidth + 10, location.Y - offset + 10);
+                }
+
+                //Draw actual element
                 if (location.Y > -20 && location.Y < TreeView.Height + 20)
                 {
                     if (HasCheckBox)
@@ -202,6 +230,7 @@ namespace RAFManager
                         );
                     }
                 }
+                //Draw toggle
                 if (toggle)
                 {
                     Point offset = new Point(
@@ -216,6 +245,10 @@ namespace RAFManager
                     //RenderNodes(nodes[i].Nodes, g, offset);
                     //offset.X -= tabWidth;
                 }
+                return GetDrawingOffset(g, location);
+            }
+            else
+            {
                 //Draw lines linking to parent
                 if (this.parent is TristateTreeNode)
                 {
@@ -232,10 +265,8 @@ namespace RAFManager
                     //Vline up
                     g.DrawLine(pen, location.X - tabWidth + 10, location.Y + 10, location.X - tabWidth + 10, location.Y - offset + 10);
                 }
-                return GetDrawingOffset(g, location);
-            }
-            else
-            {
+
+
                 if (HasCheckBox)
                 {
                     Point stringLocation = new Point(
@@ -270,22 +301,6 @@ namespace RAFManager
                                  stringLocation
                     );
                 }
-                //Draw lines linking to parent
-                if (this.parent is TristateTreeNode)
-                {
-                    Pen pen = new Pen(Brushes.LightGray);
-                    pen.DashStyle = DashStyle.Dash;
-                    TristateTreeNodeCollection parentCNs = null;
-                    if (this.parent is TristateTreeNode) parentCNs = ((TristateTreeNode)parent).nodes;
-                    else parentCNs = ((TristateTreeView)parent).Nodes;
-
-                    int offset = 20;
-                    for (int i = 0; i < parentCNs.IndexOf(this); i++)
-                        offset += parentCNs[i].BigSize.Height;
-                    g.DrawLine(pen, location.X + 10, location.Y + 10, location.X - tabWidth + 10, location.Y + 10);
-                    //Vline up
-                    g.DrawLine(pen, location.X - tabWidth + 10, location.Y + 10, location.X - tabWidth + 10, location.Y - offset + 10);
-                }
                 return GetDrawingOffset(g, location);
             }
         }
@@ -305,17 +320,33 @@ namespace RAFManager
             }
             else
             {
-                switch (this.checkboxState)
-                {
-                    case TristateTreeNodeState.Checked:
-                        return Properties.Resources.Checkbox_Checked;
-                    case TristateTreeNodeState.Partial:
-                        return Properties.Resources.Checkbox_Partial;
-                    case TristateTreeNodeState.Unchecked:
-                        return Properties.Resources.Checkbox_Unchecked;
-                    default:
-                        return null; //?
-                }
+                TristateTreeNodeType nType = this.nodeType;
+                if (this.parent is TristateTreeNode)
+                    nType = ((TristateTreeNode)parent).nodeType;
+                if(nType == TristateTreeNodeType.Checkboxes)
+                    switch (this.checkboxState)
+                    {
+                        case TristateTreeNodeState.Checked:
+                            return Properties.Resources.Checkbox_Checked;
+                        case TristateTreeNodeState.Partial:
+                            return Properties.Resources.Checkbox_Partial;
+                        case TristateTreeNodeState.Unchecked:
+                            return Properties.Resources.Checkbox_Unchecked;
+                        default:
+                            return null; //?
+                    }
+                else // if (nType == TristateTreeNodeType.Radio)
+                    switch (this.checkboxState)
+                    {
+                        case TristateTreeNodeState.Checked:
+                            return Properties.Resources.Radio_Checked;
+                        case TristateTreeNodeState.Partial:
+                            return null; //lol?
+                        case TristateTreeNodeState.Unchecked:
+                            return Properties.Resources.Radio_Unchecked;
+                        default:
+                            return null; //?
+                    }
             }
         }
 
@@ -497,7 +528,7 @@ namespace RAFManager
                 for (int i = 0; i < this.nodes.Count; i++)
                     this.nodes[i].SetCheckState(TristateTreeNodeState.Unchecked, true, false);
         }
-        private void UpdateCheckState(bool bubbleToChildren, bool bubbleToParent)
+        public void UpdateCheckState(bool bubbleToChildren, bool bubbleToParent)
         {
             if (this.nodes.Count == 0) return;
             bool allChecked = true;
