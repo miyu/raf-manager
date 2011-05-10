@@ -85,5 +85,13 @@ namespace RAFLib
             }
             return result;
         }
+        public void AddFileEntry(RAFFileListEntry entry)
+        {
+            this.fileEntries.Add(entry);
+        }
+        public void DeleteFileEntry(RAFFileListEntry entry)
+        {
+            this.fileEntries.Remove(entry);
+        }
     }
 }

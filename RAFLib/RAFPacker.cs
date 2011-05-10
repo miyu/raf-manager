@@ -25,11 +25,12 @@ namespace RAFLib
 
         List<string> uncompressedFiles = null;
         List<string>        archivedPaths   = null;
+        
         public bool PackRAF(string sourceDirectory, string targetDirectory)
         {
-            RAFHashManager.Init(); //Inits if it needs to load the hashes dict...
+            //RAFHashManager.Init(); //Inits if it needs to load the hashes dict...
 
-            archivedPaths = RAFHashManager.GetKeys();
+            //archivedPaths = RAFHashManager.GetKeys();
 
             uncompressedFiles = new List<string>();
             uncompressedFiles.AddRange(File.ReadAllLines(Environment.CurrentDirectory + "\\nocompress.txt"));
@@ -43,14 +44,14 @@ namespace RAFLib
 
             UInt32 totalNameBytes = 0;
             List<UInt32> stringTableContentOffsets = new List<UInt32>();
-            /*List<String> archivedPaths = new List<string>();        //Misnomer - name of the files once archived
+            List<String> archivedPaths = new List<string>();        //Misnomer - name of the files once archived
             foreach (String filePath in files)
             {
                 string archivePath = filePath.Replace(sourceDirectory, "").Replace("\\", "/");
                 stringTableContentOffsets.Add((UInt32)totalNameBytes);
                 totalNameBytes += (UInt32)(archivePath.Length + 1);
                 archivedPaths.Add(archivePath);//raf uses / in storage name.
-            }*/
+            }
             foreach (String archivePath in archivedPaths)
             {
                 stringTableContentOffsets.Add((UInt32)totalNameBytes);

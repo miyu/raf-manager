@@ -9,16 +9,58 @@ using zlib = ComponentAce.Compression.Libs.zlib;
 
 namespace RAFLib
 {
+    /// <summary>
+    /// 8 May 2011, Setters no longer actually write to RAF DIrectory file in memory copies
+    /// Instead, you must call Archive.SaveDirectoryFile();
+    /// 
+    /// This would have been easier to do with c++ and double pointers... 
+    /// Meh
+    /// </summary>
     public class RAFFileListEntry
     {
         private byte[] directoryFileContent = null;
         private UInt32 offsetEntry = 0;
         private RAFArchive raf = null;
-        public RAFFileListEntry(RAFArchive raf, ref byte[] directoryFileContent, UInt32 offsetEntry)
+
+        private UInt32 fileOffset   = UInt32.MaxValue;  //It is assumed that LoL archive files will never reach 4 gigs of size.
+        private UInt32 fileSize     = UInt32.MaxValue;
+        private UInt32 stringTableIndex = UInt32.MaxValue;
+        private string fileName     = null;
+
+
+        /**
+         * Defines whether or not this file entry is only in memory, and not
+         * actually defined in the RAF Archives yet.
+         * 
+         * This is because can now choose to add files to the RAF Archives even if they don't
+         * already exist.
+         */
+        private bool inMemory = false;
+
+        //(string rafPath, UInt32 offset, UInt32 fileSize, UInt32 nameStringTableIndex)
+        public RAFFileListEntry(RAFArchive raf, ref byte[] directoryFileContent, UInt32 offsetDirectoryEntry)
         {
             this.raf = raf;
             this.directoryFileContent = directoryFileContent;
-            this.offsetEntry = offsetEntry;
+            this.offsetEntry = offsetDirectoryEntry;
+
+            this.fileOffset = BitConverter.ToUInt32(directoryFileContent, (int)offsetEntry + 4); ;
+            this.fileSize = BitConverter.ToUInt32(directoryFileContent, (int)offsetEntry + 8);
+            this.stringTableIndex = BitConverter.ToUInt32(directoryFileContent, (int)offsetEntry + 12);
+            this.fileName = null; // this.raf.GetDirectoryFile().GetStringTable()[this.stringTableIndex];
+        }
+        /// <summary>
+        /// Creates an entry that only exists in memory.  
+        /// </summary>
+        public RAFFileListEntry(RAFArchive raf, string rafPath, UInt32 offsetDatFile, UInt32 fileSize, UInt32 nameStringTableIndex)
+        {
+            inMemory = true;
+            this.raf = raf;
+            this.fileName = rafPath;
+            this.fileOffset = offsetDatFile;
+            this.fileSize = fileSize;
+            this.stringTableIndex = nameStringTableIndex;
+
         }
         /// <summary>
         /// Hash of the string name
@@ -27,7 +69,8 @@ namespace RAFLib
         {
             get
             {
-                return BitConverter.ToUInt32(directoryFileContent, (int)offsetEntry);
+                return RAFHashManager.GetHash(FileName);
+                //return BitConverter.ToUInt32(directoryFileContent, (int)offsetEntry);
             }
         }
         /// <summary>
@@ -37,12 +80,25 @@ namespace RAFLib
         {
             get
             {
-                return BitConverter.ToUInt32(directoryFileContent, (int)offsetEntry+4);
+                if (inMemory)
+                    if (fileOffset == UInt32.MaxValue)
+                        throw new Exception("Invalid call to Get_FileOffset, this entry is only in memory, and has not been assigned a file offset yet.");
+                    else
+                        return fileOffset;
+                else
+                    return fileOffset;
             }
             set
             {
-                byte[] valueBytes = BitConverter.GetBytes(value);
-                Array.Copy(valueBytes, 0, directoryFileContent, offsetEntry + 4, 4);
+                if (inMemory)
+                {
+                    //byte[] valueBytes = BitConverter.GetBytes(value);
+                    //Array.Copy(valueBytes, 0, directoryFileContent, offsetEntry + 4, 4);
+                    this.fileOffset = value;
+                }
+                else
+                    this.fileOffset = value;
+                    //throw new Exception("Invalid call to Set_FileOffset, this entry is only in memory, and thus does not have an address to a file offset yet.");
             }
         }
         /// <summary>
@@ -52,12 +108,15 @@ namespace RAFLib
         {
             get
             {
-                return BitConverter.ToUInt32(directoryFileContent, (int)offsetEntry+8);
+                if (fileSize == UInt32.MaxValue)
+                    throw new Exception("Invalid call to Get_FileSize, this entry is only in memory, and has not been assigned a file size yet.");
+                return fileSize;
             }
             set
             {
-                byte[] valueBytes = BitConverter.GetBytes(value);
-                Array.Copy(valueBytes, 0, directoryFileContent, offsetEntry + 8, 4);
+                fileSize = value;
+                //byte[] valueBytes = BitConverter.GetBytes(value);
+                //Array.Copy(valueBytes, 0, directoryFileContent, offsetEntry + 8, 4);
             }
         }
         /// <summary>
@@ -67,7 +126,13 @@ namespace RAFLib
         {
             get
             {
-                return BitConverter.ToUInt32(directoryFileContent, (int)offsetEntry+12);
+                if (stringTableIndex == UInt32.MaxValue)
+                    throw new Exception("Invalid call to Get_FileNameStringTableIndex, this entry is only in memory, and has not been assigned a string table index yet.");
+                return stringTableIndex;
+            }
+            set
+            {
+                stringTableIndex = value;
             }
         }
 
@@ -78,7 +143,16 @@ namespace RAFLib
         {
             get
             {
-                return this.raf.GetDirectoryFile().GetStringTable()[this.FileNameStringTableIndex];
+                if (this.fileName == null)
+                    if (inMemory)
+                        throw new Exception("Invalid call to Get_FileName, this entry is only in memory, and has not been assigned a file name yet.");
+                    else
+                        return raf.GetDirectoryFile().GetStringTable()[this.stringTableIndex];
+                return fileName;
+            }
+            set
+            {
+                fileName = value;
             }
         }
 
@@ -87,6 +161,7 @@ namespace RAFLib
         /// </summary>
         public byte[] GetContent()
         {
+            if (inMemory) throw new Exception("Invalid call to GetContent, this entry is only in memory, and has not been linked to the DAT file yet.");
             FileStream fStream = this.raf.GetDataFileContentStream();
 
             byte[] buffer = new byte[this.FileSize];            //Will contain compressed data
@@ -133,6 +208,18 @@ namespace RAFLib
         public override string ToString()
         {
             return FileName;
+        }
+
+        public bool IsMemoryEntry
+        {
+            get
+            {
+                return inMemory;
+            }
+            set
+            {
+                inMemory = value;
+            }
         }
     }
 }

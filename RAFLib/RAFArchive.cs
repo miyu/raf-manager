@@ -179,18 +179,11 @@ namespace RAFLib
             ostream.WriteLine("        To: " + GetID());
 
             RAFFileListEntry fileentry = this.GetDirectoryFile().GetFileList().GetFileEntry(fileName);
-
-            //store the old offsets just in case we need to perform a restore.
-            //This actually isn't necessary currently, since the raf directory file is saved
-            //After packing.
-            UInt32 oldOffset = (UInt32)fileentry.FileOffset;
-            UInt32 oldSize = (UInt32)fileentry.FileSize;
-            ostream.WriteLine("Old Offset: " + oldOffset +"; Old Size: " + oldSize);
-
-            ostream.WriteLine("Begin modify game files...  This may take a while");
-            try
+            if (fileentry == null)
             {
-                ostream.WriteLine("    Get File Stream");
+                //Define a new entry
+                ostream.WriteLine("# Create new entry in RAF Archive, using experimental hash calculations");
+                ostream.WriteLine("    Get DAT File Stream");
                 FileStream datFileStream = GetDataFileContentStream();
                 //navigate to the end of it, add the file.
                 datFileStream.Seek(0, SeekOrigin.End);
@@ -214,29 +207,75 @@ namespace RAFLib
                 ostream.WriteLine("    Begin DAT Write");
                 datFileStream.Write(finalContent, 0, finalContent.Length);
 
-                ostream.WriteLine("    Begin FileEntry Write");
-                fileentry.FileOffset = offset;
-                fileentry.FileSize = (UInt32)finalContent.Length;
+                ostream.WriteLine("    Add file entry to in memory directory...");
+                UInt32 strTableIndex = directoryFile.GetStringTable().Add(fileName);
+                directoryFile.CreateFileEntry(fileName, offset, (UInt32)finalContent.Length, strTableIndex);
                 //directoryFile.Save();
-
                 //datFileStream.Close();
                 ostream.WriteLine("    Done.");
                 return true;
-            }
-            catch(Exception e)
-            {
-                ostream.WriteLine("!! An error occurred in inserting a file.");
-                ostream.WriteLine("!! Note that the content of the raf archive has been added to");
-                ostream.WriteLine("!! But the directory file that points the game to the data in the content file");
-                ostream.WriteLine("!! Has not been modified.  In other words, if the game read the RAF archive now");
-                ostream.WriteLine("!! It wouldn't see a difference.");
-                ostream.WriteLine("!! However, the RAF archive is a bit bigger than before.");
-                ostream.WriteLine(e.ToString());
 
-                fileentry.FileOffset = oldOffset;
-                fileentry.FileSize = oldSize;
-                //directoryFile.GetContent();
-                return false;
+            }
+            else
+            {
+                //store the old offsets just in case we need to perform a restore.
+                //This actually isn't necessary currently, since the raf directory file is saved
+                //After packing.
+                UInt32 oldOffset = (UInt32)fileentry.FileOffset;
+                UInt32 oldSize = (UInt32)fileentry.FileSize;
+                ostream.WriteLine("Old Offset: " + oldOffset + "; Old Size: " + oldSize);
+
+                ostream.WriteLine("Begin modify game files...  This may take a while");
+                try
+                {
+                    ostream.WriteLine("    Get File Stream");
+                    FileStream datFileStream = GetDataFileContentStream();
+                    //navigate to the end of it, add the file.
+                    datFileStream.Seek(0, SeekOrigin.End);
+                    UInt32 offset = (UInt32)datFileStream.Length;
+
+                    byte[] finalContent;
+                    if (nocompress.Contains(fileName))
+                    {
+                        finalContent = content;
+                    }
+                    else
+                    {
+                        ostream.WriteLine("    Begin compression of content");
+                        MemoryStream mStream = new MemoryStream();
+                        zlib.ZOutputStream oStream = new zlib.ZOutputStream(mStream, zlib.zlibConst.Z_DEFAULT_COMPRESSION); //using default compression level
+                        oStream.Write(content, 0, content.Length);
+                        oStream.finish();
+                        finalContent = mStream.ToArray();
+                    }
+
+                    ostream.WriteLine("    Begin DAT Write");
+                    datFileStream.Write(finalContent, 0, finalContent.Length);
+
+                    ostream.WriteLine("    Begin FileEntry Write");
+                    fileentry.FileOffset = offset;
+                    fileentry.FileSize = (UInt32)finalContent.Length;
+                    //directoryFile.Save();
+
+                    //datFileStream.Close();
+                    ostream.WriteLine("    Done.");
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    ostream.WriteLine("!! An error occurred in inserting a file.");
+                    ostream.WriteLine("!! Note that the content of the raf archive has been added to");
+                    ostream.WriteLine("!! But the directory file that points the game to the data in the content file");
+                    ostream.WriteLine("!! Has not been modified.  In other words, if the game read the RAF archive now");
+                    ostream.WriteLine("!! It wouldn't see a difference.");
+                    ostream.WriteLine("!! However, the RAF archive is a bit bigger than before.");
+                    ostream.WriteLine(e.ToString());
+
+                    fileentry.FileOffset = oldOffset;
+                    fileentry.FileSize = oldSize;
+                    //directoryFile.GetContent();
+                    return false;
+                }
             }
         }
 
@@ -245,7 +284,7 @@ namespace RAFLib
         /// </summary>
         public void SaveDirectoryFile()
         {
-            File.WriteAllBytes(rafPath, directoryFile.GetContent());
+            File.WriteAllBytes(rafPath, directoryFile.GetBytes());
         }
 
         /// <summary>
@@ -272,5 +311,6 @@ namespace RAFLib
         {
             return new FileInfo(this.rafPath).Directory.Name;
         }
+
     }
 }
