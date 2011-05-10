@@ -10,6 +10,7 @@ using System.Drawing.Drawing2D;
 
 namespace ItzWarty
 {
+    //Pretty much everything copied from http://www.pinvoke.net
     public static class WinAPI
     {
         public delegate bool CallBackPtr(int hwnd, int lParam);
@@ -52,6 +53,48 @@ namespace ItzWarty
 
         [DllImport("user32", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
         public static extern IntPtr SetFocus(IntPtr hwnd);
+
+        public enum ShowWindowParam:int
+        {
+            SW_SHOWNORMAL = 1,
+            SW_SHOWMINIMIZED = 2,
+            SW_SHOWMAXIMIZED = 3
+        }
+
+        [DllImport("user32.dll")]
+        public static extern bool ShowWindow(IntPtr hWnd, ShowWindowParam nCmdShow);
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetForegroundWindow(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool FlashWindowEx(ref FLASHWINFO pwfi);
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct FLASHWINFO
+        {
+            public UInt32 cbSize;
+            public IntPtr hwnd;
+            public UInt32 dwFlags;
+            public UInt32 uCount;
+            public UInt32 dwTimeout;
+        }
+        //Stop flashing. The system restores the window to its original state. 
+        public const UInt32 FLASHW_STOP = 0;
+        //Flash the window caption. 
+        public const UInt32 FLASHW_CAPTION = 1;
+        //Flash the taskbar button. 
+        public const UInt32 FLASHW_TRAY = 2;
+        //Flash both the window caption and taskbar button.
+        //This is equivalent to setting the FLASHW_CAPTION | FLASHW_TRAY flags. 
+        public const UInt32 FLASHW_ALL = 3;
+        //Flash continuously, until the FLASHW_STOP flag is set. 
+        public const UInt32 FLASHW_TIMER = 4;
+        //Flash continuously until the window comes to the foreground. 
+        public const UInt32 FLASHW_TIMERNOFG = 12; 
+
 
         /// <summary>
         /// The MoveWindow function changes the position and dimensions of the specified window. For a top-level window, the position and dimensions are relative to the upper-left corner of the screen. For a child window, they are relative to the upper-left corner of the parent window's client area.
