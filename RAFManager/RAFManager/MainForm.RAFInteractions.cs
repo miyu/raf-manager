@@ -34,6 +34,7 @@ namespace RAFManager
             rafContentView.AllowDrop = true;
             rafContentView.DragOver += new DragEventHandler(rafContentView_DragOver);
             rafContentView.MouseClick += new MouseEventHandler(rafContentView_MouseClick);
+            smallContainer.Panel1.MouseClick += new MouseEventHandler(rafContentView_MouseClick);
 
             changesView = new TristateTreeView();
             changesView.Dock = DockStyle.Fill;
@@ -49,14 +50,16 @@ namespace RAFManager
 
         void rafContentView_MouseClick(object sender, MouseEventArgs e)
         {
+            Console.WriteLine("Click");
             rafContentView.SelectedNode = rafContentView.GetNodeAt(e.Location);
             if (e.Button == System.Windows.Forms.MouseButtons.Right)
             {
                 RAFInMemoryFileSystemObject fso = (RAFInMemoryFileSystemObject)rafContentView.SelectedNode;
+                ContextMenu cm = new ContextMenu();
                 if(fso != null)
                 {
-                    ContextMenu cm = new ContextMenu();
                     MenuItem dump = new MenuItem("Dump");
+                    #region Dump Menu Entry
                     dump.Click += delegate(Object sender2, EventArgs e2)
                     {
                         if (fso.GetFSOType() == RAFFSOType.ARCHIVE || fso.GetFSOType() == RAFFSOType.DIRECTORY)
@@ -94,8 +97,10 @@ namespace RAFManager
                             }
                         }
                     };
+                    #endregion
                     cm.MenuItems.Add(dump);
-                    if(fso.GetFSOType() == RAFFSOType.FILE)
+                    #region file viewing entries
+                    if (fso.GetFSOType() == RAFFSOType.FILE)
                     {
                         MenuItem viewAsTextFile = new MenuItem("View As Text File");
                         viewAsTextFile.Click += delegate(Object sender2, EventArgs e2)
@@ -140,8 +145,24 @@ namespace RAFManager
                             cm.MenuItems.Add(viewAsINIBIN);
                         }
                     }
-                    cm.Show(rafContentView, new Point(e.X, e.Y));
+                    #endregion
                 }
+                MenuItem searchThis = new MenuItem("Search This Archive");
+                searchThis.Click += delegate(object s2, EventArgs e2)
+                {
+                    new RAFSearchBox(fso).Show();
+                };
+                cm.MenuItems.Add(searchThis);
+                MenuItem searchAll = new MenuItem("Search All Archives");
+                searchAll.Click += delegate(object s2, EventArgs e2)
+                {
+                    RAFInMemoryFileSystemObject[] nodes = new RAFInMemoryFileSystemObject[rafContentView.Nodes.Count];
+                    for (int i = 0; i < rafContentView.Nodes.Count; i++)
+                        nodes[i] = (RAFInMemoryFileSystemObject)rafContentView.Nodes[i];
+                    new RAFSearchBox(nodes).Show();
+                };
+                cm.MenuItems.Add(searchAll);
+                cm.Show(rafContentView, new Point(e.X, e.Y));
             }
         }
         void DumpRafArchiveByFSO(RAFInMemoryFileSystemObject fso, string dumpDirectory)
@@ -169,24 +190,63 @@ namespace RAFManager
         void changesView_NodeRightClicked(TristateTreeNode node, MouseEventArgs e)
         {
             ContextMenu cm = new ContextMenu();
-            MenuItem delete = new MenuItem("Delete");
-            delete.Click += delegate(object sender, EventArgs e2){
-                if (node.Parent is TristateTreeView)
+            if (changesView.SelectedNodes.Count >= 2)
+            {
+                MenuItem multiDelete = new MenuItem("Remove From Project (Won't uninstall)");
+                #region delete button
+                multiDelete.Click += delegate(object sender, EventArgs e2)
                 {
-                    TristateTreeView p = (TristateTreeView)node.Parent;
-                    p.Nodes.Remove(node);
-                    if (p.SelectedNode == node) p.SelectedNode = null;
-                    p.Invalidate();
-                }
-                else
+                    while(changesView.SelectedNodes.Count > 0)
+                    {
+                        node = changesView.SelectedNodes[0];
+                        if (node.Parent is TristateTreeView)
+                        {
+                            TristateTreeView p = (TristateTreeView)node.Parent;
+                            p.Nodes.Remove(node);
+                            if (p.SelectedNode == node) p.SelectedNode = null;
+                            p.Invalidate();
+                        }
+                        else
+                        {
+                            TristateTreeNode n = (TristateTreeNode)node.Parent;
+                            n.Nodes.Remove(node);
+                            if (n.TreeView.SelectedNode == node) n.TreeView.SelectedNode = null;
+                            n.TreeView.Invalidate();
+                        }
+                        changesView.SelectedNodes.RemoveAt(0);
+                    }
+                    HasProjectChanged = true;
+                };
+                #endregion
+                cm.MenuItems.Add(multiDelete);
+            }
+            else
+            {
+                MenuItem delete = new MenuItem("Remove From Project (Won't uninstall)");
+                #region delete button
+                delete.Click += delegate(object sender, EventArgs e2)
                 {
-                    TristateTreeNode n = (TristateTreeNode)node.Parent;
-                    n.Nodes.Remove(node);
-                    if (n.TreeView.SelectedNode == node) n.TreeView.SelectedNode = null;
-                    n.TreeView.Invalidate();
-                }
-            };
-            MenuItem pack = new MenuItem("Pack");
+                    if (node.Parent is TristateTreeView)
+                    {
+                        TristateTreeView p = (TristateTreeView)node.Parent;
+                        p.Nodes.Remove(node);
+                        if (p.SelectedNode == node) p.SelectedNode = null;
+                        p.Invalidate();
+                    }
+                    else
+                    {
+                        TristateTreeNode n = (TristateTreeNode)node.Parent;
+                        n.Nodes.Remove(node);
+                        if (n.TreeView.SelectedNode == node) n.TreeView.SelectedNode = null;
+                        n.TreeView.Invalidate();
+                    }
+                    HasProjectChanged = true;
+                };
+                #endregion
+                cm.MenuItems.Add(delete);
+            }
+            MenuItem pack = new MenuItem("Pack (Install checked, uninstall unchecked)");
+            #region pack button
             pack.Click += delegate(object sender, EventArgs e2)
             {
                 if (VerifyPackPrecondition(
@@ -201,8 +261,23 @@ namespace RAFManager
                     Log("Pack done");
                 }
             };
-            cm.MenuItems.Add(delete);
+            #endregion 
             cm.MenuItems.Add(pack);
+
+            MenuItem rename = new MenuItem("Rename");
+            #region rename button
+            rename.Click += delegate(object s2, EventArgs e2)
+            {
+                StringQueryDialog sqd = new StringQueryDialog("Rename '" + node.Text + "' to:", node.Text);
+                sqd.ShowDialog();
+                node.Text = sqd.Value;
+
+                node.TreeView.Invalidate();
+                HasProjectChanged = true;
+            };
+            #endregion
+            cm.MenuItems.Add(rename);
+
             cm.Show(changesView, new Point(e.X, e.Y));
         }
 
@@ -310,6 +385,29 @@ namespace RAFManager
                             {
                                 matchedEntry = resolvedItem;
                             }
+                        }
+                        else if (advancedUser)
+                        {
+                            //We'll use the file browser to select where we want to save...
+                            string rafPath = PickRafPath(false) + "/";
+                            RAFArchive archive = rafArchives[rafPath.Replace("\\", "/").Split("/").First()];
+                            rafPath = rafPath.Substring(rafPath.IndexOf("/") + 1); //remove the archive name now...
+                            if (rafPath.Length != 0)
+                            {
+                                Console.WriteLine("FRP: " + "len!= 0");
+                                if (rafPath[rafPath.Length - 1] == '/') 
+                                {
+                                    Console.WriteLine("FRP: " + rafPath);
+                                    rafPath = rafPath.Substring(0, rafPath.Length - 1);//remove the trailing /, since we add it later
+                                }
+                            }
+                            Console.WriteLine("FRP: " + rafPath);
+                            if (rafPath == "")
+                                matchedEntry = new RAFFileListEntry(archive, pathParts.Last(), UInt32.MaxValue, (UInt32)new FileInfo(filePath).Length, UInt32.MaxValue);
+                            else
+                                matchedEntry = new RAFFileListEntry(archive, rafPath + "/" + pathParts.Last(), UInt32.MaxValue, (UInt32)new FileInfo(filePath).Length, UInt32.MaxValue);
+                            
+                            //Add the tree node to the raf viewer
                         }
                     }
                     if (matchedEntry != null) //If it's still not resolved

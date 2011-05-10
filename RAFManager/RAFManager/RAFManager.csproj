@@ -83,6 +83,12 @@
       <DependentUpon>NumberedTextBox.cs</DependentUpon>
     </Compile>
     <Compile Include="RAFFSOTreeNodeSorter.cs" />
+    <Compile Include="RAFSearchBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RAFSearchBox.Designer.cs">
+      <DependentUpon>RAFSearchBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="StringQueryDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -159,6 +165,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindowLoading.resx">
       <DependentUpon>MainWindowLoading.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RAFSearchBox.resx">
+      <DependentUpon>RAFSearchBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StringQueryDialog.resx">
       <DependentUpon>StringQueryDialog.cs</DependentUpon>

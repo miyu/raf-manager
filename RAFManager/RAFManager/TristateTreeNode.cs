@@ -164,44 +164,44 @@ namespace RAFManager
             {
                 if (location.Y > -20 && location.Y < TreeView.Height + 20)
                 {
-                if (HasCheckBox)
-                {
-                    Point stringLocation = new Point(
-                        location.X + 20 + 19,
-                        location.Y + (20 - (int)g.MeasureString(text, this.GetFont()).Height) / 2
-                    );
-                    g.DrawImage(GetToggleBitmap(), new Rectangle(location, new Size(19, 20)));
-                    g.DrawImage(GetCheckboxBitmap(), new Rectangle(new Point(location.X + 19, location.Y), new Size(20, 20)));
-
-                    if (this.TreeView.SelectedNode == this)
+                    if (HasCheckBox)
                     {
-                        g.FillRectangle(Brushes.LightGray, new Rectangle(stringLocation, g.MeasureString(this.text, this.GetFont()).ToSize()));
-                    }
-                    g.DrawString(this.text,
-                                 this.GetFont(),
-                                 Brushes.Black,
-                                 stringLocation
-                    );
-                }
-                else
-                {
-                    Point stringLocation = new Point(
-                        location.X + 19,
-                        location.Y + (20 - (int)g.MeasureString(text, this.GetFont()).Height) / 2
-                    );
-                    g.DrawImage(GetToggleBitmap(), new Rectangle(location, new Size(19, 20)));
+                        Point stringLocation = new Point(
+                            location.X + 20 + 19,
+                            location.Y + (20 - (int)g.MeasureString(text, this.GetFont()).Height) / 2
+                        );
+                        g.DrawImage(GetToggleBitmap(), new Rectangle(location, new Size(19, 20)));
+                        g.DrawImage(GetCheckboxBitmap(), new Rectangle(new Point(location.X + 19, location.Y), new Size(20, 20)));
 
-                    if (this.TreeView.SelectedNode == this)
+                        if (this.TreeView.SelectedNodes.Contains(this))
+                        {
+                            g.FillRectangle(Brushes.LightGray, new Rectangle(stringLocation, g.MeasureString(this.text, this.GetFont()).ToSize()));
+                        }
+                        g.DrawString(this.text,
+                                     this.GetFont(),
+                                     Brushes.Black,
+                                     stringLocation
+                        );
+                    }
+                    else
                     {
-                        g.FillRectangle(Brushes.LightGray, new Rectangle(stringLocation, g.MeasureString(this.text, this.GetFont()).ToSize()));
+                        Point stringLocation = new Point(
+                            location.X + 19,
+                            location.Y + (20 - (int)g.MeasureString(text, this.GetFont()).Height) / 2
+                        );
+                        g.DrawImage(GetToggleBitmap(), new Rectangle(location, new Size(19, 20)));
+
+                        if (this.TreeView.SelectedNode == this)
+                        {
+                            g.FillRectangle(Brushes.LightGray, new Rectangle(stringLocation, g.MeasureString(this.text, this.GetFont()).ToSize()));
+                        }
+                        g.DrawString(this.text,
+                                     this.GetFont(),
+                                     Brushes.Black,
+                                     stringLocation
+                        );
                     }
-                    g.DrawString(this.text,
-                                 this.GetFont(),
-                                 Brushes.Black,
-                                 stringLocation
-                    );
                 }
-                    }
                 if (toggle)
                 {
                     Point offset = new Point(
@@ -210,7 +210,8 @@ namespace RAFManager
                     );
                     for (int i = 0; i < nodes.Count; i++)
                     {
-                        offset = nodes[i].Draw(g, offset);
+                        if(offset.Y < TreeView.Height)
+                            offset = nodes[i].Draw(g, offset);
                     }
                     //RenderNodes(nodes[i].Nodes, g, offset);
                     //offset.X -= tabWidth;

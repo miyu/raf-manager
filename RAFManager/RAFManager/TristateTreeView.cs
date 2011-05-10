@@ -76,29 +76,52 @@ namespace RAFManager
 
         private bool mousedown = false;
         private TristateTreeNode selectedNode = null;
+        private List<TristateTreeNode> selectedNodes = new List<TristateTreeNode>();
         void TristateTreeView_MouseDown(object sender, MouseEventArgs e)
         {
             mousedown = true;
             TristateTreeNode node = GetNodeAtLocation(new Point(e.X, e.Y + vscrollbar.Value));
-            selectedNode = node;
-            Console.WriteLine("Clicked: " + (node == null?"nothing":node.Text));
-            if (node != null)
-            {
-                Point nodeLocation = node.GetLocation();
-                Console.WriteLine("nLoc: " + nodeLocation);
-                node.ProcessClick(
-                     new Point(
-                         e.X - nodeLocation.X,
-                         e.Y - nodeLocation.Y + vscrollbar.Value
-                     ), e
-                );
-                SizeVScrollbar();
-                Invalidate();
-            }
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
-                if (NodeClicked != null) NodeClicked(selectedNode, e);
-            if (e.Button == System.Windows.Forms.MouseButtons.Right)
-                if (NodeRightClicked != null) NodeRightClicked(selectedNode, e);
+            {
+                if ((Control.ModifierKeys & Keys.Control) > 0)
+                {
+                    if (selectedNodes.Contains(node))
+                        while (selectedNodes.Remove(node)) ;
+                    else selectedNodes.Add(node);
+                }
+                else
+                {
+                    selectedNodes.Clear();
+                    selectedNodes.Add(node);
+                }
+                selectedNode = node;
+                Console.WriteLine("Clicked: " + (node == null ? "nothing" : node.Text));
+                if (node != null)
+                {
+                    Point nodeLocation = node.GetLocation();
+                    Console.WriteLine("nLoc: " + nodeLocation);
+                    node.ProcessClick(
+                         new Point(
+                             e.X - nodeLocation.X,
+                             e.Y - nodeLocation.Y + vscrollbar.Value
+                         ), e
+                    );
+                    SizeVScrollbar();
+                    Invalidate();
+                    if (NodeClicked != null) NodeClicked(selectedNode, e);
+                }
+            }
+            else if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                if (selectedNodes.Count == 0 || selectedNodes.Count == 1)
+                {
+                    selectedNode = node;
+                    selectedNodes.Clear();
+                    selectedNodes.Add(node);
+                }
+                Invalidate();
+                if(selectedNode != null && NodeRightClicked != null) NodeRightClicked(selectedNode, e);
+            }
 
         }
         void TristateTreeView_MouseMove(object sender, MouseEventArgs e)
@@ -117,6 +140,13 @@ namespace RAFManager
             set
             {
                 this.selectedNode = value;
+            }
+        }
+        public List<TristateTreeNode> SelectedNodes
+        {
+            get
+            {
+                return this.selectedNodes;
             }
         }
         private TristateTreeNode GetNodeAtLocation(Point point)
@@ -207,7 +237,8 @@ namespace RAFManager
         {   //The recursion shouldn't go so deep as to get a stackoverflow...
             for (int i = 0; i < nodes.Count; i++)
             {
-                offset = nodes[i].Draw(g, offset);
+                if(offset.Y < this.Height)
+                    offset = nodes[i].Draw(g, offset);
             }
             return offset.Y;
         }

@@ -19,7 +19,7 @@ namespace RAFManager
         /// a single node.
         /// </summary>
         /// <param name="nodes"></param>
-        public RAFPathSelector(RAFInMemoryFileSystemObject[] nodes)
+        public RAFPathSelector(RAFInMemoryFileSystemObject[] nodes, bool includeFiles)
         {
             InitializeComponent();
             //Resizes layout and add handler for resizing
@@ -86,7 +86,11 @@ namespace RAFManager
             get
             {
                 if (this.treeView.SelectedNode != null)
-                    return ((RAFInMemoryFileSystemObject)this.treeView.SelectedNode).GetRAFPath(true);
+                {
+                    string result = ((RAFInMemoryFileSystemObject)this.treeView.SelectedNode).GetRAFPath(true);
+                    Console.WriteLine("Selected path: " + result);
+                    return result;
+                }
                 else return null;
             }
         }

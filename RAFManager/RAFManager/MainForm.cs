@@ -113,7 +113,7 @@ namespace RAFManager
             #region load_raf_archives
             for (int i = 0; i < archivePaths.Length; i++)
             {
-                string archiveName = archivePaths[i].Replace(archivesRoot, "");
+                string archiveName = archivePaths[i].Replace(archivesRoot, "").Replace("/","");
 
                 loader.Log("Load Archive - " + archiveName);
                 //Title("Loading RAF File - " + archiveName);
@@ -121,8 +121,10 @@ namespace RAFManager
 
                 RAFArchive raf = null;
                 RAFInMemoryFileSystemObject archiveRoot = new RAFInMemoryFileSystemObject(null, RAFFSOType.ARCHIVE, archiveName);
+#if !DEBUG
                 try
                 {
+#endif
                     //Load raf file table and add to our list of archives
                     rafArchives.Add(archiveName,
                         raf = new RAFArchive(
@@ -134,6 +136,7 @@ namespace RAFManager
                     List<RAFFileListEntry> entries = raf.GetDirectoryFile().GetFileList().GetFileEntries();
                     for (int j = 0; j < entries.Count; j++)
                     {
+                       // Console.WriteLine(entries[j].StringNameHash.ToString("x").PadLeft(8, '0').ToUpper());
                         //if (j % 1000 == 0)
                         //    loader.Log(" - " + archiveName + " - " + j + "/" + entries.Count);
                             //Title("Loading RAF Files - " + archiveName +" - " + j+"/"+entries.Count);
@@ -141,8 +144,10 @@ namespace RAFManager
                         RAFInMemoryFileSystemObject node = archiveRoot.AddToTree(RAFFSOType.FILE, entries[j].FileName);
                     }
                     //Log(entries.Count.ToString() + " Files");
+#if !DEBUG
                 }
                 catch (Exception exception) { Log("FAILED:\r\n" + exception.Message + "\r\n"); }
+#endif
 
                 //Add to our tree displayer
                 loader.Log("Preparing Environment...");

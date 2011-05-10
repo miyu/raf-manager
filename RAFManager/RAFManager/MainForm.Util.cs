@@ -34,12 +34,12 @@ namespace RAFManager
         /// TODO: This needs to be made better.  it's pretty annoying to work with on the user-viewpoint
         /// </summary>
         /// <returns></returns>
-        private string PickRafPath()
+        private string PickRafPath(bool includeFiles)
         {
             RAFInMemoryFileSystemObject[] nodes = new RAFInMemoryFileSystemObject[this.rafContentView.Nodes.Count];
             for (int i = 0; i < nodes.Length; i++)
                 nodes[i] = (RAFInMemoryFileSystemObject)this.rafContentView.Nodes[i].Clone();
-            RAFPathSelector selectorDialog = new RAFPathSelector(nodes);
+            RAFPathSelector selectorDialog = new RAFPathSelector(nodes, includeFiles);
             selectorDialog.ShowDialog();
             return selectorDialog.SelectedNodePath;
         }
