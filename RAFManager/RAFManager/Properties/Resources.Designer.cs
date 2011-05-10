@@ -102,6 +102,27 @@ namespace RAFManager.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Radio_Checked {
+            get {
+                object obj = ResourceManager.GetObject("Radio_Checked", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Radio_Disabled {
+            get {
+                object obj = ResourceManager.GetObject("Radio_Disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Radio_Unchecked {
+            get {
+                object obj = ResourceManager.GetObject("Radio_Unchecked", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap RAFManagerIcon {
             get {
                 object obj = ResourceManager.GetObject("RAFManagerIcon", resourceCulture);

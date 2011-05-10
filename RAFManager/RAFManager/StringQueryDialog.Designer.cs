@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StringQueryDialog));
             this.stringTb = new System.Windows.Forms.TextBox();
             this.okBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -57,7 +58,10 @@
             this.Controls.Add(this.okBtn);
             this.Controls.Add(this.stringTb);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "StringQueryDialog";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.Text = "text";
             this.ResumeLayout(false);
             this.PerformLayout();

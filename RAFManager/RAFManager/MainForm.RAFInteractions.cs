@@ -190,13 +190,118 @@ namespace RAFManager
         void changesView_NodeRightClicked(TristateTreeNode node, MouseEventArgs e)
         {
             ContextMenu cm = new ContextMenu();
+            MenuItem pack = new MenuItem("Pack (Install checked, uninstall unchecked)");
+            #region pack button
+            pack.Click += delegate(object sender, EventArgs e2)
+            {
+                if (VerifyPackPrecondition(
+                    new List<TristateTreeNode>(
+                        new TristateTreeNode[] { node }
+                    )
+                ))
+                {
+                    Title("Begin Packing...");
+                    PackNode(node);
+                    Title(GetWindowTitle());
+                    Log("Pack done");
+                }
+            };
+            #endregion 
+            cm.MenuItems.Add(pack);
+
+            MenuItem rename = new MenuItem("Rename");
+            #region rename button
+            rename.Click += delegate(object s2, EventArgs e2)
+            {
+                StringQueryDialog sqd = new StringQueryDialog("Rename '" + node.Text + "' to:", node.Text);
+                sqd.ShowDialog();
+                node.Text = sqd.Value;
+
+                node.TreeView.Invalidate();
+                HasProjectChanged = true;
+            };
+            #endregion
+            cm.MenuItems.Add(rename);
+
+            MenuItem groupButton = new MenuItem("Group");
+            #region group button
+            groupButton.Click += delegate(object s2, EventArgs e2)
+            {
+                List<TristateTreeNode> nodes = new List<TristateTreeNode>(changesView.SelectedNodes);
+                changesView.SelectedNodes.Clear();
+
+                StringQueryDialog sqd = new StringQueryDialog("What would you like to name this group?");
+                sqd.ShowDialog();
+                if (sqd.Value == "") return;
+                
+                TristateTreeNode newNode = new TristateTreeNode(sqd.Value.Trim());
+
+                //Remove the nodes from their parent, keep the first one for replacement w/ our new node
+                for (int i = 1; i < nodes.Count; i++)
+                {
+                    if (nodes[i].Parent is TristateTreeNode)
+                        ((TristateTreeNode)nodes[i].Parent).Nodes.Remove(nodes[i]);
+                    else
+                        ((TristateTreeView)nodes[i].Parent).Nodes.Remove(nodes[i]);
+                }
+                Object oldParent = nodes[0].Parent;
+
+                //Add the nodes to our new node
+                for (int i = 0; i < nodes.Count; i++)
+                    newNode.Nodes.Add(nodes[i]);
+
+                //Replace the previous node with our new node
+                if (oldParent is TristateTreeNode)
+                {
+                    TristateTreeNode parent = (TristateTreeNode)oldParent;
+                    parent.Nodes[parent.Nodes.IndexOf(nodes[0])] = newNode;
+                    newNode.Parent = parent;
+                }
+                else
+                {
+                    TristateTreeView parent = (TristateTreeView)oldParent;
+                    parent.Nodes[parent.Nodes.IndexOf(nodes[0])] = newNode;
+                    newNode.Parent = parent;
+                }
+                newNode.HasCheckBox = true;
+                newNode.UpdateCheckState(true, true);
+                changesView.Invalidate();
+            };
+            #endregion
+            cm.MenuItems.Add(groupButton);
+
+            if (changesView.SelectedNodes.Count == 1)
+            {
+                if (changesView.SelectedNode.Tag == null) //If it's a RAF Object, we can't ungroup it.
+                {
+                    //This isn't a raf object
+                    MenuItem ungroupButton = new MenuItem("Ungroup");
+                    ungroupButton.Click += delegate(object s2, EventArgs e2)
+                    {
+                        if(changesView.SelectedNode.Parent is TristateTreeView)
+                        {
+                            TristateTreeNode groupNode = changesView.SelectedNode;
+
+                            TristateTreeView parent = (TristateTreeView)changesView.SelectedNode.Parent;
+                            int oldIndex = parent.Nodes.IndexOf(groupNode);
+                            parent.Nodes.Remove(groupNode);
+                            for(int i = 0; i < groupNode.Nodes.Count; i++)
+                                parent.Nodes.Insert(oldIndex + i, groupNode.Nodes[i]);
+                            //parent.Nodes.Remove(groupNode);
+                            changesView.Invalidate();
+                        }
+                    };
+                    cm.MenuItems.Add(ungroupButton);
+                }
+            }
+
             if (changesView.SelectedNodes.Count >= 2)
             {
                 MenuItem multiDelete = new MenuItem("Remove From Project (Won't uninstall)");
                 #region delete button
                 multiDelete.Click += delegate(object sender, EventArgs e2)
                 {
-                    while(changesView.SelectedNodes.Count > 0)
+                    while (changesView.SelectedNodes.Count > 0)
                     {
                         node = changesView.SelectedNodes[0];
                         if (node.Parent is TristateTreeView)
@@ -245,38 +350,6 @@ namespace RAFManager
                 #endregion
                 cm.MenuItems.Add(delete);
             }
-            MenuItem pack = new MenuItem("Pack (Install checked, uninstall unchecked)");
-            #region pack button
-            pack.Click += delegate(object sender, EventArgs e2)
-            {
-                if (VerifyPackPrecondition(
-                    new List<TristateTreeNode>(
-                        new TristateTreeNode[] { node }
-                    )
-                ))
-                {
-                    Title("Begin Packing...");
-                    PackNode(node);
-                    Title(GetWindowTitle());
-                    Log("Pack done");
-                }
-            };
-            #endregion 
-            cm.MenuItems.Add(pack);
-
-            MenuItem rename = new MenuItem("Rename");
-            #region rename button
-            rename.Click += delegate(object s2, EventArgs e2)
-            {
-                StringQueryDialog sqd = new StringQueryDialog("Rename '" + node.Text + "' to:", node.Text);
-                sqd.ShowDialog();
-                node.Text = sqd.Value;
-
-                node.TreeView.Invalidate();
-                HasProjectChanged = true;
-            };
-            #endregion
-            cm.MenuItems.Add(rename);
 
             cm.Show(changesView, new Point(e.X, e.Y));
         }
