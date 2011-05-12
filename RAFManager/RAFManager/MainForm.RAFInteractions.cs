@@ -14,6 +14,8 @@ using RAFLib;
 
 using System.IO;
 
+using System.Diagnostics;
+
 namespace RAFManager
 {
     partial class MainForm : Form
@@ -270,6 +272,7 @@ namespace RAFManager
             #endregion
             cm.MenuItems.Add(groupButton);
 
+            #region ungroup button
             if (changesView.SelectedNodes.Count == 1)
             {
                 if (changesView.SelectedNode.Tag == null) //If it's a RAF Object, we can't ungroup it.
@@ -294,7 +297,9 @@ namespace RAFManager
                     cm.MenuItems.Add(ungroupButton);
                 }
             }
+            #endregion
 
+            #region delete button
             if (changesView.SelectedNodes.Count >= 2)
             {
                 MenuItem multiDelete = new MenuItem("Remove From Project (Won't uninstall)");
@@ -349,6 +354,26 @@ namespace RAFManager
                 };
                 #endregion
                 cm.MenuItems.Add(delete);
+            }
+            #endregion
+
+            //Checkbox or radio?
+            if (changesView.SelectedNode.NodeType == TristateTreeNodeType.Radio ||
+               changesView.SelectedNode.NodeType == TristateTreeNodeType.Checkboxes)
+            {//It's swappable
+                MenuItem changeType = new MenuItem("Change to " +
+                    (changesView.SelectedNode.NodeType == TristateTreeNodeType.Checkboxes ? "Radio Selector" : "Checkboxes")
+                );
+                changeType.Click += delegate(object s2, EventArgs e2)
+                {
+                    if (changesView.SelectedNode.NodeType == TristateTreeNodeType.Radio)
+                        changesView.SelectedNode.NodeType = TristateTreeNodeType.Checkboxes;
+                    else if (changesView.SelectedNode.NodeType == TristateTreeNodeType.Checkboxes)
+                        changesView.SelectedNode.NodeType = TristateTreeNodeType.Radio;
+
+                    changesView.Invalidate();
+                };
+                cm.MenuItems.Add(changeType);
             }
 
             cm.Show(changesView, new Point(e.X, e.Y));
@@ -571,7 +596,21 @@ namespace RAFManager
                 ).First();
 
                 //Now select a viewer to use for the file.
-                if (entry.FileName.ToLower().EndsWith("inibin") ||
+
+                if (entry.FileName.ToLower().EndsWith("dds"))
+                {
+                    //Extract it, then view it
+                    byte[] content = entry.GetContent();
+                    string fName = "temp"+(new DateTime(1970, 1, 1) - DateTime.Now).TotalMilliseconds+".dds";
+                    File.WriteAllBytes(fName, content);
+                    Process p = Process.Start("DDSViewer.exe", fName);
+                    p.Exited += delegate(object s2, EventArgs e2)
+                    {
+                        File.Delete(fName);
+                    };
+                    return;
+                }
+                else if (entry.FileName.ToLower().EndsWith("inibin") ||
                     entry.FileName.ToLower().EndsWith("troybin"))
                 {
                     try

@@ -23,8 +23,10 @@ namespace RAFManager
     }
     public enum TristateTreeNodeType : byte
     {
+        Empty       = 0x00,
         Radio       = 0x01,
-        Checkboxes  = 0x02
+        RadioChild  = 0x02,
+        Checkboxes  = 0x04
     }
     /// <summary>
     /// Lots of optimization has to be done here...
@@ -320,10 +322,7 @@ namespace RAFManager
             }
             else
             {
-                TristateTreeNodeType nType = this.nodeType;
-                if (this.parent is TristateTreeNode)
-                    nType = ((TristateTreeNode)parent).nodeType;
-                if(nType == TristateTreeNodeType.Checkboxes)
+                if(ParentNodeType == TristateTreeNodeType.Checkboxes || ParentNodeType == TristateTreeNodeType.Empty)
                     switch (this.checkboxState)
                     {
                         case TristateTreeNodeState.Checked:
@@ -347,6 +346,46 @@ namespace RAFManager
                         default:
                             return null; //?
                     }
+            }
+        }
+        public TristateTreeNodeType NodeType
+        {
+            get
+            {
+                return this.nodeType;
+            }
+            set
+            {
+                this.nodeType = value;
+                if (value == TristateTreeNodeType.Radio)
+                {
+                    foreach (TristateTreeNode node in this.nodes.ToList())
+                        node.NodeType = TristateTreeNodeType.RadioChild;
+                }
+                else if(value == TristateTreeNodeType.Checkboxes)
+                {
+                    foreach (TristateTreeNode node in this.nodes.ToList())
+                        if(node.NodeType == TristateTreeNodeType.RadioChild)
+                            node.NodeType = TristateTreeNodeType.Checkboxes;
+                }
+                else if (value == TristateTreeNodeType.RadioChild)
+                {
+                    //Alert our parent that we want to be focused... this is so that we reset the currently selected
+                    //option.
+                    this.SetCheckState(TristateTreeNodeState.Checked, true, true);
+                    foreach(TristateTreeNode node in this.nodes.ToList())
+                        node.HasCheckBox = false;
+                }
+            }
+        }
+        public TristateTreeNodeType ParentNodeType
+        {
+            get
+            {
+                TristateTreeNodeType nType = TristateTreeNodeType.Empty;
+                if (this.parent is TristateTreeNode)
+                    nType = ((TristateTreeNode)parent).nodeType;
+                return nType;
             }
         }
 
@@ -563,6 +602,24 @@ namespace RAFManager
             //Update parent
             if (this.parent is TristateTreeNode && bubbleToParent)
                 ((TristateTreeNode)this.parent).UpdateCheckState(false, true);
+
+            if (this.nodeType == TristateTreeNodeType.RadioChild && state == TristateTreeNodeState.Checked)
+            {
+                //iterate through parent and set everyone else to off
+                if (this.parent is TristateTreeNode)
+                    foreach (TristateTreeNode neighbor in ((TristateTreeNode)this.parent).nodes.ToList())
+                    {
+                        if (neighbor != this)
+                            neighbor.SetCheckState(TristateTreeNodeState.Unchecked, true, false);
+                    }
+                else
+                    foreach (TristateTreeNode neighbor in ((TristateTreeView)this.parent).Nodes.ToList())
+                    {
+                        if (neighbor != this)
+                            neighbor.SetCheckState(TristateTreeNodeState.Unchecked, true, false);
+                    }
+                this.checkboxState = TristateTreeNodeState.Checked;
+            }
         }
         public TristateTreeNodeState CheckState
         {

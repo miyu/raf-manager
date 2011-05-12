@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windows7.DesktopIntegration
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RAFManagerUpdater", "RAFManagerUpdater\RAFManagerUpdater.csproj", "{77C89F4F-0C28-4857-BB14-41365FCC7E4C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DDS_Viewer", "DDS_Viewer\DDS_Viewer.csproj", "{33A0E125-B763-48F5-9C78-464B273ABF3E}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -207,6 +209,30 @@ Global
 		{77C89F4F-0C28-4857-BB14-41365FCC7E4C}.Release|x64.ActiveCfg = Release|x86
 		{77C89F4F-0C28-4857-BB14-41365FCC7E4C}.Release|x86.ActiveCfg = Release|x86
 		{77C89F4F-0C28-4857-BB14-41365FCC7E4C}.Release|x86.Build.0 = Release|x86
+		{33A0E125-B763-48F5-9C78-464B273ABF3E}.ClientProfileRelease|Any CPU.ActiveCfg = Release|x86
+		{33A0E125-B763-48F5-9C78-464B273ABF3E}.ClientProfileRelease|Mixed Platforms.ActiveCfg = Release|x86
+		{33A0E125-B763-48F5-9C78-464B273ABF3E}.ClientProfileRelease|Mixed Platforms.Build.0 = Release|x86
+		{33A0E125-B763-48F5-9C78-464B273ABF3E}.ClientProfileRelease|x64.ActiveCfg = Release|x86
+		{33A0E125-B763-48F5-9C78-464B273ABF3E}.ClientProfileRelease|x86.ActiveCfg = Release|x86
+		{33A0E125-B763-48F5-9C78-464B273ABF3E}.ClientProfileRelease|x86.Build.0 = Release|x86
+		{33A0E125-B763-48F5-9C78-464B273ABF3E}.CodeAnalysisDebug|Any CPU.ActiveCfg = Debug|x86
+		{33A0E125-B763-48F5-9C78-464B273ABF3E}.CodeAnalysisDebug|Mixed Platforms.ActiveCfg = Debug|x86
+		{33A0E125-B763-48F5-9C78-464B273ABF3E}.CodeAnalysisDebug|Mixed Platforms.Build.0 = Debug|x86
+		{33A0E125-B763-48F5-9C78-464B273ABF3E}.CodeAnalysisDebug|x64.ActiveCfg = Debug|x86
+		{33A0E125-B763-48F5-9C78-464B273ABF3E}.CodeAnalysisDebug|x86.ActiveCfg = Debug|x86
+		{33A0E125-B763-48F5-9C78-464B273ABF3E}.CodeAnalysisDebug|x86.Build.0 = Debug|x86
+		{33A0E125-B763-48F5-9C78-464B273ABF3E}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{33A0E125-B763-48F5-9C78-464B273ABF3E}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{33A0E125-B763-48F5-9C78-464B273ABF3E}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{33A0E125-B763-48F5-9C78-464B273ABF3E}.Debug|x64.ActiveCfg = Debug|x86
+		{33A0E125-B763-48F5-9C78-464B273ABF3E}.Debug|x86.ActiveCfg = Debug|x86
+		{33A0E125-B763-48F5-9C78-464B273ABF3E}.Debug|x86.Build.0 = Debug|x86
+		{33A0E125-B763-48F5-9C78-464B273ABF3E}.Release|Any CPU.ActiveCfg = Release|x86
+		{33A0E125-B763-48F5-9C78-464B273ABF3E}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{33A0E125-B763-48F5-9C78-464B273ABF3E}.Release|Mixed Platforms.Build.0 = Release|x86
+		{33A0E125-B763-48F5-9C78-464B273ABF3E}.Release|x64.ActiveCfg = Release|x86
+		{33A0E125-B763-48F5-9C78-464B273ABF3E}.Release|x86.ActiveCfg = Release|x86
+		{33A0E125-B763-48F5-9C78-464B273ABF3E}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

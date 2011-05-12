@@ -107,9 +107,9 @@ namespace RAFManager
                          ), e
                     );
                     SizeVScrollbar();
-                    Invalidate();
                     if (NodeClicked != null) NodeClicked(selectedNode, e);
                 }
+                Invalidate();
             }
             else if (e.Button == System.Windows.Forms.MouseButtons.Right)
             {
