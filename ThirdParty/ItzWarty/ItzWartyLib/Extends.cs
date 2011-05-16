@@ -150,5 +150,12 @@ namespace ItzWarty
                 Encoding.ASCII.GetBytes(s)
             ).ToHex();
         }
+
+        public static bool EndsWithAny(this string s, string[] enders)
+        {
+            for (int i = 0; i < enders.Length; i++)
+                if (s.EndsWith(enders[i])) return true;
+            return false;
+        }
     }
 }
