@@ -52,7 +52,6 @@ namespace RAFManager
 
         void rafContentView_MouseClick(object sender, MouseEventArgs e)
         {
-            Console.WriteLine("Click");
             rafContentView.SelectedNode = rafContentView.GetNodeAt(e.Location);
             if (e.Button == System.Windows.Forms.MouseButtons.Right)
             {
@@ -596,56 +595,77 @@ namespace RAFManager
                 ).First();
 
                 //Now select a viewer to use for the file.
+                //Unnecessary for the most part, can be enabled in the future: if (entry.FileSize < 10000 || //If > 200, ask, then continue MessageBox.Show("This file is quite large ({0} bytes).  Sure you want to read it?".F(entry.FileSize), "", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
 
                 if (entry.FileName.ToLower().EndsWith("dds"))
-                {
-                    //Extract it, then view it
-                    byte[] content = entry.GetContent();
-                    string fName = "temp"+(new DateTime(1970, 1, 1) - DateTime.Now).TotalMilliseconds+".dds";
-                    File.WriteAllBytes(fName, content);
-                    Process p = Process.Start("DDSViewer.exe", fName);
-                    p.Exited += delegate(object s2, EventArgs e2)
-                    {
-                        File.Delete(fName);
-                    };
-                    return;
-                }
-                else if (entry.FileName.ToLower().EndsWith("inibin") ||
-                    entry.FileName.ToLower().EndsWith("troybin"))
-                {
-                    try
-                    {
-                        new TextViewer(this.baseTitle + " - inibin/troybin view - " + nodeInternalPath,
-                            new InibinFile().main(entry.GetContent())
-                        ).Show();
-                        return;
-                    }
-                    catch { Log("Error parsing INIBIN/TROYBIN file"); } //Fall back to textviewer
-                }
-                if (entry.FileSize < 10000 || //If > 200, ask, then continue
-                       MessageBox.Show("This file is quite large ({0} bytes).  Sure you want to read it?".F(entry.FileSize), "", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
-                {
-                    if (entry.GetContent().All(c => c >= ' ' && c <= '~') || 
-                        entry.FileName.ToLower().EndsWith("cfg") ||
-                        entry.FileName.ToLower().EndsWith("ini") ||
-                        entry.FileName.ToLower().EndsWith("txt") ||
-                        entry.FileName.ToLower().EndsWith("log") ||
-                        entry.FileName.ToLower().EndsWith("list") ||
-                        entry.FileName.ToLower().EndsWith("xml")
-                    ) //All content is displayable text, likely
-                    {
-                        new TextViewer(
-                            ResolveRAFPathToEntry(node.GetTopmostParent().Text + "/" + node.GetRAFPath())
-                        ).Show();
-                    }
-                    else //If all else fails, just use the binary viewer
-                    {
-                        new BinaryViewer(this.baseTitle + " - " + nodeInternalPath,
-                            entry.GetContent()
-                        ).Show();
-                    }
-                }
+                    ShowDirectDrawSurface(entry.GetContent());
+                else if (entry.FileName.ToLower().EndsWith("inibin") || entry.FileName.ToLower().EndsWith("troybin"))
+                    ShowInibinFile(this.baseTitle + " - inibin/troybin view - " + nodeInternalPath, entry.GetContent());
+                else if (entry.FileName.EndsWithAny(new string[]{ ".cfg", ".ini", ".txt", ".log", ".list", ".xml"}))
+                    ShowEditableTextFile(ResolveRAFPathToEntry(node.GetTopmostParent().Text + "/" + node.GetRAFPath()));
+                else if (entry.FileName.EndsWithAny(new string[] { ".bmp", ".jpg" }))
+                    new BitmapViewer("Bitmap Viewer", entry.GetContent()).Show();
+                else //If all else fails, just use the binary viewer
+                    ShowBinaryFile(this.baseTitle + " - " + nodeInternalPath, entry.GetContent());
             }
+        }
+
+        /// <summary>
+        /// Shows the given content as a directdrawsurface texture file
+        /// </summary>
+        void ShowDirectDrawSurface(byte[] content)
+        {
+            //Extract it, then view it
+            string fName = "temp" + (new DateTime(1970, 1, 1) - DateTime.Now).TotalMilliseconds + ".dds";
+            File.WriteAllBytes(fName, content);
+            Process p = Process.Start("DDSViewer.exe", fName);
+            p.Exited += delegate(object s2, EventArgs e2)
+            {
+                File.Delete(fName);
+            };
+        }
+        /// <summary>
+        /// Presents a non-editable text file viewer to the user
+        /// </summary>
+        void ShowTextFile(string title, string content)
+        {
+            new TextViewer(title, content).Show();
+        }
+
+        /// <summary>
+        /// Presents an editable text file viewer to the user
+        /// </summary>
+        void ShowEditableTextFile(RAFFileListEntry entry)
+        {
+            new TextViewer(entry).Show();
+        }
+
+        /// <summary>
+        /// Presents a noneditable inibin viewer to the user
+        /// </summary>
+        void ShowInibinFile(string title, byte[] content)
+        {
+            try
+            {
+                new TextViewer(title,
+                    new InibinFile().main(content)
+                ).Show();
+            }
+            catch(Exception e)
+            {
+                Log("Inibin load failed.  e:\r\n"+e.ToString());
+                Log("Will fall to binary viewer");
+                ShowBinaryFile(title, content);
+            }
+        }
+        /// <summary>
+        /// Presents a noneditable binary viewer to the user
+        /// </summary>
+        void ShowBinaryFile(string title, byte[] content)
+        {
+            new BinaryViewer(title,
+                content
+            ).Show();
         }
     }
 }

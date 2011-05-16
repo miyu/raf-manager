@@ -95,7 +95,7 @@ namespace RAFManager
                     selectedNodes.Add(node);
                 }
                 selectedNode = node;
-                Console.WriteLine("Clicked: " + (node == null ? "nothing" : node.Text));
+                //Console.WriteLine("Clicked: " + (node == null ? "nothing" : node.Text));
                 if (node != null)
                 {
                     Point nodeLocation = node.GetLocation();
