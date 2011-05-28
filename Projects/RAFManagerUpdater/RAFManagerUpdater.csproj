@@ -53,7 +53,7 @@
     <Compile Include="Versioning\CurrentVersion.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\ItzWartyLib\ItzWarty\ItzWartyLib\ItzWarty.csproj">
+    <ProjectReference Include="..\ThirdParty\ItzWarty\ItzWartyLib\ItzWarty.csproj">
       <Project>{097B6B08-4034-408A-B3C0-A12E8F9E8893}</Project>
       <Name>ItzWarty</Name>
     </ProjectReference>
