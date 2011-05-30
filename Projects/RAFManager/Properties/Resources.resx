@@ -118,40 +118,106 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="LeagueCraftIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\LeagueCraftIcon.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ModEnabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\modenabled.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="CheckboxToggleDisable" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\checkboxtoggledisable.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="CheckboxToggleEnable" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\checkboxtoggleenable.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Checkbox_Checked" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\checkbox_checked.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Checkbox_Partial" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\checkbox_partial.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Checkbox_Unchecked" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\checkbox_unchecked.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="RAFManagerIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\rafmanagericon.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="RAFManagerIcon50percent" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\rafmanagericon50percent.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ModDisabledHover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\moddisabledhover.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Radio_Checked" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\radio_checked.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Radio_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\radio_disabled.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="LoLIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\LoLIcon.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CheckboxToggleEnable" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\checkboxtoggleenable.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ModDisabledDown" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\moddisableddown.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RafManager" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\RafManager.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LeagueCraftIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\LeagueCraftIcon.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Checkbox_Partial" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\checkbox_partial.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GiraffeCrop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\giraffecrop.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Checkbox_Checked" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\checkbox_checked.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DropFileToBegin" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\dropfiletobegin.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NoIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\noicon.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RAFManagerIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\rafmanagericon.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Radio_Unchecked" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\radio_unchecked.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="DropFileToBegin" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\dropfiletobegin.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ModDisabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\moddisabled.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CheckboxToggleDisable" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\checkboxtoggledisable.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TeemoSquare" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\teemosquare.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Checkbox_Unchecked" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\checkbox_unchecked.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Radio_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\radio_disabled.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ModEnabledDown" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\modenableddown.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ModEnabledHover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\modenabledhover.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RAFManagerIcon50percent" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\rafmanagericon50percent.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RAFManagerIcon25percent" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\rafmanagericon25percent.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LoLIcon1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\LoLIcon.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DeleteButton_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\deletebutton_down.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DeleteButton_Highlight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\deletebutton_highlight.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DeleteButton_Normal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\deletebutton_normal.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ConsoleButton_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\consolebutton_down.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ConsoleButton_Highlight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\consolebutton_highlight.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ConsoleButton_Normal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\consolebutton_normal.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="OptionsButton_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\optionsbutton_down.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="OptionsButton_Highlight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\optionsbutton_highlight.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="OptionsButton_Normal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\optionsbutton_normal.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -1,0 +1,28 @@
+﻿Qlio
+http://leaguecraft.com/skins/3744-help-for-colorblind.xhtml
+
+SET $OVERRIDEPACKTIME TRUE
+
+OPTIONS
+  SETTING $HBTYPE "Healthbar Type" "What type of border to use for champion health bars"
+    OPTION DEFAULT CIRCLE
+    OPTION RECTANGLE
+    OPTION KEEP_ORIGINAL
+  END
+END
+
+PACKTIME
+  PACK "Creeps/*"
+  IF $HBTYPE == CIRCLE
+    PACKDIR "healthbar circle/*"
+  IF $HBTYPE == RECTANGLE
+    PACKDIR "healthbar rectangle/*"
+  IF $HBTYPE == KEEP_ORIGINAL
+    RESTOREDIR "healthbar circle/*"
+END
+
+RESTORETIME
+  RESTOREDIR "healthbar circle/*"
+  RESTOREDIR "healthbar rectangle/*"
+  RESTOREDIR "CREEPS/*"
+END
