@@ -14,7 +14,7 @@ namespace RAFManagerUpdater.Versioning
         public const int major = 1;
 
         //Represents addons that are nice but not huge, or big bugfixes
-        public const int minor = 3;
+        public const int minor = 4;
 
         //Represents addons that are minor, such as changing text or fixing a small bug
         public const int revision = 0;
