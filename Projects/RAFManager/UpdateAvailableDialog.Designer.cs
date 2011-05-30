@@ -37,6 +37,7 @@
             // messageLabel
             // 
             this.messageLabel.AutoSize = true;
+            this.messageLabel.ForeColor = System.Drawing.Color.Silver;
             this.messageLabel.Location = new System.Drawing.Point(12, 9);
             this.messageLabel.Name = "messageLabel";
             this.messageLabel.Size = new System.Drawing.Size(518, 17);
@@ -63,7 +64,9 @@
             // 
             // updateNotesTextbox
             // 
-            this.updateNotesTextbox.BackColor = System.Drawing.Color.White;
+            this.updateNotesTextbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.updateNotesTextbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.updateNotesTextbox.ForeColor = System.Drawing.Color.Silver;
             this.updateNotesTextbox.Location = new System.Drawing.Point(15, 30);
             this.updateNotesTextbox.Multiline = true;
             this.updateNotesTextbox.Name = "updateNotesTextbox";
@@ -75,12 +78,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.ClientSize = new System.Drawing.Size(652, 266);
             this.Controls.Add(this.updateNotesTextbox);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.updateButton);
             this.Controls.Add(this.messageLabel);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "UpdateAvailableDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "An Update is Available";

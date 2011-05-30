@@ -10,6 +10,8 @@ using ItzWarty;
 
 using System.Runtime.InteropServices;
 
+using System.IO;
+
 namespace RAFManager
 {
     static class Program
@@ -20,6 +22,16 @@ namespace RAFManager
         [STAThread]
         static void Main()
         {
+            /*
+            RMPropInterpreter interpreter = new RMPropInterpreter(
+                File.ReadAllLines(@"C:\LoLModProjects\colorblindnomore_u3_v3\rafmanagerproperties")
+            );
+            Console.WriteLine("-------");
+            interpreter.RunPacktimeCommand();
+            Console.WriteLine("-------");
+            interpreter.RunRestoreTimeCommand();
+            return;
+             */
             #region check for duplicate instances
             Process[] dupes = Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName);
             if (dupes.Length != 1)

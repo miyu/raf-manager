@@ -42,6 +42,7 @@ namespace RAFManager
 
             this.fsoType = fsoType;
             this.Name = name;
+            this.Text = name;
         }
         /// <summary>
         /// Gets a child FSO of the given name

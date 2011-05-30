@@ -95,6 +95,48 @@ namespace RAFManager.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap ConsoleButton_Down {
+            get {
+                object obj = ResourceManager.GetObject("ConsoleButton_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap ConsoleButton_Highlight {
+            get {
+                object obj = ResourceManager.GetObject("ConsoleButton_Highlight", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap ConsoleButton_Normal {
+            get {
+                object obj = ResourceManager.GetObject("ConsoleButton_Normal", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap DeleteButton_Down {
+            get {
+                object obj = ResourceManager.GetObject("DeleteButton_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap DeleteButton_Highlight {
+            get {
+                object obj = ResourceManager.GetObject("DeleteButton_Highlight", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap DeleteButton_Normal {
+            get {
+                object obj = ResourceManager.GetObject("DeleteButton_Normal", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap DropFileToBegin {
             get {
                 object obj = ResourceManager.GetObject("DropFileToBegin", resourceCulture);
@@ -102,9 +144,100 @@ namespace RAFManager.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap GiraffeCrop {
+            get {
+                object obj = ResourceManager.GetObject("GiraffeCrop", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap LeagueCraftIcon {
             get {
                 object obj = ResourceManager.GetObject("LeagueCraftIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap LoLIcon {
+            get {
+                object obj = ResourceManager.GetObject("LoLIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap LoLIcon1 {
+            get {
+                object obj = ResourceManager.GetObject("LoLIcon1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap ModDisabled {
+            get {
+                object obj = ResourceManager.GetObject("ModDisabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap ModDisabledDown {
+            get {
+                object obj = ResourceManager.GetObject("ModDisabledDown", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap ModDisabledHover {
+            get {
+                object obj = ResourceManager.GetObject("ModDisabledHover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap ModEnabled {
+            get {
+                object obj = ResourceManager.GetObject("ModEnabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap ModEnabledDown {
+            get {
+                object obj = ResourceManager.GetObject("ModEnabledDown", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap ModEnabledHover {
+            get {
+                object obj = ResourceManager.GetObject("ModEnabledHover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap NoIcon {
+            get {
+                object obj = ResourceManager.GetObject("NoIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap OptionsButton_Down {
+            get {
+                object obj = ResourceManager.GetObject("OptionsButton_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap OptionsButton_Highlight {
+            get {
+                object obj = ResourceManager.GetObject("OptionsButton_Highlight", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap OptionsButton_Normal {
+            get {
+                object obj = ResourceManager.GetObject("OptionsButton_Normal", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -130,6 +263,13 @@ namespace RAFManager.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap RafManager {
+            get {
+                object obj = ResourceManager.GetObject("RafManager", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap RAFManagerIcon {
             get {
                 object obj = ResourceManager.GetObject("RAFManagerIcon", resourceCulture);
@@ -137,9 +277,23 @@ namespace RAFManager.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap RAFManagerIcon25percent {
+            get {
+                object obj = ResourceManager.GetObject("RAFManagerIcon25percent", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap RAFManagerIcon50percent {
             get {
                 object obj = ResourceManager.GetObject("RAFManagerIcon50percent", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap TeemoSquare {
+            get {
+                object obj = ResourceManager.GetObject("TeemoSquare", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

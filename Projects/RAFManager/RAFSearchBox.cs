@@ -20,6 +20,19 @@ namespace RAFManager
 
             allNodes = nodes;
             currentNode = nodes[0];
+
+            this.KeyUp += new KeyEventHandler(RAFSearchBox_KeyUp);
+            this.stringSearch.KeyUp += new KeyEventHandler(RAFSearchBox_KeyUp);
+        }
+
+        void RAFSearchBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+                this.Close();
+            }
         }
         public RAFSearchBox(RAFInMemoryFileSystemObject node)
         {
@@ -28,6 +41,9 @@ namespace RAFManager
             Text = Text + " (searching within '" + node.Text + "')";
             allNodes = new RAFInMemoryFileSystemObject[] { node };
             currentNode = node;
+
+            this.KeyUp += new KeyEventHandler(RAFSearchBox_KeyUp);
+            this.stringSearch.KeyUp += new KeyEventHandler(RAFSearchBox_KeyUp);
         }
 
         private void findNextButton_Click(object sender, EventArgs e)

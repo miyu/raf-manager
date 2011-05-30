@@ -17,8 +17,17 @@ namespace RAFManager
             this.Text = title;
             this.Load += new EventHandler(StringQueryDialog_Load);
             this.stringTb.KeyDown += new KeyEventHandler(stringTb_KeyDown);
+            this.stringTb.Focus();
             this.TopMost = true;
             ManageLayout();
+
+            this.KeyUp += new KeyEventHandler(StringQueryDialog_KeyUp);
+        }
+
+        void StringQueryDialog_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+                this.Close();
         }
         public StringQueryDialog(string title, string defaultText)
         {

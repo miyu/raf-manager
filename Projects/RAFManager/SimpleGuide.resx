@@ -117,114 +117,35 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="toolStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
+  <data name="doDragDropLabel.Text" xml:space="preserve">
+    <value>Welcome to RAF Manager.  This window will guide you through installing your first
+custom skins.  There are 3 panes in RAF Manager - the RAF Tree View to the left, the 
+Changes View to the right, and the bottom panel, which hosts other miscellaneous
+features. 
+
+To start off, drag and drop a lolmod file into RAF Manager.  If you are using an older
+skin that is not released with the lolmod file extension, isolate that mod into one folder
+and drop that folder into RAF Manager.</value>
+  </data>
+  <data name="clickCheckBoxLabel.Text" xml:space="preserve">
+    <value>Next, click the Check Box next to your mod(s), which tells RAF Manager that you wish to 
+enable the mod.  If you are using a lolmod file, then you might also be presented with
+a "Options" button.  If so, feel free to click the button and select whatever preferences
+you want.  Just remember to check the "enable" checkbox when you're done.</value>
+  </data>
+  <data name="doPackLabel.Text" xml:space="preserve">
+    <value>Now that you have added and checked a mod file, you need to actually write this file to
+the Riot Archive Format files.  Go to File-&gt;Pack to do this.  This marks the end of the main
+portion of the most basic RAF Manager guide.  Note that you should save your project with
+File-&gt;Save... I'll list some less-commonly known features below:</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>Now that you have added and checked a mod file, you need to actually write this file to
+the Riot Archive Format files.  Go to File-&gt;Pack to do this.  This marks the end of the main
+portion of the most basic RAF Manager guide.  I'll list some less-commonly known features
+below:</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="toolStripDropDownButton1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAIISURBVDhPpZP7S1NxGMbPPxKaXVUkMEq8IpKUCoY/hGgI
-        ymqkDYYXcCjDZOANURSjCNGFQUTsl4GXVMxKk62YU4fXQpaIlygHQxBRH8/zwvyaIAYe+HLgnPN8nue9
-        HA3nvDTq63oW/jm13XOwvPTB3DYFY5MH+bXfcN8ygfTSMSSXfESicQDxBqdYHwH29g9w2tnZ3UcguIvN
-        rR3417exuBJE5N1n/wfwLgXEOc38Bc6xNRHb+/y4nm49G0Bnit2zf9H6bkliE/jKuYxrd6oVgDWfjB+K
-        TWeKMyrGEVfowITvD9re/9ABVQrAhh0HHK+ZselMMaN/mvwtDb+aVqkA7HYIwIj3ysfluPTorJnP6Ezx
-        oHsD1s5ZXEktUwCOioB5f1CEPR9+wTG6iuiserTo8dkwng7HT/R+XUPF8xlcTjErAOdMcW6NW8STiwG8
-        7vej8oUPN/PsEv3t8Ao0TZP3T1u8uJRkUgAuSYHtO97oLxmXd5t9Ho8aPTK+GzntqNfrLm2fFoihwYOI
-        xGIF4KjoGBLzY1OrF9k6OOFxnwDC4wxIMX1G0pMhgVyMNyoA13PAtS7OrJk1PrC69LUdQWxuF6IybHrX
-        LRI7JrtZdoDAo1XmbjMyD+tjSXxGcXRmnYg5ttD9QuxDhN0uUgDOmbvNTpPOJaGAo2K36cyaGZvOFIfd
-        KlSA8/zRh9ABIDUG+1JpAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="goToRAFPackerLeagueOfLegendsThreadToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAAEnEAABJxAfPceo4AAAOaSURBVDhPFZNbTNtlGMa/tYwisrWslENLOZYVKG05tJyh
-        HMdmEMU4OY2VcRqnghQpygAhG+2ADQFhI3POSXBOCU5nZqIDkzlZ1U1nnJnTLBq9NCbe7P7n34vv5k2+
-        532eX55XjBxO5Zwrjze681h0lTLdksGJBhNTTjPeVgu+NhMznUksDJhZGcrgvMfCotvKO+N5jLVYEWe7
-        cjDqU9GobcRpDYSrogkPjZGeAX2kgYioUtTaWjT6g0REl6OJPECYpgpzQgZnO+2Imd4CNGFpiIAXee6Z
-        XC6NGllyarncq6PEGkewZRq5YxORPY8wvoKInUGoR1ArE/C2ZSDmPbXotImIvPcJMnkZq1Hy+4aD2+86
-        CDaMojvmJ6TxM2SH1pAVrCKzXUSkLhAVncNsXwniVP9BtBoNwtSNrHiB5sxgHlwt48ur1SiLltC77qNs
-        30F++HN2VV9HVnlNcvMWkTo7ky3piIEjuUSFRSLiexCOVZrsT/HLB8VsfViNpvA0Rs8D9nTeQ+b8mt3H
-        7iBvvIMoWJPYpNNTHYMY7cgkXFcg5buAsC1ztEDJH9dK+OLKAVSmYXTH7yJ3fodo96Po/5GAlrsI+7oE
-        0oKnPgEx0ZGCWleBSN5GJI7Rlq/krxs13Fw/RGjyAElD36MYfITm5CP0vt9QdP0s8diW/mRxojEWMeaM
-        l9SyEdE3EDFzOG0Kft2s4quPa1GbXiN2+DHB03+z9/SfhPTfRmTNE2Tpx2Ap49UGSeD1o3rU6iyJgR+h
-        XaPFJuPhR5XsbDUini6WyH9CaN9jZEd+klwusje8gufLDWgNdYw3SwLTHYmoVUYp/xbC/Cn15gB+uFKC
-        f7sJhRAIsRexOwW5Kpe0WCPXJ7SMjjQQkjaBT2qomOlKRBMhRai4JW3w0WAS3DqXzc3lPMbLFfQ5FLir
-        AlltDuLbuTie+MsxV/awr+hNFodypCK5/q+rBNG8TURcGautSu6fN+NfTubhJSv/btr5ZyOdJxsmuOdg
-        Z7McEXeKcKuXlRFp8UyPkdA9BsmqHVvCLjx1Otz1sbzcZMX1UhIjrVmM9xcxNVzK3EQhNc/mI/K/Qb1/
-        iNnueMTCYCpG4wvSYIx98dMEqqaQBzYgV55EFupBYThD4H4vCvscQTlegtN9qDLWSU3rZmkwBeFzZ/Le
-        bB0XvO28PXuci5O1rAwXsjQsnbc7jzO9dma7pMvryWBpIIvlwXTmXRYuTxbiddv4DyRf8+ep0nexAAAA
-        AElFTkSuQmCC
-</value>
-  </data>
-  <data name="goToRAFPackerLeagueCraftTHreadToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        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
-        AAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="toolStripDropDownButton2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAIISURBVDhPpZP7S1NxGMbPPxKaXVUkMEq8IpKUCoY/hGgI
-        ymqkDYYXcCjDZOANURSjCNGFQUTsl4GXVMxKk62YU4fXQpaIlygHQxBRH8/zwvyaIAYe+HLgnPN8nue9
-        HA3nvDTq63oW/jm13XOwvPTB3DYFY5MH+bXfcN8ygfTSMSSXfESicQDxBqdYHwH29g9w2tnZ3UcguIvN
-        rR3417exuBJE5N1n/wfwLgXEOc38Bc6xNRHb+/y4nm49G0Bnit2zf9H6bkliE/jKuYxrd6oVgDWfjB+K
-        TWeKMyrGEVfowITvD9re/9ABVQrAhh0HHK+ZselMMaN/mvwtDb+aVqkA7HYIwIj3ysfluPTorJnP6Ezx
-        oHsD1s5ZXEktUwCOioB5f1CEPR9+wTG6iuiserTo8dkwng7HT/R+XUPF8xlcTjErAOdMcW6NW8STiwG8
-        7vej8oUPN/PsEv3t8Ao0TZP3T1u8uJRkUgAuSYHtO97oLxmXd5t9Ho8aPTK+GzntqNfrLm2fFoihwYOI
-        xGIF4KjoGBLzY1OrF9k6OOFxnwDC4wxIMX1G0pMhgVyMNyoA13PAtS7OrJk1PrC69LUdQWxuF6IybHrX
-        LRI7JrtZdoDAo1XmbjMyD+tjSXxGcXRmnYg5ttD9QuxDhN0uUgDOmbvNTpPOJaGAo2K36cyaGZvOFIfd
-        KlSA8/zRh9ABIDUG+1JpAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <metadata name="bindingSource1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>128, 17</value>
-  </metadata>
-  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>49</value>
-  </metadata>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAEAQEAAAAEAGAAoWgAAFgAAACgAAABAAAAAgAAAAAEAGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
