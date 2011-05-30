@@ -175,6 +175,9 @@ namespace RAFLib
         //Inserts a file into the raf archive...
         public bool InsertFile(string fileName, byte[] content, TextWriter ostream)
         {
+            if (ostream == null)
+                ostream = new StreamWriter(Stream.Null);
+
             ostream.WriteLine("    Insert: " + fileName);
             ostream.WriteLine("        To: " + GetID());
 
