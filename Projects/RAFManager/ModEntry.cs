@@ -220,5 +220,24 @@ namespace RAFManager
         {
             this.deleteButtonPB_Click(null, null);
         }
+
+        private void entryWebsiteLabel_Click(object sender, EventArgs e)
+        {
+            if (ModURL != "-")
+            {
+                System.Diagnostics.Process.Start(ModURL);
+            }
+        }
+
+        private void entryNameLabel_Click(object sender, EventArgs e)
+        {
+            StringQueryDialog sqd = new StringQueryDialog("Rename mod to [min length:1]: ", ModName);
+            sqd.ShowDialog();
+            if (sqd.Value != "")
+            {
+                ModName = sqd.Value.PadRight(3, '-');
+                entryNameLabel.Text = ModName;
+            }
+        }
     }
 }

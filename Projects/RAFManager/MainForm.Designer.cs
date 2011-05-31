@@ -54,19 +54,20 @@
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.packToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewGuideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewAdvancedDeveloperGuideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.goToLoLHomeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.goToRAFManagerLeagueCraftThreadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.goToRAFManagerHomePageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkForUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.projectNameLabel = new System.Windows.Forms.ToolStripLabel();
             this.projectNameChangeBTN = new System.Windows.Forms.ToolStripButton();
-            this.viewGuideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewAdvancedDeveloperGuideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.checkForUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lOLMODRAFManagerScriptDocumentationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -285,6 +286,7 @@
             this.consoleButtonPB.Location = new System.Drawing.Point(6, 7);
             this.consoleButtonPB.Name = "consoleButtonPB";
             this.consoleButtonPB.Size = new System.Drawing.Size(60, 19);
+            this.consoleButtonPB.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.consoleButtonPB.TabIndex = 0;
             this.consoleButtonPB.TabStop = false;
             // 
@@ -294,6 +296,7 @@
             this.optionsButtonPB.Location = new System.Drawing.Point(69, 7);
             this.optionsButtonPB.Name = "optionsButtonPB";
             this.optionsButtonPB.Size = new System.Drawing.Size(60, 19);
+            this.optionsButtonPB.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.optionsButtonPB.TabIndex = 1;
             this.optionsButtonPB.TabStop = false;
             // 
@@ -393,6 +396,13 @@
             this.packToolStripMenuItem.Text = "Pack (Install Checked, Uninstall Unchecked)";
             this.packToolStripMenuItem.Click += new System.EventHandler(this.packToolStripMenuItem_Click);
             // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(361, 24);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
             // toolStripDropDownButton2
             // 
             this.toolStripDropDownButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -400,6 +410,7 @@
             this.aboutToolStripMenuItem,
             this.viewGuideToolStripMenuItem,
             this.viewAdvancedDeveloperGuideToolStripMenuItem,
+            this.lOLMODRAFManagerScriptDocumentationToolStripMenuItem,
             this.goToLoLHomeToolStripMenuItem,
             this.goToRAFManagerLeagueCraftThreadToolStripMenuItem,
             this.goToRAFManagerHomePageToolStripMenuItem,
@@ -416,6 +427,20 @@
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(558, 24);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
+            // viewGuideToolStripMenuItem
+            // 
+            this.viewGuideToolStripMenuItem.Name = "viewGuideToolStripMenuItem";
+            this.viewGuideToolStripMenuItem.Size = new System.Drawing.Size(558, 24);
+            this.viewGuideToolStripMenuItem.Text = "View Simple Guide";
+            this.viewGuideToolStripMenuItem.Click += new System.EventHandler(this.viewGuideToolStripMenuItem_Click);
+            // 
+            // viewAdvancedDeveloperGuideToolStripMenuItem
+            // 
+            this.viewAdvancedDeveloperGuideToolStripMenuItem.Enabled = false;
+            this.viewAdvancedDeveloperGuideToolStripMenuItem.Name = "viewAdvancedDeveloperGuideToolStripMenuItem";
+            this.viewAdvancedDeveloperGuideToolStripMenuItem.Size = new System.Drawing.Size(558, 24);
+            this.viewAdvancedDeveloperGuideToolStripMenuItem.Text = "View Advanced Developer Guide - Coming Soon™";
             // 
             // goToLoLHomeToolStripMenuItem
             // 
@@ -441,10 +466,23 @@
             this.goToRAFManagerHomePageToolStripMenuItem.Text = "Go to RAF Manager Home Page";
             this.goToRAFManagerHomePageToolStripMenuItem.Click += new System.EventHandler(this.goToRAFManagerHomePageToolStripMenuItem_Click);
             // 
+            // checkForUpdatesToolStripMenuItem
+            // 
+            this.checkForUpdatesToolStripMenuItem.Name = "checkForUpdatesToolStripMenuItem";
+            this.checkForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(558, 24);
+            this.checkForUpdatesToolStripMenuItem.Text = "Check For Updates";
+            this.checkForUpdatesToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdatesToolStripMenuItem_Click);
+            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
+            // 
+            // toolStripLabel1
+            // 
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(102, 24);
+            this.toolStripLabel1.Text = "Project Name:";
             // 
             // projectNameLabel
             // 
@@ -462,39 +500,12 @@
             this.projectNameChangeBTN.Text = "[Change]";
             this.projectNameChangeBTN.Click += new System.EventHandler(this.projectNameChangeBTN_Click);
             // 
-            // viewGuideToolStripMenuItem
+            // lOLMODRAFManagerScriptDocumentationToolStripMenuItem
             // 
-            this.viewGuideToolStripMenuItem.Name = "viewGuideToolStripMenuItem";
-            this.viewGuideToolStripMenuItem.Size = new System.Drawing.Size(558, 24);
-            this.viewGuideToolStripMenuItem.Text = "View Simple Guide";
-            this.viewGuideToolStripMenuItem.Click += new System.EventHandler(this.viewGuideToolStripMenuItem_Click);
-            // 
-            // viewAdvancedDeveloperGuideToolStripMenuItem
-            // 
-            this.viewAdvancedDeveloperGuideToolStripMenuItem.Enabled = false;
-            this.viewAdvancedDeveloperGuideToolStripMenuItem.Name = "viewAdvancedDeveloperGuideToolStripMenuItem";
-            this.viewAdvancedDeveloperGuideToolStripMenuItem.Size = new System.Drawing.Size(558, 24);
-            this.viewAdvancedDeveloperGuideToolStripMenuItem.Text = "View Advanced Developer Guide - Coming Soon™";
-            // 
-            // toolStripLabel1
-            // 
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(102, 24);
-            this.toolStripLabel1.Text = "Project Name:";
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(361, 24);
-            this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
-            // 
-            // checkForUpdatesToolStripMenuItem
-            // 
-            this.checkForUpdatesToolStripMenuItem.Name = "checkForUpdatesToolStripMenuItem";
-            this.checkForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(558, 24);
-            this.checkForUpdatesToolStripMenuItem.Text = "Check For Updates";
-            this.checkForUpdatesToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdatesToolStripMenuItem_Click);
+            this.lOLMODRAFManagerScriptDocumentationToolStripMenuItem.Name = "lOLMODRAFManagerScriptDocumentationToolStripMenuItem";
+            this.lOLMODRAFManagerScriptDocumentationToolStripMenuItem.Size = new System.Drawing.Size(558, 24);
+            this.lOLMODRAFManagerScriptDocumentationToolStripMenuItem.Text = "Go to LOLMOD/RAF Manager Script Documentation";
+            this.lOLMODRAFManagerScriptDocumentationToolStripMenuItem.Click += new System.EventHandler(this.lOLMODRAFManagerScriptDocumentationToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -578,5 +589,6 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem checkForUpdatesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem lOLMODRAFManagerScriptDocumentationToolStripMenuItem;
     }
 }

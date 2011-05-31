@@ -173,6 +173,8 @@ namespace RAFManager
             }
             else
             {
+                //Gets the path of our containing folder in the raf archive.
+                //This is akin to new FileInfo(path).DirectoryName if we had a localPath
                 string containingFolderPath = fso.GetRAFPath().Replace("\\", "/").Reverse();
                 containingFolderPath = containingFolderPath.Substring(Math.Max(containingFolderPath.IndexOf("/"), 0));
                 containingFolderPath = containingFolderPath.Reverse();

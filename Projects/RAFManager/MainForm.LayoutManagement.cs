@@ -40,16 +40,21 @@ namespace RAFManager
 
             //Handle resizing
             int bottomPanelHeight = 0;
+            int leftPanelWidth = 0;
             this.ResizeBegin += delegate(object sender, EventArgs e)
             {
                 bottomPanelHeight = splitContainer1.Panel2.Height;
+                leftPanelWidth = splitContainer2.Panel1.Width;
             };
             this.Resize += delegate(object sender, EventArgs e)
             {
                 try
                 {
+                    Console.WriteLine(this.Width);
+                    Console.WriteLine(this.Height);
                     HandleUI();
                     splitContainer1.SplitterDistance = splitContainer1.Height - bottomPanelHeight;
+                    splitContainer2.SplitterDistance = leftPanelWidth;
                 }
                 catch { }
             };
@@ -72,12 +77,17 @@ namespace RAFManager
 
             dropFileToBeginPB.Image = Properties.Resources.DropFileToBegin;
             dropFileToBeginPB.Visible = false;
+            dropFileToBeginPB.Size = dropFileToBeginPB.Image.Size;
+            dropFileToBeginPB.SizeMode = PictureBoxSizeMode.StretchImage;
             modEntriesPanel.Controls.Add(dropFileToBeginPB);
 
             HandleUI();
             HandleTabClick(consoleButtonPB);
         }
         List<Panel> panels = new List<Panel>();
+        /// <summary>
+        /// Binds a tab to a panel
+        /// </summary>
         private void BindTab(PictureBox tab, Panel panel)
         {
             tab.Tag = panel;
@@ -90,6 +100,9 @@ namespace RAFManager
                 HandleTabClick(tab);
             };
         }
+        /// <summary>
+        /// When a tab is clicked, present the appropriate panel and hide others.
+        /// </summary>
         private void HandleTabClick(PictureBox tab)
         {
             for (int i = 0; i < panels.Count; i++)
@@ -104,6 +117,9 @@ namespace RAFManager
                     ((PictureBox)panels[i].Tag).Top = 2;
                 }
         }
+        /// <summary>
+        /// Handles the UI - moves UI elements to appropriate locations
+        /// </summary>
         private void HandleUI()
         {
             splitContainer1.Top = toolStrip1.Height;
@@ -135,6 +151,9 @@ namespace RAFManager
             ManageModEntriesLayout();
         }
 
+        /// <summary>
+        /// Gets the tab that is currently selected
+        /// </summary>
         private PictureBox GetSelectedTab()
         {
             for (int i = 0; i < panels.Count; i++)
@@ -153,6 +172,9 @@ namespace RAFManager
                 return new List<ModEntry>(modEntries);
             }
         }
+        /// <summary>
+        /// Creates a new mod entry for the right panel.
+        /// </summary>
         private ModEntry CreateAndAppendModEntry(string modName, string modCreator, string modURL, TreeNode[] content)
         {
             ModEntry result = new ModEntry(modName, modCreator, modURL, content);
@@ -172,6 +194,9 @@ namespace RAFManager
             return result;
         }
 
+        /// <summary>
+        /// Manages the layout for the mod entries
+        /// </summary>
         private void ManageModEntriesLayout()
         {
             ManageModEntriesLayout(false);
@@ -185,7 +210,7 @@ namespace RAFManager
 
             modEntriesScrollbar.Maximum = totalHeight;
 
-
+            //Remove scrollbar if unnecessary
             if (modEntriesScrollbar.Maximum < modEntriesPanel.Height)
             {
                 modEntriesScrollbar.Visible = false;
@@ -207,10 +232,12 @@ namespace RAFManager
                 offsetY += modEntries[i].Height + 1; //1 for padding
             }
 
+            //Set scrollbar range
             modEntriesScrollbar.Minimum = 0;
             modEntriesScrollbar.Maximum = offsetY + modEntriesScrollbar.Value;
             modEntriesScrollbar.LargeChange = modEntriesPanel.Height;
 
+            //Show bitmap if no item in yet.
             if (modEntries.Count == 0)
             {
                 dropFileToBeginPB.Visible = true;
@@ -226,6 +253,9 @@ namespace RAFManager
         {
             ManageModEntriesLayout();
         }
+        /// <summary>
+        /// Clears the mod entries, forgetting about them completly
+        /// </summary>
         private void ClearModEntries()
         {
             for (int i = 0; i < modEntries.Count; i++)

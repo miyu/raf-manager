@@ -101,8 +101,11 @@
             this.Controls.Add(this.doDragDropLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "SimpleGuide";
             this.Text = "Simple (Temporary) Guide - Preparing a prettier one soon...";
+            this.TopMost = true;
             this.ResumeLayout(false);
             this.PerformLayout();
 
