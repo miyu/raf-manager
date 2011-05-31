@@ -137,13 +137,13 @@ you want.  Just remember to check the "enable" checkbox when you're done.</value
     <value>Now that you have added and checked a mod file, you need to actually write this file to
 the Riot Archive Format files.  Go to File-&gt;Pack to do this.  This marks the end of the main
 portion of the most basic RAF Manager guide.  Note that you should save your project with
-File-&gt;Save... I'll list some less-commonly known features below:</value>
-  </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>Now that you have added and checked a mod file, you need to actually write this file to
-the Riot Archive Format files.  Go to File-&gt;Pack to do this.  This marks the end of the main
-portion of the most basic RAF Manager guide.  I'll list some less-commonly known features
-below:</value>
+File-&gt;Save... I'll list some less-commonly known features below:
+         Right click a node of the RAF Tree View:
+             Archive Dump
+             Archive Search
+             View contents as Text/DDS/INIBIN/Bitmap
+         Double left click node - view contents by default means
+</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

@@ -32,8 +32,6 @@
             this.doDragDropLabel = new System.Windows.Forms.Label();
             this.clickCheckBoxLabel = new System.Windows.Forms.Label();
             this.doPackLabel = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // doDragDropLabel
@@ -62,40 +60,16 @@
             this.doPackLabel.ForeColor = System.Drawing.Color.Silver;
             this.doPackLabel.Location = new System.Drawing.Point(11, 247);
             this.doPackLabel.Name = "doPackLabel";
-            this.doPackLabel.Size = new System.Drawing.Size(577, 68);
+            this.doPackLabel.Size = new System.Drawing.Size(577, 153);
             this.doPackLabel.TabIndex = 2;
             this.doPackLabel.Text = resources.GetString("doPackLabel.Text");
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.ForeColor = System.Drawing.Color.Silver;
-            this.label4.Location = new System.Drawing.Point(13, 325);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(573, 68);
-            this.label4.TabIndex = 3;
-            this.label4.Text = resources.GetString("label4.Text");
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.ForeColor = System.Drawing.Color.Silver;
-            this.label5.Location = new System.Drawing.Point(39, 395);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(353, 85);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "Right click a node of the RAF Tree View:\r\n    Archive Dump\r\n    Archive Search\r\n " +
-                "   View contents as Text/DDS/INIBIN/Bitmap\r\nDouble left click node - view conten" +
-                "ts by default means";
             // 
             // SimpleGuide
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.ClientSize = new System.Drawing.Size(605, 495);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
+            this.ClientSize = new System.Drawing.Size(605, 411);
             this.Controls.Add(this.doPackLabel);
             this.Controls.Add(this.clickCheckBoxLabel);
             this.Controls.Add(this.doDragDropLabel);
@@ -116,7 +90,5 @@
         private System.Windows.Forms.Label doDragDropLabel;
         private System.Windows.Forms.Label clickCheckBoxLabel;
         private System.Windows.Forms.Label doPackLabel;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
     }
 }

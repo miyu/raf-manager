@@ -16,6 +16,28 @@ namespace RAFManager
         public SimpleGuide(MainForm mainForm)
         {
             InitializeComponent();
+
+            int bigPadding = 13;
+            int smallPadding = 7;
+            doDragDropLabel.Left = bigPadding;
+            doDragDropLabel.Top = bigPadding;
+
+            clickCheckBoxLabel.Left = bigPadding;
+            clickCheckBoxLabel.Top = doDragDropLabel.Bottom + smallPadding;
+
+            doPackLabel.Left = bigPadding;
+            doPackLabel.Top = clickCheckBoxLabel.Bottom + smallPadding;
+
+            this.ClientSize = new Size(
+                Math.Max(
+                    Math.Max(
+                        doDragDropLabel.Right,
+                        clickCheckBoxLabel.Right
+                    ), doPackLabel.Right
+                ) + bigPadding,
+                doPackLabel.Bottom + bigPadding
+            );
+
             this.mainForm = mainForm;
 
             t = new Timer();
