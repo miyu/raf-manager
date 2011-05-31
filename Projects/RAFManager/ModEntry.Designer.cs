@@ -55,20 +55,21 @@
             // entryWebsiteLabel
             // 
             this.entryWebsiteLabel.AutoSize = true;
-            this.entryWebsiteLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F);
+            this.entryWebsiteLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.entryWebsiteLabel.ForeColor = System.Drawing.Color.Silver;
-            this.entryWebsiteLabel.Location = new System.Drawing.Point(64, 31);
+            this.entryWebsiteLabel.Location = new System.Drawing.Point(66, 35);
             this.entryWebsiteLabel.Name = "entryWebsiteLabel";
-            this.entryWebsiteLabel.Size = new System.Drawing.Size(54, 15);
+            this.entryWebsiteLabel.Size = new System.Drawing.Size(61, 16);
             this.entryWebsiteLabel.TabIndex = 2;
             this.entryWebsiteLabel.Text = "Website:";
+            this.entryWebsiteLabel.Click += new System.EventHandler(this.entryWebsiteLabel_Click);
             // 
             // entryCreatorLabel
             // 
             this.entryCreatorLabel.AutoSize = true;
             this.entryCreatorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F);
             this.entryCreatorLabel.ForeColor = System.Drawing.Color.Silver;
-            this.entryCreatorLabel.Location = new System.Drawing.Point(64, 18);
+            this.entryCreatorLabel.Location = new System.Drawing.Point(66, 20);
             this.entryCreatorLabel.Name = "entryCreatorLabel";
             this.entryCreatorLabel.Size = new System.Drawing.Size(50, 15);
             this.entryCreatorLabel.TabIndex = 1;
@@ -84,13 +85,14 @@
             this.entryNameLabel.Size = new System.Drawing.Size(90, 20);
             this.entryNameLabel.TabIndex = 0;
             this.entryNameLabel.Text = "Mod Name";
+            this.entryNameLabel.Click += new System.EventHandler(this.entryNameLabel_Click);
             // 
             // entryFileListDropdownToggle
             // 
             this.entryFileListDropdownToggle.AutoSize = true;
             this.entryFileListDropdownToggle.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.entryFileListDropdownToggle.ForeColor = System.Drawing.Color.Silver;
-            this.entryFileListDropdownToggle.Location = new System.Drawing.Point(64, 44);
+            this.entryFileListDropdownToggle.Location = new System.Drawing.Point(66, 52);
             this.entryFileListDropdownToggle.Name = "entryFileListDropdownToggle";
             this.entryFileListDropdownToggle.Size = new System.Drawing.Size(43, 15);
             this.entryFileListDropdownToggle.TabIndex = 5;
@@ -136,6 +138,7 @@
             this.entryEnableCheckboxPB.Location = new System.Drawing.Point(502, 4);
             this.entryEnableCheckboxPB.Name = "entryEnableCheckboxPB";
             this.entryEnableCheckboxPB.Size = new System.Drawing.Size(48, 48);
+            this.entryEnableCheckboxPB.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.entryEnableCheckboxPB.TabIndex = 4;
             this.entryEnableCheckboxPB.TabStop = false;
             // 
@@ -145,6 +148,7 @@
             this.entryIconPB.Location = new System.Drawing.Point(2, 2);
             this.entryIconPB.Name = "entryIconPB";
             this.entryIconPB.Size = new System.Drawing.Size(64, 64);
+            this.entryIconPB.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.entryIconPB.TabIndex = 3;
             this.entryIconPB.TabStop = false;
             // 

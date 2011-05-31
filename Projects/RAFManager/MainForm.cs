@@ -14,6 +14,7 @@ using RAFLib;
 
 namespace RAFManager
 {
+    //This needs some organizing. sort of hacked together
     public partial class MainForm : Form
     {
         public MainForm()
@@ -131,7 +132,11 @@ namespace RAFManager
                }
             );
         }
+
         string archivesRoot;
+        /// <summary>
+        /// Sets the location of the filearchives folder.  Propmts user if it isn't found
+        /// </summary>
         private void SetArchivesRoot()
         {
             string expectedPath = @"C:\Riot Games\League of Legends\RADS\projects\lol_game_client\filearchives\";
@@ -591,6 +596,11 @@ namespace RAFManager
         private void checkForUpdatesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CheckForUpdates();
+        }
+
+        private void lOLMODRAFManagerScriptDocumentationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://forum.leaguecraft.com/index.php?/topic/32653-rafmanager-and-a-standardized-skin-release-format/");
         }
     }
 }

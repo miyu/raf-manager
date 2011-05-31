@@ -65,11 +65,19 @@ namespace RAFManager
         {
             this.stringTb.Top = 0;
             this.stringTb.Left = 0;
-            this.stringTb.Width = this.ClientSize.Width - this.okBtn.Width;
-            this.stringTb.Height = this.ClientSize.Height;
 
+            this.ClientSize = new Size(
+                this.stringTb.Width + this.stringTb.Left + this.okBtn.Width,
+                Math.Max(this.stringTb.Height, this.okBtn.Height)
+            );
+            this.stringTb.Height = this.ClientSize.Height;
             this.okBtn.Top = 0;
-            this.okBtn.Left = this.ClientSize.Width - this.okBtn.Width;
+            this.okBtn.Left = this.stringTb.Right;
+            this.okBtn.Height = this.ClientSize.Height;
+            //this.stringTb.Width = this.ClientSize.Width - this.okBtn.Width;
+            //this.stringTb.Height = this.ClientSize.Height;
+
+            //this.okBtn.Left = this.ClientSize.Width - this.okBtn.Width;
         }
 
         private void okBtn_Click(object sender, EventArgs e)

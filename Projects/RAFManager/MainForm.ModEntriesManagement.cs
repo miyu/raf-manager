@@ -25,6 +25,9 @@ namespace RAFManager
             modEntriesPanel.DragDrop += new DragEventHandler(modEntriesPanel_DragDrop);
         }
 
+        /// <summary>
+        /// Dragdrop operations - Allow file groups to be dropped in only.
+        /// </summary>
         void modEntriesPanel_DragOver(object sender, DragEventArgs e)
         {
             if (e.Data is DataObject && ((DataObject)e.Data).ContainsFileDropList())
@@ -38,12 +41,17 @@ namespace RAFManager
             }
         }
 
+        /// <summary>
+        /// Dragdrop - process file drops
+        /// Add them if appropriate
+        /// </summary>
         void modEntriesPanel_DragDrop(object sender, DragEventArgs e)
         {
             if (e.Data is DataObject && ((DataObject)e.Data).ContainsFileDropList())
             {
                 StringCollection filePaths = ((DataObject)e.Data).GetFileDropList();
 
+                //Get all files that were dropped in, by searching subdirectories too
                 List<String> resultFiles = new List<string>();
                 foreach (string path in filePaths)
                     if ((new FileInfo(path).Attributes & FileAttributes.Directory) != 0)
@@ -56,8 +64,8 @@ namespace RAFManager
                 List<TreeNode> resultantNodes = new List<TreeNode>();
                 string iconPath = null;
 
+                //If there is a script it overrides default action
                 RMPropInterpreter script = null;
-
                 foreach (string path in resultFiles)
                 {
                     string rafPath = GuessRafPathFromPath(path);
@@ -74,7 +82,7 @@ namespace RAFManager
                         resultantNodes.Add(node);
                     }
                     else
-                    {  //We usually skip it if it is undefined.  We have some special cases
+                    {   //We usually skip it if it is undefined.  We have some special cases
                         if (path.EndsWith("rafmanagericon.jpg"))
                         {
                             iconPath = path;
@@ -124,9 +132,9 @@ namespace RAFManager
         }
 
 
-        ///
-        ///<summary>Returns a guess of the RAF Path, including the archive id or "undefined"</summary>
-        ///
+        ///<summary>
+        ///Returns a guess of the RAF Path, including the archive id or "undefined"
+        ///</summary>
         public string GuessRafPathFromPath(string basePath)
         {
             string[] pathParts = basePath.Replace("\\","/").Split("/");
