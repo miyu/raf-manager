@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RAFPathSelector));
             this.treeView = new System.Windows.Forms.TreeView();
             this.bigContainer = new System.Windows.Forms.SplitContainer();
             this.selectedItemLabel = new System.Windows.Forms.TextBox();
@@ -89,7 +90,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(436, 362);
             this.Controls.Add(this.bigContainer);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "RAFPathSelector";
             this.Text = "RAF Archived File Path Selector";
             this.bigContainer.Panel1.ResumeLayout(false);

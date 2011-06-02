@@ -39,6 +39,33 @@ namespace RAFManager
             treeView.Nodes.AddRange(nodes);
         }
 
+        /// <summary>
+        /// Instantiated a new RAFPathSelector, which takes
+        /// in a group of RAF In memory FSOs and allows the user to select
+        /// a single node.
+        /// </summary>
+        /// <param name="nodes"></param>
+        public RAFPathSelector(RAFInMemoryFileSystemObject[] nodes, bool includeFiles, string text)
+        {
+            InitializeComponent();
+            //Resizes layout and add handler for resizing
+            ManageLayout();
+            this.Text = text;
+            this.Resize += delegate(object s, EventArgs e) { ManageLayout(); };
+
+            //Add event handler for form closing, to store last location
+            this.FormClosing += new FormClosingEventHandler(TreeNodeSelector_FormClosing);
+
+            //When a node is clicked, GUI is updated to show the path of the node
+            this.treeView.NodeMouseClick += new TreeNodeMouseClickEventHandler(treeView_NodeMouseClick);
+
+            //When we are loaded, we set our position
+            this.Load += new EventHandler(TreeNodeSelector_Load);
+
+            //Add the nodes we're supposed to view.
+            treeView.Nodes.AddRange(nodes);
+        }
+
         void TreeNodeSelector_Load(object sender, EventArgs e)
         {
             if (lastSize != Size.Empty) this.Size = lastSize;
@@ -50,7 +77,7 @@ namespace RAFManager
         /// </summary>
         void treeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            this.selectedItemLabel.Text = ((RAFInMemoryFileSystemObject)e.Node).GetRAFPath();
+            this.selectedItemLabel.Text = ((RAFInMemoryFileSystemObject)e.Node).GetRAFPath(true);
             this.selectedItemLabel.SelectionStart = this.selectedItemLabel.Text.Length;
         }
 

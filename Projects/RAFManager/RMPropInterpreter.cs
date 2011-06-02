@@ -76,6 +76,15 @@ namespace RAFManager
         {
             return ProcessToEndStatement(lines, startLine, isInitializerCall, true);
         }
+
+        /// <summary>
+        /// Todo: this needs to be modularized
+        /// </summary>
+        /// <param name="lines"></param>
+        /// <param name="startLine"></param>
+        /// <param name="isInitializerCall"></param>
+        /// <param name="multilineExec"></param>
+        /// <returns></returns>
         private int ProcessToEndStatement(string[] lines, int startLine, bool isInitializerCall, bool multilineExec)
         {
             int i = startLine;

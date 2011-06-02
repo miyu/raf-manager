@@ -46,6 +46,16 @@
   <PropertyGroup>
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug_Nightly|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug_Nightly\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="SlimDX, Version=4.0.11.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
@@ -272,6 +282,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="00Notes.txt" />
+    <Content Include="Resources\Images\CloseButtonMed_Down.jpg" />
+    <Content Include="Resources\Images\CloseButtonMed_Highlight.jpg" />
+    <Content Include="Resources\Images\CloseButtonMed_Normal.jpg" />
     <Content Include="Resources\Images\ConsoleButton_Down.jpg" />
     <Content Include="Resources\Images\ConsoleButton_Highlight.jpg" />
     <Content Include="Resources\Images\ConsoleButton_Normal.jpg" />

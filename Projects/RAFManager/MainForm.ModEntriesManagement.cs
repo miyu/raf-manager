@@ -182,7 +182,7 @@ namespace RAFManager
                         matchedEntry = resolvedItem;
                     }
                 }
-                else if (false)//advanced user
+                else if (permitExperimentalFileAddingCB.Checked)//advanced user
                 {
                     //We'll use the file browser to select where we want to save...
                     string rafPath = PickRafPath(false) + "/";

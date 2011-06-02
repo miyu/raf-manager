@@ -28,15 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Node1");
-            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Node3");
-            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("Node4");
-            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Node2", new System.Windows.Forms.TreeNode[] {
-            treeNode17,
-            treeNode18});
-            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("Node0", new System.Windows.Forms.TreeNode[] {
-            treeNode16,
-            treeNode19});
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Node1");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Node3");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Node4");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Node2", new System.Windows.Forms.TreeNode[] {
+            treeNode2,
+            treeNode3});
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Node0", new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode4});
             this.entryWebsiteLabel = new System.Windows.Forms.Label();
             this.entryCreatorLabel = new System.Windows.Forms.Label();
             this.entryNameLabel = new System.Windows.Forms.Label();
@@ -55,11 +55,11 @@
             // entryWebsiteLabel
             // 
             this.entryWebsiteLabel.AutoSize = true;
-            this.entryWebsiteLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.entryWebsiteLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Pixel);
             this.entryWebsiteLabel.ForeColor = System.Drawing.Color.Silver;
             this.entryWebsiteLabel.Location = new System.Drawing.Point(66, 35);
             this.entryWebsiteLabel.Name = "entryWebsiteLabel";
-            this.entryWebsiteLabel.Size = new System.Drawing.Size(61, 16);
+            this.entryWebsiteLabel.Size = new System.Drawing.Size(54, 15);
             this.entryWebsiteLabel.TabIndex = 2;
             this.entryWebsiteLabel.Text = "Website:";
             this.entryWebsiteLabel.Click += new System.EventHandler(this.entryWebsiteLabel_Click);
@@ -67,7 +67,7 @@
             // entryCreatorLabel
             // 
             this.entryCreatorLabel.AutoSize = true;
-            this.entryCreatorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F);
+            this.entryCreatorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.entryCreatorLabel.ForeColor = System.Drawing.Color.Silver;
             this.entryCreatorLabel.Location = new System.Drawing.Point(66, 20);
             this.entryCreatorLabel.Name = "entryCreatorLabel";
@@ -78,7 +78,7 @@
             // entryNameLabel
             // 
             this.entryNameLabel.AutoSize = true;
-            this.entryNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.entryNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 17F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Pixel);
             this.entryNameLabel.ForeColor = System.Drawing.Color.Silver;
             this.entryNameLabel.Location = new System.Drawing.Point(63, 1);
             this.entryNameLabel.Name = "entryNameLabel";
@@ -90,7 +90,7 @@
             // entryFileListDropdownToggle
             // 
             this.entryFileListDropdownToggle.AutoSize = true;
-            this.entryFileListDropdownToggle.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.entryFileListDropdownToggle.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Pixel);
             this.entryFileListDropdownToggle.ForeColor = System.Drawing.Color.Silver;
             this.entryFileListDropdownToggle.Location = new System.Drawing.Point(66, 52);
             this.entryFileListDropdownToggle.Name = "entryFileListDropdownToggle";
@@ -106,18 +106,18 @@
             this.entryFileListTreeView.ForeColor = System.Drawing.Color.Silver;
             this.entryFileListTreeView.Location = new System.Drawing.Point(3, 72);
             this.entryFileListTreeView.Name = "entryFileListTreeView";
-            treeNode16.Name = "Node1";
-            treeNode16.Text = "Node1";
-            treeNode17.Name = "Node3";
-            treeNode17.Text = "Node3";
-            treeNode18.Name = "Node4";
-            treeNode18.Text = "Node4";
-            treeNode19.Name = "Node2";
-            treeNode19.Text = "Node2";
-            treeNode20.Name = "Node0";
-            treeNode20.Text = "Node0";
+            treeNode1.Name = "Node1";
+            treeNode1.Text = "Node1";
+            treeNode2.Name = "Node3";
+            treeNode2.Text = "Node3";
+            treeNode3.Name = "Node4";
+            treeNode3.Text = "Node4";
+            treeNode4.Name = "Node2";
+            treeNode4.Text = "Node2";
+            treeNode5.Name = "Node0";
+            treeNode5.Text = "Node0";
             this.entryFileListTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode20});
+            treeNode5});
             this.entryFileListTreeView.Size = new System.Drawing.Size(553, 102);
             this.entryFileListTreeView.TabIndex = 6;
             // 
