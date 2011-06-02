@@ -60,41 +60,6 @@ namespace RAFManager.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap Checkbox_Checked {
-            get {
-                object obj = ResourceManager.GetObject("Checkbox_Checked", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap Checkbox_Partial {
-            get {
-                object obj = ResourceManager.GetObject("Checkbox_Partial", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap Checkbox_Unchecked {
-            get {
-                object obj = ResourceManager.GetObject("Checkbox_Unchecked", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap CheckboxToggleDisable {
-            get {
-                object obj = ResourceManager.GetObject("CheckboxToggleDisable", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap CheckboxToggleEnable {
-            get {
-                object obj = ResourceManager.GetObject("CheckboxToggleEnable", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
         internal static System.Drawing.Bitmap ConsoleButton_Down {
             get {
                 object obj = ResourceManager.GetObject("ConsoleButton_Down", resourceCulture);
@@ -151,24 +116,17 @@ namespace RAFManager.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap LeagueCraftIcon {
+        internal static System.Drawing.Icon LeagueCraftIcon {
             get {
                 object obj = ResourceManager.GetObject("LeagueCraftIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((System.Drawing.Icon)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap LoLIcon {
+        internal static System.Drawing.Icon LoLIcon {
             get {
                 object obj = ResourceManager.GetObject("LoLIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap LoLIcon1 {
-            get {
-                object obj = ResourceManager.GetObject("LoLIcon1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((System.Drawing.Icon)(obj));
             }
         }
         
@@ -242,31 +200,10 @@ namespace RAFManager.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap Radio_Checked {
-            get {
-                object obj = ResourceManager.GetObject("Radio_Checked", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap Radio_Disabled {
-            get {
-                object obj = ResourceManager.GetObject("Radio_Disabled", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap Radio_Unchecked {
-            get {
-                object obj = ResourceManager.GetObject("Radio_Unchecked", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap RafManager {
+        internal static System.Drawing.Icon RafManager {
             get {
                 object obj = ResourceManager.GetObject("RafManager", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((System.Drawing.Icon)(obj));
             }
         }
         
@@ -287,13 +224,6 @@ namespace RAFManager.Properties {
         internal static System.Drawing.Bitmap RAFManagerIcon50percent {
             get {
                 object obj = ResourceManager.GetObject("RAFManagerIcon50percent", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap TeemoSquare {
-            get {
-                object obj = ResourceManager.GetObject("TeemoSquare", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

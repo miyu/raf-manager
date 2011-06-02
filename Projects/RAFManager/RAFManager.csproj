@@ -41,7 +41,7 @@
     <StartupObject />
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>RafManager.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\RafManager.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <NoWin32Manifest>true</NoWin32Manifest>
@@ -81,7 +81,6 @@
     <Compile Include="BitmapViewer.Designer.cs">
       <DependentUpon>BitmapViewer.cs</DependentUpon>
     </Compile>
-    <Compile Include="ChangesViewEntry.cs" />
     <Compile Include="BlackCustomProfessionalColors.cs" />
     <Compile Include="BlackCustomRenderer.cs" />
     <Compile Include="SimpleGuide.cs">
@@ -92,9 +91,11 @@
     </Compile>
     <Compile Include="IniFile.cs" />
     <Compile Include="MainForm.ModEntriesManagement.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.RAFContentViewManagement.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.cs">
@@ -104,6 +105,7 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm.LayoutManagement.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainWindowLoading.cs">
@@ -146,14 +148,6 @@
       <DependentUpon>StringQueryDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="TreeViewStylizer.cs" />
-    <Compile Include="TristateTreeNodeCollection.cs" />
-    <Compile Include="TristateTreeNode.cs" />
-    <Compile Include="TristateTreeView.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="TristateTreeView.Designer.cs">
-      <DependentUpon>TristateTreeView.cs</DependentUpon>
-    </Compile>
     <Compile Include="UpdateAvailableDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -221,9 +215,6 @@
     <EmbeddedResource Include="StringQueryDialog.resx">
       <DependentUpon>StringQueryDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TristateTreeView.resx">
-      <DependentUpon>TristateTreeView.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="UpdateAvailableDialog.resx">
       <DependentUpon>UpdateAvailableDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -233,6 +224,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="TextViewer.resx">
       <DependentUpon>TextViewer.cs</DependentUpon>
@@ -273,35 +265,35 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="RafManager.ico" />
+    <None Include="Resources\RafManager.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="LeagueCraftIcon.ico" />
+    <None Include="Resources\LeagueCraftIcon.ico" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="00Notes.txt" />
-    <Content Include="Images\ConsoleButton_Down.jpg" />
-    <Content Include="Images\ConsoleButton_Highlight.jpg" />
-    <Content Include="Images\ConsoleButton_Normal.jpg" />
-    <Content Include="Images\DeleteButton_Down.jpg" />
-    <Content Include="Images\DeleteButton_Highlight.jpg" />
-    <Content Include="Images\DeleteButton_Normal.jpg" />
-    <Content Include="Images\DropFileToBegin.jpg" />
-    <Content Include="Images\GiraffeCrop.jpg" />
-    <Content Include="Images\ModDisabled.jpg" />
-    <Content Include="Images\ModDisabledDown.jpg" />
-    <Content Include="Images\ModDisabledHover.jpg" />
-    <Content Include="Images\ModEnabled.jpg" />
-    <Content Include="Images\ModEnabledDown.jpg" />
-    <Content Include="Images\ModEnabledHover.jpg" />
-    <Content Include="Images\NoIcon.jpg" />
-    <Content Include="Images\OptionsButton_Down.jpg" />
-    <Content Include="Images\OptionsButton_Highlight.jpg" />
-    <Content Include="Images\OptionsButton_Normal.jpg" />
-    <Content Include="Images\RAFManagerIcon.jpg" />
-    <Content Include="Images\RAFManagerIcon25percent.jpg" />
-    <Content Include="Images\RAFManagerIcon50percent.jpg" />
-    <None Include="LoLIcon.ico" />
+    <Content Include="Resources\Images\ConsoleButton_Down.jpg" />
+    <Content Include="Resources\Images\ConsoleButton_Highlight.jpg" />
+    <Content Include="Resources\Images\ConsoleButton_Normal.jpg" />
+    <Content Include="Resources\Images\DeleteButton_Down.jpg" />
+    <Content Include="Resources\Images\DeleteButton_Highlight.jpg" />
+    <Content Include="Resources\Images\DeleteButton_Normal.jpg" />
+    <Content Include="Resources\Images\DropFileToBegin.jpg" />
+    <Content Include="Resources\Images\GiraffeCrop.jpg" />
+    <Content Include="Resources\Images\ModDisabled.jpg" />
+    <Content Include="Resources\Images\ModDisabledDown.jpg" />
+    <Content Include="Resources\Images\ModDisabledHover.jpg" />
+    <Content Include="Resources\Images\ModEnabled.jpg" />
+    <Content Include="Resources\Images\ModEnabledDown.jpg" />
+    <Content Include="Resources\Images\ModEnabledHover.jpg" />
+    <Content Include="Resources\Images\NoIcon.jpg" />
+    <Content Include="Resources\Images\OptionsButton_Down.jpg" />
+    <Content Include="Resources\Images\OptionsButton_Highlight.jpg" />
+    <Content Include="Resources\Images\OptionsButton_Normal.jpg" />
+    <Content Include="Resources\Images\RAFManagerIcon.jpg" />
+    <Content Include="Resources\Images\RAFManagerIcon25percent.jpg" />
+    <Content Include="Resources\Images\RAFManagerIcon50percent.jpg" />
+    <None Include="Resources\LoLIcon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

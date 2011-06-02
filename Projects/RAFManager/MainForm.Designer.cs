@@ -444,7 +444,7 @@
             // 
             // goToLoLHomeToolStripMenuItem
             // 
-            this.goToLoLHomeToolStripMenuItem.Image = global::RAFManager.Properties.Resources.LoLIcon1;
+            this.goToLoLHomeToolStripMenuItem.Image = global::RAFManager.Properties.Resources.LoLIcon.ToBitmap();
             this.goToLoLHomeToolStripMenuItem.Name = "goToLoLHomeToolStripMenuItem";
             this.goToLoLHomeToolStripMenuItem.Size = new System.Drawing.Size(558, 24);
             this.goToLoLHomeToolStripMenuItem.Text = "Go to RAF Manager League of Legends Thread (North American Forums)";
@@ -452,7 +452,7 @@
             // 
             // goToRAFManagerLeagueCraftThreadToolStripMenuItem
             // 
-            this.goToRAFManagerLeagueCraftThreadToolStripMenuItem.Image = global::RAFManager.Properties.Resources.LeagueCraftIcon;
+            this.goToRAFManagerLeagueCraftThreadToolStripMenuItem.Image = global::RAFManager.Properties.Resources.LeagueCraftIcon.ToBitmap();
             this.goToRAFManagerLeagueCraftThreadToolStripMenuItem.Name = "goToRAFManagerLeagueCraftThreadToolStripMenuItem";
             this.goToRAFManagerLeagueCraftThreadToolStripMenuItem.Size = new System.Drawing.Size(558, 24);
             this.goToRAFManagerLeagueCraftThreadToolStripMenuItem.Text = "Go to RAF Manager LeagueCraft Thread";
@@ -460,7 +460,7 @@
             // 
             // goToRAFManagerHomePageToolStripMenuItem
             // 
-            this.goToRAFManagerHomePageToolStripMenuItem.Image = global::RAFManager.Properties.Resources.RafManager;
+            this.goToRAFManagerHomePageToolStripMenuItem.Image = global::RAFManager.Properties.Resources.RafManager.ToBitmap();
             this.goToRAFManagerHomePageToolStripMenuItem.Name = "goToRAFManagerHomePageToolStripMenuItem";
             this.goToRAFManagerHomePageToolStripMenuItem.Size = new System.Drawing.Size(558, 24);
             this.goToRAFManagerHomePageToolStripMenuItem.Text = "Go to RAF Manager Home Page";
