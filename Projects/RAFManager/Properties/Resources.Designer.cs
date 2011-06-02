@@ -60,6 +60,27 @@ namespace RAFManager.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap CloseButtonMed_Down {
+            get {
+                object obj = ResourceManager.GetObject("CloseButtonMed_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap CloseButtonMed_Highlight {
+            get {
+                object obj = ResourceManager.GetObject("CloseButtonMed_Highlight", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap CloseButtonMed_Normal {
+            get {
+                object obj = ResourceManager.GetObject("CloseButtonMed_Normal", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap ConsoleButton_Down {
             get {
                 object obj = ResourceManager.GetObject("ConsoleButton_Down", resourceCulture);

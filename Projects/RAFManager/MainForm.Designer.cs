@@ -39,6 +39,7 @@
             this.bottomPanelTabContainer = new System.Windows.Forms.Panel();
             this.bottomPanelOptionsTab = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.permitExperimentalFileAddingCB = new System.Windows.Forms.CheckBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.label5 = new System.Windows.Forms.Label();
             this.updateDuringLongOperationsCB = new System.Windows.Forms.CheckBox();
@@ -59,6 +60,7 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewGuideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewAdvancedDeveloperGuideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lOLMODRAFManagerScriptDocumentationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.goToLoLHomeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.goToRAFManagerLeagueCraftThreadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.goToRAFManagerHomePageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -67,7 +69,6 @@
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.projectNameLabel = new System.Windows.Forms.ToolStripLabel();
             this.projectNameChangeBTN = new System.Windows.Forms.ToolStripButton();
-            this.lOLMODRAFManagerScriptDocumentationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -221,20 +222,34 @@
             this.bottomPanelOptionsTab.Location = new System.Drawing.Point(49, 69);
             this.bottomPanelOptionsTab.Name = "bottomPanelOptionsTab";
             this.bottomPanelOptionsTab.Padding = new System.Windows.Forms.Padding(2);
-            this.bottomPanelOptionsTab.Size = new System.Drawing.Size(525, 168);
+            this.bottomPanelOptionsTab.Size = new System.Drawing.Size(701, 168);
             this.bottomPanelOptionsTab.TabIndex = 2;
             // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.panel3.Controls.Add(this.permitExperimentalFileAddingCB);
             this.panel3.Controls.Add(this.pictureBox3);
             this.panel3.Controls.Add(this.label5);
             this.panel3.Controls.Add(this.updateDuringLongOperationsCB);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(2, 2);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(521, 164);
+            this.panel3.Size = new System.Drawing.Size(697, 164);
             this.panel3.TabIndex = 0;
+            // 
+            // permitExperimentalFileAddingCB
+            // 
+            this.permitExperimentalFileAddingCB.AutoSize = true;
+            this.permitExperimentalFileAddingCB.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.permitExperimentalFileAddingCB.Font = new System.Drawing.Font("Consolas", 7.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.permitExperimentalFileAddingCB.ForeColor = System.Drawing.Color.Silver;
+            this.permitExperimentalFileAddingCB.Location = new System.Drawing.Point(3, 36);
+            this.permitExperimentalFileAddingCB.Name = "permitExperimentalFileAddingCB";
+            this.permitExperimentalFileAddingCB.Size = new System.Drawing.Size(652, 130);
+            this.permitExperimentalFileAddingCB.TabIndex = 3;
+            this.permitExperimentalFileAddingCB.Text = resources.GetString("permitExperimentalFileAddingCB.Text");
+            this.permitExperimentalFileAddingCB.UseVisualStyleBackColor = true;
             // 
             // pictureBox3
             // 
@@ -442,9 +457,16 @@
             this.viewAdvancedDeveloperGuideToolStripMenuItem.Size = new System.Drawing.Size(558, 24);
             this.viewAdvancedDeveloperGuideToolStripMenuItem.Text = "View Advanced Developer Guide - Coming Soon™";
             // 
+            // lOLMODRAFManagerScriptDocumentationToolStripMenuItem
+            // 
+            this.lOLMODRAFManagerScriptDocumentationToolStripMenuItem.Name = "lOLMODRAFManagerScriptDocumentationToolStripMenuItem";
+            this.lOLMODRAFManagerScriptDocumentationToolStripMenuItem.Size = new System.Drawing.Size(558, 24);
+            this.lOLMODRAFManagerScriptDocumentationToolStripMenuItem.Text = "Go to LOLMOD/RAF Manager Script Documentation";
+            this.lOLMODRAFManagerScriptDocumentationToolStripMenuItem.Click += new System.EventHandler(this.lOLMODRAFManagerScriptDocumentationToolStripMenuItem_Click);
+            // 
             // goToLoLHomeToolStripMenuItem
             // 
-            this.goToLoLHomeToolStripMenuItem.Image = global::RAFManager.Properties.Resources.LoLIcon.ToBitmap();
+            this.goToLoLHomeToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("goToLoLHomeToolStripMenuItem.Image")));
             this.goToLoLHomeToolStripMenuItem.Name = "goToLoLHomeToolStripMenuItem";
             this.goToLoLHomeToolStripMenuItem.Size = new System.Drawing.Size(558, 24);
             this.goToLoLHomeToolStripMenuItem.Text = "Go to RAF Manager League of Legends Thread (North American Forums)";
@@ -452,7 +474,7 @@
             // 
             // goToRAFManagerLeagueCraftThreadToolStripMenuItem
             // 
-            this.goToRAFManagerLeagueCraftThreadToolStripMenuItem.Image = global::RAFManager.Properties.Resources.LeagueCraftIcon.ToBitmap();
+            this.goToRAFManagerLeagueCraftThreadToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("goToRAFManagerLeagueCraftThreadToolStripMenuItem.Image")));
             this.goToRAFManagerLeagueCraftThreadToolStripMenuItem.Name = "goToRAFManagerLeagueCraftThreadToolStripMenuItem";
             this.goToRAFManagerLeagueCraftThreadToolStripMenuItem.Size = new System.Drawing.Size(558, 24);
             this.goToRAFManagerLeagueCraftThreadToolStripMenuItem.Text = "Go to RAF Manager LeagueCraft Thread";
@@ -460,7 +482,7 @@
             // 
             // goToRAFManagerHomePageToolStripMenuItem
             // 
-            this.goToRAFManagerHomePageToolStripMenuItem.Image = global::RAFManager.Properties.Resources.RafManager.ToBitmap();
+            this.goToRAFManagerHomePageToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("goToRAFManagerHomePageToolStripMenuItem.Image")));
             this.goToRAFManagerHomePageToolStripMenuItem.Name = "goToRAFManagerHomePageToolStripMenuItem";
             this.goToRAFManagerHomePageToolStripMenuItem.Size = new System.Drawing.Size(558, 24);
             this.goToRAFManagerHomePageToolStripMenuItem.Text = "Go to RAF Manager Home Page";
@@ -500,13 +522,6 @@
             this.projectNameChangeBTN.Text = "[Change]";
             this.projectNameChangeBTN.Click += new System.EventHandler(this.projectNameChangeBTN_Click);
             // 
-            // lOLMODRAFManagerScriptDocumentationToolStripMenuItem
-            // 
-            this.lOLMODRAFManagerScriptDocumentationToolStripMenuItem.Name = "lOLMODRAFManagerScriptDocumentationToolStripMenuItem";
-            this.lOLMODRAFManagerScriptDocumentationToolStripMenuItem.Size = new System.Drawing.Size(558, 24);
-            this.lOLMODRAFManagerScriptDocumentationToolStripMenuItem.Text = "Go to LOLMOD/RAF Manager Script Documentation";
-            this.lOLMODRAFManagerScriptDocumentationToolStripMenuItem.Click += new System.EventHandler(this.lOLMODRAFManagerScriptDocumentationToolStripMenuItem_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -517,7 +532,7 @@
             this.Controls.Add(this.splitContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
-            this.Text = "RAF Manager";
+            this.Text = " RAF Manager";
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -590,5 +605,6 @@
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem checkForUpdatesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem lOLMODRAFManagerScriptDocumentationToolStripMenuItem;
+        private System.Windows.Forms.CheckBox permitExperimentalFileAddingCB;
     }
 }

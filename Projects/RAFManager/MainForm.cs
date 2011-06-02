@@ -26,6 +26,11 @@ namespace RAFManager
             this.Load += new EventHandler(MainForm_Load);
             this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
 
+            if (RAFManagerUpdater.Versioning.CurrentVersion.flags != "")
+            {
+                this.Text = this.Text + " BETA/Non-RC " + RAFManagerUpdater.Versioning.CurrentVersion.GetVersionString() + " [Build Time: " + RAFManagerUpdater.Versioning.CurrentVersion.ApproximateBuildTime + "]";
+            }
+
             //HACK!  Fixes scrollbar overlapping content...
             Timer t = new Timer();
             t.Interval = 100;
@@ -33,12 +38,9 @@ namespace RAFManager
             t.Start();
         }
 
-        /// <summary>
-        /// When the form closes, we save our last state so we can load it when we restart
-        /// </summary>
-        void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        void t_Tick(object sender, EventArgs e)
         {
-            SaveProject(".laststate.rmproj");
+            ManageModEntriesLayout();
         }
 
         //The title we use in our wysiwyg editor.  We append to this when setting the title
@@ -49,6 +51,16 @@ namespace RAFManager
 
             this.Text = baseTitle + " - " + s;
         }
+
+        /// <summary>
+        /// When the form closes, we save our last state so we can load it when we restart
+        /// </summary>
+        void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SaveProject(".laststate.rmproj");
+        }
+
+        #region logging: Log, DLog
         /// <summary>
         /// Log text, redrawing the gui and handling the message pump
         /// </summary>
@@ -98,6 +110,7 @@ namespace RAFManager
                 catch { }//technically not thread safe... and in this case, it really isn't
             }
         }
+        #endregion
         /// <summary>
         /// Checks for updates - updates UI via log when done. presents update prompt if one is available
         /// </summary>
@@ -194,6 +207,7 @@ namespace RAFManager
             }
             return null;
         }
+
         /// <summary>
         /// Creates the given directory and all directories leading up to it.
         /// </summary>
@@ -209,6 +223,7 @@ namespace RAFManager
                 //ostream.WriteLine(dirPath);
             }
         }
+
         /// <summary>
         /// Creates the given parent directory and all directories leading up to it.
         /// path should be a filename.
@@ -322,12 +337,6 @@ namespace RAFManager
             }
         }
 
-        
-        void t_Tick(object sender, EventArgs e)
-        {
-            ManageModEntriesLayout();
-        }
-
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new AboutBox().ShowDialog();
@@ -356,10 +365,14 @@ namespace RAFManager
         /// <returns></returns>
         private string PickRafPath(bool includeFiles)
         {
+            return PickRafPath(includeFiles, "Pick A " + (includeFiles ? "Directory/File" : "Directory"));
+        }
+        private string PickRafPath(bool includeFiles, string text)
+        {
             RAFInMemoryFileSystemObject[] nodes = new RAFInMemoryFileSystemObject[this.rafContentView.Nodes.Count];
             for (int i = 0; i < nodes.Length; i++)
                 nodes[i] = (RAFInMemoryFileSystemObject)this.rafContentView.Nodes[i].Clone();
-            RAFPathSelector selectorDialog = new RAFPathSelector(nodes, includeFiles);
+            RAFPathSelector selectorDialog = new RAFPathSelector(nodes, includeFiles, text);
             selectorDialog.ShowDialog();
             return selectorDialog.SelectedNodePath;
         }
@@ -389,30 +402,73 @@ namespace RAFManager
                     for (int j = 0; j < nodeTags.Length; j++)
                     {
                         RAFFileListEntry rafEntry = ResolveRAFPathToEntry(nodeTags[j].rafPath);
+                        
                         string fileBackupLoc = Environment.CurrentDirectory + "/backup/" + nodeTags[j].rafPath.Replace("/", "_");
                         if (entry.IsChecked)
                         {
-                            if (!File.Exists(fileBackupLoc))
+                            if (rafEntry == null && permitExperimentalFileAddingCB.Checked)
                             {
-                                DLog("  Backing up " + nodeTags[j].rafPath);
+                                //File doesn't exist in archive
+                                //Our backup = "this file should be deleted"
+                                DLog("  Marking for restore op deletion: " + nodeTags[j].rafPath);
                                 PrepareDirectory(Environment.CurrentDirectory + "/backup/");
-                                File.WriteAllBytes(fileBackupLoc, rafEntry.GetContent());
+                                File.WriteAllText(fileBackupLoc, "this file should be deleted");
+
+                                DLog("  Adding " + nodeTags[j].rafPath);
+                                string archiveName = nodeTags[j].rafPath.Split("/").First();
+                                rafArchives[archiveName].InsertFile(
+                                    nodeTags[j].rafPath.Replace(archiveName+"/", ""),
+                                    File.ReadAllBytes(nodeTags[j].localPath),
+                                    new LogTextWriter(
+                                        (Func<string, object>)delegate(string s)
+                                        {
+                                            if (updateDuringLongOperationsCB.Checked)
+                                                DLog(s);
+                                            return null;
+                                        }
+                                    )
+                                );
                             }
-                            DLog("  Inserting " + nodeTags[j].rafPath);
-                            rafEntry.RAFArchive.InsertFile(
-                                rafEntry.FileName,
-                                File.ReadAllBytes(nodeTags[j].localPath),
-                                null
-                            );
+                            else
+                            {
+                                //File does exist in archive, do backup if not done already
+                                if (!File.Exists(fileBackupLoc))
+                                {
+                                    DLog("  Backing up " + nodeTags[j].rafPath);
+                                    PrepareDirectory(Environment.CurrentDirectory + "/backup/");
+                                    File.WriteAllBytes(fileBackupLoc, rafEntry.GetContent());
+                                }
+                                DLog("  Inserting " + nodeTags[j].rafPath);
+                                rafEntry.RAFArchive.InsertFile( 
+                                    rafEntry.FileName,
+                                    File.ReadAllBytes(nodeTags[j].localPath),
+                                    new LogTextWriter(
+                                        (Func<string, object>)delegate(string s)
+                                        {
+                                            if (updateDuringLongOperationsCB.Checked)
+                                                DLog(s);
+                                            return null;
+                                        }
+                                    )
+                                );
+                            }
                         }
                         else if (File.Exists(fileBackupLoc))
                         {
-                            DLog("  Restoring " + nodeTags[j].rafPath);
-                            rafEntry.RAFArchive.InsertFile(
-                                rafEntry.FileName,
-                                File.ReadAllBytes(fileBackupLoc),
-                                null
-                            );
+                            if (permitExperimentalFileAddingCB.Checked && File.ReadAllText(fileBackupLoc) == "this file should be deleted")
+                            {
+                                DLog("  Deleting " + nodeTags[j].rafPath);
+                                rafEntry.RAFArchive.GetDirectoryFile().DeleteFileEntry(rafEntry);
+                            }
+                            else
+                            {
+                                DLog("  Restoring " + nodeTags[j].rafPath);
+                                rafEntry.RAFArchive.InsertFile(
+                                    rafEntry.FileName,
+                                    File.ReadAllBytes(fileBackupLoc),
+                                    null
+                                );
+                            }
                         }
                     }
                     DLog("  Done");

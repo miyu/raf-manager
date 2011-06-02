@@ -145,6 +145,22 @@ namespace RAFManager
                         }
                     }
                     #endregion
+
+#if true || DEBUG
+                    if (fso.GetFSOType() == RAFFSOType.FILE)
+                    {
+                        MenuItem delete = new MenuItem("Delete - Note, RAF Manager MUST RESTART after you use this for things to display properly.");
+                        delete.Click += delegate(Object s2, EventArgs e2)
+                        {
+                            RAFFileListEntry entry = ResolveRAFPathToEntry(fso.GetRAFPath(true));
+
+                            entry.RAFArchive.GetDirectoryFile().DeleteFileEntry(entry);
+                            entry.RAFArchive.SaveDirectoryFile();
+                        };
+                        cm.MenuItems.Add(delete);
+                        //TOdo: delete treenodes.  For now, just restart client
+                    } 
+#endif
                 }
                 MenuItem searchThis = new MenuItem("Search This Archive");
                 searchThis.Click += delegate(object s2, EventArgs e2)

@@ -22,6 +22,23 @@ namespace RAFManager
         [STAThread]
         static void Main()
         {
+            if (RAFManagerUpdater.Versioning.CurrentVersion.flags != "")
+            {
+                Console.WriteLine("Note: This is a beta/alpha build of RAF Manager.  Not all features have been");
+                Console.WriteLine("      thoroughly tested. Expect the worst to happen.  You will be accessing");
+                Console.WriteLine("      the nightly build updates.  You may choose to update to them if you wish,");
+                Console.WriteLine("      though you must realize that there WILL occasionally be bugs stuck into");
+                Console.WriteLine("      the nightly, which might take a while [a day or two] to fix...  Since");
+                Console.WriteLine("      you are working with a different directory than your normal RAF Manager");
+                Console.WriteLine("      RC, the backup directories will be different to, so if you pack a file");
+                Console.WriteLine("      with 1 build, you can't revert that pack with the beta.  ");
+                Console.WriteLine("");
+                Console.WriteLine("If you plan on using the 'add to archive' feature, you must go to options and");
+                Console.WriteLine("check the big checkbox.  To restore you MUST do this too!");
+                Console.WriteLine("I am working on a prettier file browser for others to use... Release TBA...");
+                Console.WriteLine("");
+                Console.WriteLine("Build Timestamp: " + RAFManagerUpdater.Versioning.CurrentVersion.ApproximateBuildTime);
+            }
             /*
             RMPropInterpreter interpreter = new RMPropInterpreter(
                 File.ReadAllLines(@"C:\LoLModProjects\colorblindnomore_u3_v3\rafmanagerproperties")

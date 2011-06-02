@@ -16,6 +16,14 @@ namespace RAFManager
             InitializeComponent();
             this.MinimizeBox = false;
             this.MaximizeBox = false;
+
+            wGUI.InitializeButton(
+                closeButtonPB,
+                Properties.Resources.CloseButtonMed_Normal,
+                Properties.Resources.CloseButtonMed_Highlight,
+                Properties.Resources.CloseButtonMed_Down,
+                false
+            );
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -36,14 +44,15 @@ namespace RAFManager
         {
             System.Diagnostics.Process.Start("http://bit.ly/mKDFYs");
         }
-        private void button1_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
 
         private void linkLabel5_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("http://code.google.com/p/raf-manager/");
+        }
+
+        private void closeButtonPB_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
     }

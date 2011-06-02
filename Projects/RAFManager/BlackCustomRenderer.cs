@@ -17,6 +17,7 @@ namespace RAFManager
         //private SolidBrush hoverBrush  = new SolidBrush(Color.FromArgb(96, 96, 96));
         private SolidBrush normalBrush = new SolidBrush(Color.FromArgb(80 - 32, 80 - 32, 80 - 32));
         private SolidBrush hoverBrush = new SolidBrush(Color.FromArgb(96 - 32, 96 - 32, 96 - 32));
+        private SolidBrush disabledBrush = new SolidBrush(Color.FromArgb(96 - 54, 96 - 54, 96 - 54));
         private SolidBrush textBrush = new SolidBrush(Color.Silver);
         private Pen borderPen = new Pen(Color.FromArgb(32, 32, 32));
         private Pen highlightPen = new Pen(Color.FromArgb(96, 96, 96));
@@ -45,12 +46,19 @@ namespace RAFManager
         }
         protected override void OnRenderMenuItemBackground(ToolStripItemRenderEventArgs e)
         {
-            if (e.Item.Selected)
+            if (e.Item.Enabled)
             {
-                e.Graphics.FillRectangle(hoverBrush, new Rectangle(new Point(0, 0), e.Item.Size));
+                if (e.Item.Selected)
+                {
+                    e.Graphics.FillRectangle(hoverBrush, new Rectangle(new Point(0, 0), e.Item.Size));
+                }
+                else
+                    e.Graphics.FillRectangle(normalBrush, new Rectangle(new Point(0, 0), e.Item.Size));
             }
             else
-                e.Graphics.FillRectangle(normalBrush, new Rectangle(new Point(0, 0), e.Item.Size));
+            {
+                e.Graphics.FillRectangle(disabledBrush, new Rectangle(new Point(0, 0), e.Item.Size));
+            }
         }
         protected override void OnRenderToolStripPanelBackground(ToolStripPanelRenderEventArgs e)
         {

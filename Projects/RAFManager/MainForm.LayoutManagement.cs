@@ -50,8 +50,6 @@ namespace RAFManager
             {
                 try
                 {
-                    Console.WriteLine(this.Width);
-                    Console.WriteLine(this.Height);
                     HandleUI();
                     splitContainer1.SplitterDistance = splitContainer1.Height - bottomPanelHeight;
                     splitContainer2.SplitterDistance = leftPanelWidth;
