@@ -17,7 +17,7 @@ namespace RAFManagerUpdater.Versioning
         public const int minor = 4;
 
         //Represents addons that are minor, such as changing text or fixing a small bug
-        public const int revision = 0;
+        public const int revision = 1;
 
         //Represents Flags [dev, b], currently not used
         public const string flags = "";
