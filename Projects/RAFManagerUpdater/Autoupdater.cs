@@ -62,8 +62,13 @@ namespace RAFManagerUpdater
                 return UpdateResult.UnableToConnect;
             }
         }
+#if NIGHTLY
+        public const string updateDomain = "http://www.ItzWarty.com/raf/releases/nightly/"; //location of updatenotes.txt and version.txt
+        public const string latestURI = "http://www.ItzWarty.com/raf/releases/nightly/"; //include ending folder name slash
+#else
         public const string updateDomain = "http://www.ItzWarty.com/raf/releases/latest/"; //location of updatenotes.txt and version.txt
         public const string latestURI = "http://www.ItzWarty.com/raf/releases/latest/"; //include ending folder name slash
+#endif
         public static void Main(string[] args)
         {
             //Check arguments to see if we've been spawned to only do one thing

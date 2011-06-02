@@ -20,7 +20,7 @@ namespace RAFManagerUpdater.Versioning
         public const int revision = 1;
 
         //Represents Flags [dev, b], currently not used
-        public const string flags = "";
+        public const string flags = "b";
 
         /// <summary>
         /// Yes, this is a duplicate of ItzWarty.ApplicationInformation.BuildTime, but it is not dependent
