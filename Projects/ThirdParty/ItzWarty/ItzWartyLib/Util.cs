@@ -26,5 +26,38 @@ namespace ItzWarty
 
             return result.ToArray();
         }
+
+        /// <summary>
+        /// Creates the given directory and all directories leading up to it.
+        /// </summary>
+        public static void PrepareDirectory(string path)
+        {
+            path = path.Replace("/", "\\");
+            String[] dirs = path.Split("\\");
+            for (int i = 1; i < dirs.Length; i++)
+            {
+                String dirPath = String.Join("\\", dirs.SubArray(0, i)) + "\\";
+                if (!Directory.Exists(dirPath))
+                    Directory.CreateDirectory(dirPath);
+                //ostream.WriteLine(dirPath);
+            }
+        }
+
+        /// <summary>
+        /// Creates the given parent directory and all directories leading up to it.
+        /// path should be a filename.
+        /// </summary>
+        public static void PrepareParentDirectory(string path)
+        {
+            path = path.Replace("/", "\\");
+            String[] dirs = path.Split("\\");
+            for (int i = 1; i < dirs.Length - 1; i++)
+            {
+                String dirPath = String.Join("\\", dirs.SubArray(0, i)) + "\\";
+                if (!Directory.Exists(dirPath))
+                    Directory.CreateDirectory(dirPath);
+                //ostream.WriteLine(dirPath);
+            }
+        }
     }
 }
