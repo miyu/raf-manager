@@ -131,7 +131,7 @@ namespace RAFManager
                             }
                             else
                             {
-                                RAFFileListEntry entry = mainForm.ResolveRAFPathToEntry(rafFilePath);
+                                RAFFileListEntry entry = mainForm.rafManager.ResolveRAFPathToEntry(rafFilePath);
                                 if (entry == null)
                                     throw new Exception("BACKUP_ONCE: Entry '" + rafFilePath + "' did NOT exist, or could NOT be found. @ ln " + i + "\r\n" +
                                                         "Correct Syntax: BACKUP_ONCE [full raf path including archive]\r\n" +
@@ -139,7 +139,7 @@ namespace RAFManager
                                 else
                                 {
                                     Console.WriteLine("Backing up to " + fileBackupLoc);
-                                    mainForm.PrepareDirectory(Environment.CurrentDirectory + "/backup/");
+                                    Util.PrepareDirectory(Environment.CurrentDirectory + "/backup/");
                                     File.WriteAllBytes(fileBackupLoc, entry.GetContent());
                                 }
                             }
@@ -160,7 +160,7 @@ namespace RAFManager
                             string iniSection       = sectionKeyParts[0];
                             string iniKey           = sectionKeyParts[1];
 
-                            RAFFileListEntry entry = mainForm.ResolveRAFPathToEntry(rafPath);
+                            RAFFileListEntry entry = mainForm.rafManager.ResolveRAFPathToEntry(rafPath);
                             if (entry == null)
                                 throw new Exception("BACKUP_ONCE: Entry '" + rafPath + "' did NOT exist, or could NOT be found. @ ln "+i);
                             else
@@ -231,14 +231,14 @@ namespace RAFManager
                             }
                             else
                             {
-                                RAFFileListEntry entry = mainForm.ResolveRAFPathToEntry(
+                                RAFFileListEntry entry = mainForm.rafManager.ResolveRAFPathToEntry(
                                     mainForm.GuessRafPathFromPath(path)
                                 );
 
                                 string fileBackupLoc = Environment.CurrentDirectory + "/backup/" + entry.RAFArchive.GetID() + "_" + entry.FileName.Replace("/", "_");
                                 if(!File.Exists(fileBackupLoc))
                                 {
-                                    mainForm.PrepareDirectory(Environment.CurrentDirectory + "/backup/");
+                                    Util.PrepareDirectory(Environment.CurrentDirectory + "/backup/");
                                     File.WriteAllBytes(fileBackupLoc, entry.GetContent());
                                 }
 
@@ -268,14 +268,14 @@ namespace RAFManager
                                 }
                                 else
                                 {
-                                    RAFFileListEntry entry = mainForm.ResolveRAFPathToEntry(
+                                    RAFFileListEntry entry = mainForm.rafManager.ResolveRAFPathToEntry(
                                         mainForm.GuessRafPathFromPath(path)
                                     );
 
                                     string fileBackupLoc = Environment.CurrentDirectory + "/backup/" + entry.RAFArchive.GetID() + "_" + entry.FileName.Replace("/", "_");
                                     if (!File.Exists(fileBackupLoc))
                                     {
-                                        mainForm.PrepareDirectory(Environment.CurrentDirectory + "/backup/");
+                                        Util.PrepareDirectory(Environment.CurrentDirectory + "/backup/");
                                         File.WriteAllBytes(fileBackupLoc, entry.GetContent());
                                     }
 
@@ -299,7 +299,7 @@ namespace RAFManager
 
                             string fileBackupLoc = Environment.CurrentDirectory + "/backup/" + rafPath.Replace("/", "_");
 
-                            RAFFileListEntry entry = mainForm.ResolveRAFPathToEntry(rafPath);
+                            RAFFileListEntry entry = mainForm.rafManager.ResolveRAFPathToEntry(rafPath);
                             if (entry == null)
                                 throw new Exception("RESTORE: Entry '" + rafPath + "' did NOT exist, or could NOT be found. @ ln " + i);
                             else
@@ -323,7 +323,7 @@ namespace RAFManager
 
                             foreach(string path in paths)
                             {
-                                RAFFileListEntry entry = mainForm.ResolveRAFPathToEntry(
+                                RAFFileListEntry entry = mainForm.rafManager.ResolveRAFPathToEntry(
                                     mainForm.GuessRafPathFromPath(path)
                                 );
 

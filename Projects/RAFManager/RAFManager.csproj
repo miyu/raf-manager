@@ -73,105 +73,119 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AboutBox.cs">
+    <Compile Include="GUI\AboutBox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AboutBox.Designer.cs">
+    <Compile Include="GUI\AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="BinaryViewer.cs">
+    <Compile Include="GUI\BinaryViewer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BinaryViewer.Designer.cs">
+    <Compile Include="GUI\BinaryViewer.Designer.cs">
       <DependentUpon>BinaryViewer.cs</DependentUpon>
     </Compile>
-    <Compile Include="BitmapViewer.cs">
+    <Compile Include="GUI\BitmapViewer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BitmapViewer.Designer.cs">
+    <Compile Include="GUI\BitmapViewer.Designer.cs">
       <DependentUpon>BitmapViewer.cs</DependentUpon>
     </Compile>
-    <Compile Include="BlackCustomProfessionalColors.cs" />
-    <Compile Include="BlackCustomRenderer.cs" />
-    <Compile Include="SimpleGuide.cs">
+    <Compile Include="GUI\Style\BlackCustomProfessionalColors.cs" />
+    <Compile Include="GUI\Style\BlackCustomRenderer.cs" />
+    <Compile Include="IRAFManagerGUI.cs" />
+    <Compile Include="RAFManager.cs" />
+    <Compile Include="RAFTileViewMode\RAFTiledView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SimpleGuide.Designer.cs">
+    <Compile Include="RAFTileViewMode\RAFTiledView.Designer.cs">
+      <DependentUpon>RAFTiledView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RAFTileViewMode\Tile.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RAFTileViewMode\Tile.Designer.cs">
+      <DependentUpon>Tile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\SimpleGuide.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\SimpleGuide.Designer.cs">
       <DependentUpon>SimpleGuide.cs</DependentUpon>
     </Compile>
     <Compile Include="IniFile.cs" />
-    <Compile Include="MainForm.ModEntriesManagement.cs">
+    <Compile Include="GUI\MainForm.ModEntriesManagement.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.RAFContentViewManagement.cs">
+    <Compile Include="GUI\MainForm.RAFContentViewManagement.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.cs">
+    <Compile Include="GUI\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="GUI\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainForm.LayoutManagement.cs">
+    <Compile Include="GUI\MainForm.LayoutManagement.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainWindowLoading.cs">
+    <Compile Include="GUI\MainWindowLoading.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainWindowLoading.Designer.cs">
+    <Compile Include="GUI\MainWindowLoading.Designer.cs">
       <DependentUpon>MainWindowLoading.cs</DependentUpon>
     </Compile>
-    <Compile Include="ModEntry.cs">
+    <Compile Include="GUI\ModEntry.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ModEntry.Designer.cs">
+    <Compile Include="GUI\ModEntry.Designer.cs">
       <DependentUpon>ModEntry.cs</DependentUpon>
     </Compile>
-    <Compile Include="ModEntryNodeTag.cs" />
-    <Compile Include="ModOptionsWindow.cs">
+    <Compile Include="GUI\ModEntryNodeTag.cs" />
+    <Compile Include="GUI\ModOptionsWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ModOptionsWindow.Designer.cs">
+    <Compile Include="GUI\ModOptionsWindow.Designer.cs">
       <DependentUpon>ModOptionsWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="NumberedTextBox.cs">
+    <Compile Include="GUI\NumberedTextBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="NumberedTextBox.Designer.cs">
+    <Compile Include="GUI\NumberedTextBox.Designer.cs">
       <DependentUpon>NumberedTextBox.cs</DependentUpon>
     </Compile>
     <Compile Include="RAFFSOTreeNodeSorter.cs" />
-    <Compile Include="RAFSearchBox.cs">
+    <Compile Include="GUI\RAFSearchBox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RAFSearchBox.Designer.cs">
+    <Compile Include="GUI\RAFSearchBox.Designer.cs">
       <DependentUpon>RAFSearchBox.cs</DependentUpon>
     </Compile>
     <Compile Include="RMPropInterpreter.cs" />
-    <Compile Include="StringQueryDialog.cs">
+    <Compile Include="GUI\StringQueryDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="StringQueryDialog.Designer.cs">
+    <Compile Include="GUI\StringQueryDialog.Designer.cs">
       <DependentUpon>StringQueryDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="TreeViewStylizer.cs" />
-    <Compile Include="UpdateAvailableDialog.cs">
+    <Compile Include="GUI\UpdateAvailableDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UpdateAvailableDialog.Designer.cs">
+    <Compile Include="GUI\UpdateAvailableDialog.Designer.cs">
       <DependentUpon>UpdateAvailableDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="FileEntryAmbiguityResolver.cs">
+    <Compile Include="GUI\FileEntryAmbiguityResolver.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FileEntryAmbiguityResolver.Designer.cs">
+    <Compile Include="GUI\FileEntryAmbiguityResolver.Designer.cs">
       <DependentUpon>FileEntryAmbiguityResolver.cs</DependentUpon>
     </Compile>
     <Compile Include="InibinFile.cs" />
-    <Compile Include="LogTextWriter.cs" />
+    <Compile Include="GUI\LogTextWriter.cs" />
     <Compile Include="MemoryByteProvider.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -182,53 +196,59 @@
     </Compile>
     <Compile Include="RAFInMemoryFileSystemObject.cs" />
     <Compile Include="Project\RAFProjectInfo.cs" />
-    <Compile Include="TextViewer.cs">
+    <Compile Include="GUI\TextViewer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TextViewer.Designer.cs">
+    <Compile Include="GUI\TextViewer.Designer.cs">
       <DependentUpon>TextViewer.cs</DependentUpon>
     </Compile>
-    <Compile Include="RAFPathSelector.cs">
+    <Compile Include="GUI\RAFPathSelector.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RAFPathSelector.Designer.cs">
+    <Compile Include="GUI\RAFPathSelector.Designer.cs">
       <DependentUpon>RAFPathSelector.cs</DependentUpon>
     </Compile>
-    <Compile Include="wGUI.cs" />
-    <EmbeddedResource Include="AboutBox.resx">
+    <Compile Include="GUI\wGUI.cs" />
+    <EmbeddedResource Include="GUI\AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="BinaryViewer.resx">
+    <EmbeddedResource Include="GUI\BinaryViewer.resx">
       <DependentUpon>BinaryViewer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="BitmapViewer.resx">
+    <EmbeddedResource Include="GUI\BitmapViewer.resx">
       <DependentUpon>BitmapViewer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SimpleGuide.resx">
+    <EmbeddedResource Include="RAFTileViewMode\RAFTiledView.resx">
+      <DependentUpon>RAFTiledView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RAFTileViewMode\Tile.resx">
+      <DependentUpon>Tile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\SimpleGuide.resx">
       <DependentUpon>SimpleGuide.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="GUI\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainWindowLoading.resx">
+    <EmbeddedResource Include="GUI\MainWindowLoading.resx">
       <DependentUpon>MainWindowLoading.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ModEntry.resx">
+    <EmbeddedResource Include="GUI\ModEntry.resx">
       <DependentUpon>ModEntry.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ModOptionsWindow.resx">
+    <EmbeddedResource Include="GUI\ModOptionsWindow.resx">
       <DependentUpon>ModOptionsWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RAFSearchBox.resx">
+    <EmbeddedResource Include="GUI\RAFSearchBox.resx">
       <DependentUpon>RAFSearchBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="StringQueryDialog.resx">
+    <EmbeddedResource Include="GUI\StringQueryDialog.resx">
       <DependentUpon>StringQueryDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UpdateAvailableDialog.resx">
+    <EmbeddedResource Include="GUI\UpdateAvailableDialog.resx">
       <DependentUpon>UpdateAvailableDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FileEntryAmbiguityResolver.resx">
+    <EmbeddedResource Include="GUI\FileEntryAmbiguityResolver.resx">
       <DependentUpon>FileEntryAmbiguityResolver.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -236,10 +256,10 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="TextViewer.resx">
+    <EmbeddedResource Include="GUI\TextViewer.resx">
       <DependentUpon>TextViewer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RAFPathSelector.resx">
+    <EmbeddedResource Include="GUI\RAFPathSelector.resx">
       <DependentUpon>RAFPathSelector.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
@@ -308,6 +328,7 @@
     <Content Include="Resources\Images\RAFManagerIcon50percent.jpg" />
     <None Include="Resources\LoLIcon.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
