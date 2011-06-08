@@ -47,12 +47,28 @@ namespace RAFManager
         /// <summary>
         /// Gets a child FSO of the given name
         /// </summary>
-        public RAFInMemoryFileSystemObject GetChildFSO(string name)
+        public RAFInMemoryFileSystemObject GetChildFSO(string path)
         {
-            foreach (RAFInMemoryFileSystemObject rafFso in this.Nodes)
+            string[] pathParts = path.Replace("\\", "/").Split("/");
+            if (pathParts.Length == 1)
             {
-                if (rafFso.Name.ToLower() == name.ToLower())
-                    return rafFso;
+                foreach (RAFInMemoryFileSystemObject rafFso in this.Nodes)
+                {
+                    if (rafFso.Name.ToLower() == path.ToLower())
+                        return rafFso;
+                }
+            }
+            else
+            {
+                foreach (RAFInMemoryFileSystemObject rafFso in this.Nodes)
+                {
+                    //Console.WriteLine("COMPARE " + rafFso.Name.ToLower() + " TO " + pathParts[0]);
+                    if (rafFso.Name.ToLower() == pathParts[0].ToLower())
+                    {
+                        //Console.WriteLine("RECUR: "+String.Join("/", pathParts, 1, pathParts.Length - 1));
+                        return rafFso.GetChildFSO(String.Join("/", pathParts, 1, pathParts.Length - 1));
+                    }
+                }
             }
             return null;
         }

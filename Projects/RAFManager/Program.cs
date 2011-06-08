@@ -22,6 +22,7 @@ namespace RAFManager
         [STAThread]
         static void Main()
         {
+            #region alphaBuildWarning
             if (RAFManagerUpdater.Versioning.CurrentVersion.flags != "")
             {
                 Console.WriteLine("Note: This is a beta/alpha build of RAF Manager.  Not all features have been");
@@ -39,6 +40,7 @@ namespace RAFManager
                 Console.WriteLine("");
                 Console.WriteLine("Build Timestamp: " + RAFManagerUpdater.Versioning.CurrentVersion.ApproximateBuildTime);
             }
+            #endregion
             /*
             RMPropInterpreter interpreter = new RMPropInterpreter(
                 File.ReadAllLines(@"C:\LoLModProjects\colorblindnomore_u3_v3\rafmanagerproperties")
@@ -80,9 +82,11 @@ namespace RAFManager
                 }
             }
             #endregion
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            //Application.Run(new MainForm());
+            new RAFManager(new MainForm());
         }
     }
 }

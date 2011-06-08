@@ -6,6 +6,8 @@ using System.Text;
 using System.Runtime;
 using System.Runtime.InteropServices;
 
+using ItzWarty;
+
 namespace RAFManager
 {
     public class IniFile
@@ -36,6 +38,20 @@ namespace RAFManager
             StringBuilder temp = new StringBuilder(255);
             int i = GetPrivateProfileString(Section, Key, "", temp, 255, this.path);
             return temp.ToString();
+        }
+
+        public string this[string sectionDotKey]
+        {
+            get
+            {
+                string[] parts = sectionDotKey.Split(".");
+                return IniReadValue(parts[0], parts[1]);
+            }
+            set
+            {
+                string[] parts = sectionDotKey.Split(".");
+                IniWriteValue(parts[0], parts[1], value);
+            }
         }
     }
 }
