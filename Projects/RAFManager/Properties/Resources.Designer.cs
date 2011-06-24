@@ -60,6 +60,48 @@ namespace RAFManager.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Back_Down {
+            get {
+                object obj = ResourceManager.GetObject("Back_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Back_Highlight {
+            get {
+                object obj = ResourceManager.GetObject("Back_Highlight", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Back_Normal {
+            get {
+                object obj = ResourceManager.GetObject("Back_Normal", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Cancel_Down {
+            get {
+                object obj = ResourceManager.GetObject("Cancel_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Cancel_Highlight {
+            get {
+                object obj = ResourceManager.GetObject("Cancel_Highlight", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Cancel_Normal {
+            get {
+                object obj = ResourceManager.GetObject("Cancel_Normal", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap CloseButtonMed_Down {
             get {
                 object obj = ResourceManager.GetObject("CloseButtonMed_Down", resourceCulture);
@@ -189,6 +231,27 @@ namespace RAFManager.Properties {
         internal static System.Drawing.Bitmap ModEnabledHover {
             get {
                 object obj = ResourceManager.GetObject("ModEnabledHover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Next_Down {
+            get {
+                object obj = ResourceManager.GetObject("Next_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Next_Highlight {
+            get {
+                object obj = ResourceManager.GetObject("Next_Highlight", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Next_Normal {
+            get {
+                object obj = ResourceManager.GetObject("Next_Normal", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

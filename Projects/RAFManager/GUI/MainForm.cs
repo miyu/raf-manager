@@ -18,11 +18,11 @@ namespace RAFManager
     public partial class MainForm : Form, IRAFManagerGUI
     {
         //public field =[
-        public RAFManager rafManager = null;
+        public RAFManagerClass rafManager = null;
         public MainForm()
         {
         }
-        public void Init(RAFManager rafManager)
+        public void Init(RAFManagerClass rafManager)
         {
             this.rafManager = rafManager;
 
@@ -498,6 +498,11 @@ namespace RAFManager
         private void lOLMODRAFManagerScriptDocumentationToolStripMenuItem_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("http://forum.leaguecraft.com/index.php?/topic/32653-rafmanager-and-a-standardized-skin-release-format/");
+        }
+
+        private void launchCleanWizardLowerArchiveSizeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

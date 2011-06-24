@@ -12,7 +12,7 @@ using ItzWarty;
 
 namespace RAFManager
 {
-    public class RAFManager
+    public class RAFManagerClass
     {
         IRAFManagerGUI gui = null;
         public TextWriter oWriter { get; set; }
@@ -27,7 +27,7 @@ namespace RAFManager
         /// <summary>
         /// Calls InitializeRAFManager after setting its precondition
         /// </summary>
-        public RAFManager(IRAFManagerGUI gui)
+        public RAFManagerClass(IRAFManagerGUI gui)
         {
             this.gui = gui;
             this.gui.Init(this);
