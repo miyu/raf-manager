@@ -93,8 +93,17 @@
     </Compile>
     <Compile Include="GUI\Style\BlackCustomProfessionalColors.cs" />
     <Compile Include="GUI\Style\BlackCustomRenderer.cs" />
+    <Compile Include="GUI\WProgressBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="IRAFManagerGUI.cs" />
-    <Compile Include="RAFManager.cs" />
+    <Compile Include="RAFManagerClass.cs" />
+    <Compile Include="GUI\RAFManagerCleanWizard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\RAFManagerCleanWizard.Designer.cs">
+      <DependentUpon>RAFManagerCleanWizard.cs</DependentUpon>
+    </Compile>
     <Compile Include="RAFTileViewMode\RAFTiledView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -218,6 +227,9 @@
     <EmbeddedResource Include="GUI\BitmapViewer.resx">
       <DependentUpon>BitmapViewer.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\RAFManagerCleanWizard.resx">
+      <DependentUpon>RAFManagerCleanWizard.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RAFTileViewMode\RAFTiledView.resx">
       <DependentUpon>RAFTiledView.cs</DependentUpon>
     </EmbeddedResource>
@@ -302,6 +314,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="00Notes.txt" />
+    <Content Include="Resources\Images\Back_Down.jpg" />
+    <Content Include="Resources\Images\Back_Highlight.jpg" />
+    <Content Include="Resources\Images\Back_Normal.jpg" />
+    <Content Include="Resources\Images\Cancel_Down.jpg" />
+    <Content Include="Resources\Images\Cancel_Highlight.jpg" />
+    <Content Include="Resources\Images\Cancel_Normal.jpg" />
     <Content Include="Resources\Images\CloseButtonMed_Down.jpg" />
     <Content Include="Resources\Images\CloseButtonMed_Highlight.jpg" />
     <Content Include="Resources\Images\CloseButtonMed_Normal.jpg" />
@@ -319,6 +337,9 @@
     <Content Include="Resources\Images\ModEnabled.jpg" />
     <Content Include="Resources\Images\ModEnabledDown.jpg" />
     <Content Include="Resources\Images\ModEnabledHover.jpg" />
+    <Content Include="Resources\Images\Next_Down.jpg" />
+    <Content Include="Resources\Images\Next_Highlight.jpg" />
+    <Content Include="Resources\Images\Next_Normal.jpg" />
     <Content Include="Resources\Images\NoIcon.jpg" />
     <Content Include="Resources\Images\OptionsButton_Down.jpg" />
     <Content Include="Resources\Images\OptionsButton_Highlight.jpg" />

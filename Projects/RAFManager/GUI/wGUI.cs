@@ -40,5 +40,52 @@ namespace RAFManager
                 pb.Image = highlight;
             };
         }
+        public static PointF GetContentPosition(ContentAlignment alignment, SizeF size, SizeF containerSize)
+        {
+            return new PointF(
+                GetContentPositionX(alignment, size, containerSize),
+                GetContentPositionY(alignment, size, containerSize)
+            );
+        }
+        public static float GetContentPositionY(ContentAlignment alignment, SizeF contentSize, SizeF containerSize)
+        {
+            switch (alignment)
+            {
+                case ContentAlignment.TopLeft:
+                case ContentAlignment.TopCenter:
+                case ContentAlignment.TopRight:
+                    return 2;
+                case ContentAlignment.MiddleLeft:
+                case ContentAlignment.MiddleCenter:
+                case ContentAlignment.MiddleRight:
+                    return (containerSize.Height - contentSize.Height) / 2;
+                case ContentAlignment.BottomLeft:
+                case ContentAlignment.BottomCenter:
+                case ContentAlignment.BottomRight:
+                    return containerSize.Height - contentSize.Height - 2;
+                default:
+                    return 2; //wat
+            }
+        }
+        public static float GetContentPositionX(ContentAlignment alignment, SizeF contentSize, SizeF containerSize)
+        {
+            switch (alignment)
+            {
+                case ContentAlignment.BottomLeft:
+                case ContentAlignment.MiddleLeft:
+                case ContentAlignment.TopLeft:
+                    return 2;
+                case ContentAlignment.BottomCenter:
+                case ContentAlignment.MiddleCenter:
+                case ContentAlignment.TopCenter:
+                    return (containerSize.Width - contentSize.Width) / 2;
+                case ContentAlignment.BottomRight:
+                case ContentAlignment.MiddleRight:
+                case ContentAlignment.TopRight:
+                    return containerSize.Width - contentSize.Width - 2;
+                default:
+                    return 2; //wat
+            }
+        }
     }
 }

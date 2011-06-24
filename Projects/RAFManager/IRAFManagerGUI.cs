@@ -7,7 +7,7 @@ namespace RAFManager
 {
     public interface IRAFManagerGUI
     {
-        void Init(RAFManager rafManager);
+        void Init(RAFManagerClass rafManager);
 
         void Log(string s);
         void DLog(string s);
