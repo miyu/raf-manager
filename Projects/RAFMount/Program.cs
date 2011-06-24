@@ -8,7 +8,7 @@ using Dokan;
 
 using RAFLib;
 
-using RM = RAFManager.RAFManager;
+using RM = RAFManager.RAFManagerClass;
 using RAFManager;
 
 using System.Windows.Forms;

@@ -8,7 +8,7 @@ namespace RAFMount
 {
     public class NullGUI:RAFManager.IRAFManagerGUI
     {
-        public void Init(RAFManager.RAFManager rafManager)
+        public void Init(RAFManager.RAFManagerClass rafManager)
         {
         }
         public void Log(string s)
