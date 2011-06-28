@@ -28,6 +28,14 @@ namespace RAFLib
             this.directoryFile  = new RAFDirectoryFile(this, rafPath);
         }
 
+        public string RAFFilePath
+        {
+            get
+            {
+                return rafPath;
+            }
+        }
+
         /// <summary>
         /// Gets a FileStream of our RAF data file
         /// </summary>
