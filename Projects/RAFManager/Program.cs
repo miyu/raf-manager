@@ -86,8 +86,8 @@ namespace RAFManager
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Application.Run(new RAFManagerCleanWizard());
-            //new RAFManagerClass(new MainForm());
+            //Application.Run(new RAFManagerCleanWizard());
+            new RAFManagerClass(new MainForm());
         }
     }
 }

@@ -55,6 +55,7 @@
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.packToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.launchCleanWizardLowerArchiveSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,7 +70,6 @@
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.projectNameLabel = new System.Windows.Forms.ToolStripLabel();
             this.projectNameChangeBTN = new System.Windows.Forms.ToolStripButton();
-            this.launchCleanWizardLowerArchiveSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -98,7 +98,7 @@
             // 
             this.splitContainer1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.splitContainer1.Location = new System.Drawing.Point(0, 24);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(2);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -123,7 +123,7 @@
             // 
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer2.Location = new System.Drawing.Point(2, 2);
-            this.splitContainer2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.splitContainer2.Margin = new System.Windows.Forms.Padding(2);
             this.splitContainer2.Name = "splitContainer2";
             // 
             // splitContainer2.Panel1
@@ -147,7 +147,7 @@
             this.panel2.Controls.Add(this.splitContainer3);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel2.Margin = new System.Windows.Forms.Padding(2);
             this.panel2.Name = "panel2";
             this.panel2.Padding = new System.Windows.Forms.Padding(2);
             this.panel2.Size = new System.Drawing.Size(219, 222);
@@ -158,7 +158,7 @@
             this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer3.IsSplitterFixed = true;
             this.splitContainer3.Location = new System.Drawing.Point(2, 2);
-            this.splitContainer3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.splitContainer3.Margin = new System.Windows.Forms.Padding(2);
             this.splitContainer3.Name = "splitContainer3";
             this.splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -171,7 +171,7 @@
             // 
             this.splitContainer3.Panel2.Controls.Add(this.rafContentView);
             this.splitContainer3.Size = new System.Drawing.Size(215, 218);
-            this.splitContainer3.SplitterDistance = 20;
+            this.splitContainer3.SplitterDistance = 24;
             this.splitContainer3.SplitterWidth = 3;
             this.splitContainer3.TabIndex = 1;
             // 
@@ -196,9 +196,9 @@
             this.rafContentView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rafContentView.ForeColor = System.Drawing.Color.Silver;
             this.rafContentView.Location = new System.Drawing.Point(0, 0);
-            this.rafContentView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rafContentView.Margin = new System.Windows.Forms.Padding(2);
             this.rafContentView.Name = "rafContentView";
-            this.rafContentView.Size = new System.Drawing.Size(215, 195);
+            this.rafContentView.Size = new System.Drawing.Size(215, 191);
             this.rafContentView.TabIndex = 0;
             // 
             // modEntriesScrollbar
@@ -219,7 +219,7 @@
             this.bottomPanelTabContainer.Controls.Add(this.bottomPanelConsoleTab);
             this.bottomPanelTabContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.bottomPanelTabContainer.Location = new System.Drawing.Point(2, 1);
-            this.bottomPanelTabContainer.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.bottomPanelTabContainer.Margin = new System.Windows.Forms.Padding(2);
             this.bottomPanelTabContainer.Name = "bottomPanelTabContainer";
             this.bottomPanelTabContainer.Size = new System.Drawing.Size(659, 199);
             this.bottomPanelTabContainer.TabIndex = 0;
@@ -229,7 +229,7 @@
             this.bottomPanelOptionsTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.bottomPanelOptionsTab.Controls.Add(this.panel3);
             this.bottomPanelOptionsTab.Location = new System.Drawing.Point(37, 56);
-            this.bottomPanelOptionsTab.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.bottomPanelOptionsTab.Margin = new System.Windows.Forms.Padding(2);
             this.bottomPanelOptionsTab.Name = "bottomPanelOptionsTab";
             this.bottomPanelOptionsTab.Padding = new System.Windows.Forms.Padding(2);
             this.bottomPanelOptionsTab.Size = new System.Drawing.Size(526, 136);
@@ -244,7 +244,7 @@
             this.panel3.Controls.Add(this.updateDuringLongOperationsCB);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(2, 2);
-            this.panel3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel3.Margin = new System.Windows.Forms.Padding(2);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(522, 132);
             this.panel3.TabIndex = 0;
@@ -256,7 +256,7 @@
             this.permitExperimentalFileAddingCB.Font = new System.Drawing.Font("Consolas", 7.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.permitExperimentalFileAddingCB.ForeColor = System.Drawing.Color.Silver;
             this.permitExperimentalFileAddingCB.Location = new System.Drawing.Point(2, 29);
-            this.permitExperimentalFileAddingCB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.permitExperimentalFileAddingCB.Margin = new System.Windows.Forms.Padding(2);
             this.permitExperimentalFileAddingCB.Name = "permitExperimentalFileAddingCB";
             this.permitExperimentalFileAddingCB.Size = new System.Drawing.Size(469, 112);
             this.permitExperimentalFileAddingCB.TabIndex = 3;
@@ -267,7 +267,7 @@
             // 
             this.pictureBox3.Image = global::RAFManager.Properties.Resources.GiraffeCrop;
             this.pictureBox3.Location = new System.Drawing.Point(568, 319);
-            this.pictureBox3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox3.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(56, 81);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -293,7 +293,7 @@
             this.updateDuringLongOperationsCB.Font = new System.Drawing.Font("Consolas", 7.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.updateDuringLongOperationsCB.ForeColor = System.Drawing.Color.Silver;
             this.updateDuringLongOperationsCB.Location = new System.Drawing.Point(2, 2);
-            this.updateDuringLongOperationsCB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.updateDuringLongOperationsCB.Margin = new System.Windows.Forms.Padding(2);
             this.updateDuringLongOperationsCB.Name = "updateDuringLongOperationsCB";
             this.updateDuringLongOperationsCB.Size = new System.Drawing.Size(279, 28);
             this.updateDuringLongOperationsCB.TabIndex = 0;
@@ -306,7 +306,7 @@
             this.bottomPanelTabBar.Controls.Add(this.consoleButtonPB);
             this.bottomPanelTabBar.Controls.Add(this.optionsButtonPB);
             this.bottomPanelTabBar.Location = new System.Drawing.Point(2, 5);
-            this.bottomPanelTabBar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.bottomPanelTabBar.Margin = new System.Windows.Forms.Padding(2);
             this.bottomPanelTabBar.Name = "bottomPanelTabBar";
             this.bottomPanelTabBar.Size = new System.Drawing.Size(537, 24);
             this.bottomPanelTabBar.TabIndex = 2;
@@ -315,7 +315,7 @@
             // 
             this.consoleButtonPB.Image = global::RAFManager.Properties.Resources.ConsoleButton_Normal;
             this.consoleButtonPB.Location = new System.Drawing.Point(4, 6);
-            this.consoleButtonPB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.consoleButtonPB.Margin = new System.Windows.Forms.Padding(2);
             this.consoleButtonPB.Name = "consoleButtonPB";
             this.consoleButtonPB.Size = new System.Drawing.Size(45, 15);
             this.consoleButtonPB.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -326,7 +326,7 @@
             // 
             this.optionsButtonPB.Image = global::RAFManager.Properties.Resources.OptionsButton_Normal;
             this.optionsButtonPB.Location = new System.Drawing.Point(52, 6);
-            this.optionsButtonPB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.optionsButtonPB.Margin = new System.Windows.Forms.Padding(2);
             this.optionsButtonPB.Name = "optionsButtonPB";
             this.optionsButtonPB.Size = new System.Drawing.Size(45, 15);
             this.optionsButtonPB.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -339,7 +339,7 @@
             this.bottomPanelConsoleTab.Controls.Add(this.consoleLogTB);
             this.bottomPanelConsoleTab.Controls.Add(this.label1);
             this.bottomPanelConsoleTab.Location = new System.Drawing.Point(2, 25);
-            this.bottomPanelConsoleTab.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.bottomPanelConsoleTab.Margin = new System.Windows.Forms.Padding(2);
             this.bottomPanelConsoleTab.Name = "bottomPanelConsoleTab";
             this.bottomPanelConsoleTab.Padding = new System.Windows.Forms.Padding(2);
             this.bottomPanelConsoleTab.Size = new System.Drawing.Size(328, 143);
@@ -353,7 +353,7 @@
             this.consoleLogTB.Font = new System.Drawing.Font("Consolas", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.consoleLogTB.ForeColor = System.Drawing.Color.Silver;
             this.consoleLogTB.Location = new System.Drawing.Point(2, 2);
-            this.consoleLogTB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.consoleLogTB.Margin = new System.Windows.Forms.Padding(2);
             this.consoleLogTB.Multiline = true;
             this.consoleLogTB.Name = "consoleLogTB";
             this.consoleLogTB.ReadOnly = true;
@@ -408,35 +408,42 @@
             // 
             this.newToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(304, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(378, 22);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(304, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(378, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(304, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(378, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // packToolStripMenuItem
             // 
             this.packToolStripMenuItem.Name = "packToolStripMenuItem";
-            this.packToolStripMenuItem.Size = new System.Drawing.Size(304, 22);
+            this.packToolStripMenuItem.Size = new System.Drawing.Size(378, 22);
             this.packToolStripMenuItem.Text = "Pack (Install Checked, Uninstall Unchecked)";
             this.packToolStripMenuItem.Click += new System.EventHandler(this.packToolStripMenuItem_Click);
+            // 
+            // launchCleanWizardLowerArchiveSizeToolStripMenuItem
+            // 
+            this.launchCleanWizardLowerArchiveSizeToolStripMenuItem.Name = "launchCleanWizardLowerArchiveSizeToolStripMenuItem";
+            this.launchCleanWizardLowerArchiveSizeToolStripMenuItem.Size = new System.Drawing.Size(378, 22);
+            this.launchCleanWizardLowerArchiveSizeToolStripMenuItem.Text = "[Coming Soon] Launch Clean Wizard (Lower Archive Size)";
+            this.launchCleanWizardLowerArchiveSizeToolStripMenuItem.Click += new System.EventHandler(this.launchCleanWizardLowerArchiveSizeToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(304, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(378, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -544,13 +551,6 @@
             this.projectNameChangeBTN.Text = "[Change]";
             this.projectNameChangeBTN.Click += new System.EventHandler(this.projectNameChangeBTN_Click);
             // 
-            // launchCleanWizardLowerArchiveSizeToolStripMenuItem
-            // 
-            this.launchCleanWizardLowerArchiveSizeToolStripMenuItem.Name = "launchCleanWizardLowerArchiveSizeToolStripMenuItem";
-            this.launchCleanWizardLowerArchiveSizeToolStripMenuItem.Size = new System.Drawing.Size(304, 22);
-            this.launchCleanWizardLowerArchiveSizeToolStripMenuItem.Text = "Launch Clean Wizard (Lower Archive Size)";
-            this.launchCleanWizardLowerArchiveSizeToolStripMenuItem.Click += new System.EventHandler(this.launchCleanWizardLowerArchiveSizeToolStripMenuItem_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -560,7 +560,7 @@
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.splitContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainForm";
             this.Text = " RAF Manager";
             this.splitContainer1.Panel1.ResumeLayout(false);
