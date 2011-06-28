@@ -173,8 +173,6 @@ namespace RAFManager
         }
         #endregion
 
-        Dictionary<string, RAFArchive> rafArchives = new Dictionary<string, RAFArchive>();
-
         #region GUI Menu Handling
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -257,7 +255,12 @@ namespace RAFManager
 
                                 DLog("  Adding " + nodeTags[j].rafPath);
                                 string archiveName = nodeTags[j].rafPath.Split("/").First();
-                                rafArchives[archiveName].InsertFile(
+                                rafManager.Archives.Where(
+                                    (Func<RAFArchive, bool>)delegate(RAFArchive arc)
+                                    {
+                                        return arc.GetID().ToLower() == archiveName;
+                                    }
+                                ).First().InsertFile(
                                     nodeTags[j].rafPath.Replace(archiveName+"/", ""),
                                     File.ReadAllBytes(nodeTags[j].localPath),
                                     new LogTextWriter(
@@ -331,8 +334,8 @@ namespace RAFManager
                 }
             }
             DLog("Saving Archive Directory Files (*.raf)");
-            for (int i = 0; i < rafArchives.Count; i++)
-                new List<RAFArchive>(rafArchives.Values)[i].SaveDirectoryFile();
+            for (int i = 0; i < rafManager.Archives.Count; i++)
+                rafManager.Archives[i].SaveDirectoryFile();
             Log("Done Packing");
         }
 
@@ -492,7 +495,7 @@ namespace RAFManager
 
         private void checkForUpdatesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //CheckForUpdates();
+            rafManager.CheckForUpdates();
         }
 
         private void lOLMODRAFManagerScriptDocumentationToolStripMenuItem_Click(object sender, EventArgs e)
@@ -502,7 +505,8 @@ namespace RAFManager
 
         private void launchCleanWizardLowerArchiveSizeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            return;
+            new RAFManagerCleanWizard(this.rafManager.Archives.ToArray()).ShowDialog();
         }
     }
 }

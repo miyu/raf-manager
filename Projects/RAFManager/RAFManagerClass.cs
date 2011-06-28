@@ -214,7 +214,7 @@ namespace RAFManager
         /// <summary>
         /// Checks for updates - updates UI via log when done. presents update prompt if one is available
         /// </summary>
-        private void CheckForUpdates()
+        public void CheckForUpdates()
         {
             RAFManagerUpdater.Autoupdater.CheckUpdate(
                 delegate(RAFManagerUpdater.UpdateResult result, string message, string newVersion)

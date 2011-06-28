@@ -149,7 +149,7 @@ namespace RAFManager
                 string searchPath = String.Join("/", searchPathParts);
                 //Console.WriteLine(searchPath);
                 List<RAFFileListEntry> matches = new List<RAFFileListEntry>();
-                RAFArchive[] archives = rafArchives.Values.ToArray();
+                RAFArchive[] archives = rafManager.Archives.ToArray();
                 for (int j = 0; j < archives.Length; j++)
                 {
                     List<RAFFileListEntry> newmatches = archives[j].GetDirectoryFile().GetFileList().SearchFileEntries(searchPath);
@@ -186,7 +186,12 @@ namespace RAFManager
                 {
                     //We'll use the file browser to select where we want to save...
                     string rafPath = PickRafPath(false) + "/";
-                    RAFArchive archive = rafArchives[rafPath.Replace("\\", "/").Split("/").First()];
+                    RAFArchive archive = rafManager.Archives.Where(
+                        (Func<RAFArchive, bool>)delegate(RAFArchive arc)
+                        {
+                            return arc.GetID().ToLower() == rafPath.Replace("\\", "/").Split("/").First().ToLower();
+                        }
+                    ).First();
                     rafPath = rafPath.Substring(rafPath.IndexOf("/") + 1); //remove the archive name now...
                     if (rafPath.Length != 0)
                     {

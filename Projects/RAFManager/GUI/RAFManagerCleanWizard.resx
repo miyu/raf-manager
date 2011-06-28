@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="textBox1.Text" xml:space="preserve">
+  <data name="introductionTextbox.Text" xml:space="preserve">
     <value>The way that RAF Manager, and other applications that use RAFLib (Ie: Skin Installer V3) work, is by "inserting" files to the back of the RAF archives.  By doing this, one can easily add files to the RAF archives in a very short amount of time.  Unfortunately, what this means is that over time, RAF archives will get larger and larger, as more and more files will be inserted, but not even referenced.  This is not an issue to the LoL patcher, which rarely has to replace files, unless they are INIBIN files, which store character stats.  These changes are very minor, and don't expand the game's content files by much.  This RAF Manager "Cleaning" Utility will process your game archives and recreate the data file, so that no unnecessary, unlinked data will be stored.
 
 There is NO PERFORMANCE GAIN from doing this, and the operation can take some time.

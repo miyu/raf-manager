@@ -214,8 +214,12 @@ namespace RAFManager
             if (node.GetFSOType() == RAFFSOType.FILE)
             {
                 //We have double clicked a file... find out what file it was
-                List<RAFFileListEntry> entries = this.rafArchives[node.GetTopmostParent().Name]
-                    .GetDirectoryFile().GetFileList().GetFileEntries();
+                List<RAFFileListEntry> entries = rafManager.Archives.Where(
+                    (Func<RAFArchive, bool>)delegate(RAFArchive arc)
+                    {
+                        return arc.GetID().ToLower() == node.GetTopmostParent().Name;
+                    }
+                ).First().GetDirectoryFile().GetFileList().GetFileEntries();
 
                 //Find the RAF File entry that corresponds to the clicked file...
                 RAFFileListEntry entry = entries.Where(
