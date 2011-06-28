@@ -74,6 +74,7 @@
     <Compile Include="Database\wDBTable.cs" />
     <Compile Include="Database\wDBTableCollection.cs" />
     <Compile Include="Database\wDBValueCollection.cs" />
+    <Compile Include="FileSizeFormatProvider.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Extends.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

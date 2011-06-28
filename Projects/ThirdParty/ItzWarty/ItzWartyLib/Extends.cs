@@ -157,5 +157,10 @@ namespace ItzWarty
                 if (s.EndsWith(enders[i])) return true;
             return false;
         }
+        //http://stackoverflow.com/questions/128618/c-file-size-format-provider
+        public static string ToFileSize(this long l)
+        {
+            return String.Format(new FileSizeFormatProvider(), "{0:fs}", l);
+        }
     }
 }
