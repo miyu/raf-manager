@@ -191,6 +191,21 @@ namespace RAFLib
                 return buffer;
             }
         }
+
+        /// <summary>
+        /// Returns the raw, uncompressed, content of the file
+        /// </summary>
+        /// <returns></returns>
+        public byte[] GetRawContent()
+        {
+            FileStream fStream = this.raf.GetDataFileContentStream();
+
+            byte[] buffer = new byte[this.FileSize];            //Will contain compressed data
+            fStream.Seek(this.FileOffset, SeekOrigin.Begin);
+            fStream.Read(buffer, 0, (int)this.FileSize);
+            return buffer;
+        }
+
         /// <summary>
         /// Returns the corresponding RAFArchive of this entry
         /// </summary>
